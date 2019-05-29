@@ -5,7 +5,6 @@
     "pages/index/index",
     "pages/information/information",
     "pages/register/register",
-    "pages/logs/logs",
     "pages/record/recording"
   ],
   "window": {
@@ -27,19 +26,19 @@
         "text": "录课程"
       },
       {
-        "pagePath": "pages/logs/logs",
+        "pagePath": "pages/information/information",
         "iconPath": "static/images/icon_API.png",
         "selectedIconPath": "static/images/icon_API_HL.png",
         "text": "消息"
       },
       {
-        "pagePath": "pages/logs/logs",
+        "pagePath": "pages/index/index",
         "iconPath": "static/images/icon_API.png",
         "selectedIconPath": "static/images/icon_API_HL.png",
         "text": "排课"
       },
       {
-        "pagePath": "pages/logs/logs",
+        "pagePath": "pages/apply/apply",
         "iconPath": "static/images/icon_API.png",
         "selectedIconPath": "static/images/icon_API_HL.png",
         "text": "报名"
