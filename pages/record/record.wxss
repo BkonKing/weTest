@@ -1,7 +1,1 @@
 /* pages/record/record.wxss */
-.page-bg-title {
-  height: 40pt;
-  line-height: 40pt;
-  padding-left: 13pt;
-  background: #F5F5F5;
-}

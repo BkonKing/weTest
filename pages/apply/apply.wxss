@@ -1,1 +1,35 @@
 /* pages/apply/apply.wxss */
+/* 表格 */
+.table-wrap{
+ width: 100%;
+ height: 578rpx;
+ overflow-y: scroll;
+ overflow-x: hidden;
+}
+/* 表格代码  */
+.table{
+ border:1px solid #dadada;
+ width: 98%;
+ margin-left: 1%;
+}
+.tr{
+ width:100%;
+ display: flex;
+ justify-content: space-between;
+}
+.th,.td{
+ padding: 10px;
+ border-bottom: 1px solid #dadada;
+ border-right: 1px solid #dadada;
+ text-align: center;
+ width: 100%;
+}
+.th1,.th2,.td1,.td2{
+ width: 40%;
+}
+.th{
+ font-weight: 600;
+ background-color: #E9E9E9;
+ font-size: 14pt;
+ color: #252525;
+}
