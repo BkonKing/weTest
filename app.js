@@ -42,6 +42,7 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    imgurl: "/static/images"
   }
 })
