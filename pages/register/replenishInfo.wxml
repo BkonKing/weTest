@@ -1,0 +1,58 @@
+<view class="page__bd">
+  <view class="weui-cells">
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <view class="weui-label">照片</view>
+      </view>
+      <view class="weui-cell__bd">
+        <view class="weui-uploader">
+          <view class="weui-uploader__bd">
+            <view class="weui-uploader__files" id="uploaderFiles">
+              <block wx:for="{{files}}" wx:key="*this">
+                <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                  <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                </view>
+              </block>
+              <!-- <view class="weui-uploader__file weui-uploader__file_status">
+                <image class="weui-uploader__img" src="../images/pic_160.png" mode="aspectFill" />
+                <view class="weui-uploader__file-content">
+                  <icon type="warn" size="23" color="#F43530"></icon>
+                </view>
+              </view>
+              <view class="weui-uploader__file weui-uploader__file_status">
+                <image class="weui-uploader__img" src="../images/pic_160.png" mode="aspectFill" />
+                <view class="weui-uploader__file-content">50%</view>
+              </view> -->
+            </view>
+            <view class="weui-uploader__input-box">
+              <view class="weui-uploader__input" bindtap="chooseImage"></view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell">
+    <view class="weui-cell__hd">
+      <view class="weui-label">个人简介</view>
+    </view>
+    <view class="weui-cell__bd">
+      <textarea class="weui-textarea" placeholder-class="phcolor" placeholder="请输入个人简介" style="height: 5em" />
+    </view>
+  </view>
+</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell">
+    <view class="weui-cell__hd">
+      <view class="weui-label">获得荣誉</view>
+    </view>
+    <view class="weui-cell__bd">
+      <textarea class="weui-textarea" placeholder-class="phcolor" placeholder="请输入获得的荣誉" style="height: 5em" />
+    </view>
+  </view>
+</view>
+<view style='padding: 35px 12px 0;'>
+  <button class="weui-btn" type="primary" bindtap='finish'>注册</button>
+</view>

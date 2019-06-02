@@ -14,7 +14,7 @@ Page({
         id: 'sdf',
         name: '李寻欢',
         age: 11,
-        phone: 13612345621,
+        phone: '13599769256',
         situation: 1
       }
     ],
@@ -23,7 +23,7 @@ Page({
         id: 'sdf',
         name: '小飞刀',
         age: 18,
-        phone: 179213458,
+        phone: '18999760259',
         situation: 1
       }
     ],
@@ -31,6 +31,7 @@ Page({
     applyDate: '',
     deadlineDate: '',
     today: '',
+    showStudent: null,
     IMG_URL: app.globalData.imgurl
   },
   onLoad: function () {
@@ -53,9 +54,12 @@ Page({
       activeIndex: e.currentTarget.id
     });
   },
-  getPersonal: function (e) {
+  getPersonal: function (e, item) {
+    var list = e.currentTarget.dataset['list'];
+    var index = e.currentTarget.dataset['index'];
     this.setData({
-      show: true
+      show: true,
+      showStudent: this.data[list][index]
     })
   },
   bindApplyDateChange: function (e) {
@@ -64,14 +68,13 @@ Page({
     })
   },
   bindDeadlineDate: function (e) {
-    console.log(e.detail.value)
     this.setData({
       deadlineDate: e.detail.value
     })
   },
   callUp: function () {
     wx.makePhoneCall({
-      phoneNumber: '15505919792'
+      phoneNumber: this.data.showStudent.phone
     })
   }
 });

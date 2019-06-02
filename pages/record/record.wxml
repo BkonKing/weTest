@@ -17,4 +17,8 @@
       </view>
     </view>
   </view>
+  <navigator url='./recording' class='record-btn'>
+    <image src='/static/images/recording.png' bindtap='message'></image>
+    <text>录音</text>
+  </navigator>
 </view>

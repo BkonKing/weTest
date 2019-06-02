@@ -4,8 +4,13 @@
     "pages/apply/apply",
     "pages/index/index",
     "pages/information/information",
-    "pages/register/register",
-    "pages/record/recording"
+    "pages/information/dynamic",
+    "pages/information/editInfo",
+    "pages/register/basicInfo",
+    "pages/register/replenishInfo",
+    "pages/register/detailedInfo",
+    "pages/record/recording",
+    "pages/record/saveRecord"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -32,7 +37,7 @@
         "text": "消息"
       },
       {
-        "pagePath": "pages/register/register",
+        "pagePath": "pages/register/basicInfo",
         "iconPath": "static/images/icon_API.png",
         "selectedIconPath": "static/images/icon_API_HL.png",
         "text": "排课"

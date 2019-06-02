@@ -1,0 +1,10 @@
+/* pages/register/detailedInfo.wxss */
+.weui-cell {
+  height: 86rpx;
+  line-height: 86rpx;
+}
+.picture {
+  margin-right: 10px;
+  width: 80rpx;
+  height: 80rpx;
+}

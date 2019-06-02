@@ -1,0 +1,52 @@
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell">
+    <view class="weui-cell__hd">
+      <view class="weui-label">照片</view>
+    </view>
+    <view class="weui-cell__bd" style='height: 80rpx;padding: 10px 0;'>
+      <image class='picture' src='/static/images/close.png'></image>
+    </view>
+  </view>
+  <view class="weui-cell">
+    <view class="weui-cell__hd">
+      <view class="weui-label">姓名</view>
+    </view>
+    <view class="weui-cell__bd">张三</view>
+  </view>
+  <view class="weui-cell">
+    <view class="weui-cell__hd">
+      <view class="weui-label">性别</view>
+    </view>
+    <view class="weui-cell__bd">张三</view>
+  </view>
+  <view class="weui-cell">
+    <view class="weui-cell__hd">
+      <view class="weui-label">毕业院校</view>
+    </view>
+    <view class="weui-cell__bd">张三</view>
+  </view>
+  <view class="weui-cell">
+    <view class="weui-cell__hd">
+      <view class="weui-label">辅导课程</view>
+    </view>
+    <view class="weui-cell__bd">张三</view>
+  </view>
+  <view class="weui-cell">
+    <view class="weui-cell__hd">
+      <view class="weui-label">所在城市</view>
+    </view>
+    <view class="weui-cell__bd">张三</view>
+  </view>
+  <view class="weui-cell">
+    <view class="weui-cell__hd">
+      <view class="weui-label">个人简介</view>
+    </view>
+    <view class="weui-cell__bd">张三</view>
+  </view>
+  <view class="weui-cell">
+    <view class="weui-cell__hd">
+      <view class="weui-label">获取荣誉</view>
+    </view>
+    <view class="weui-cell__bd">张三</view>
+  </view>
+</view>

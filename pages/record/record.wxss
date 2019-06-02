@@ -1,1 +1,14 @@
 /* pages/record/record.wxss */
+
+.record-btn {
+  left: calc(50% - 80rpx);
+  bottom: 60rpx;
+  color: #fff;
+  text-align: center;
+}
+
+.record-btn image {
+  width: 50rpx;
+  height: 70rpx;
+  margin: 22rpx 56rpx 0;
+}

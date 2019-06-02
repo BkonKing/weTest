@@ -1,54 +1,89 @@
 /* pages/apply/apply.wxss */
+page {
+  height: 100%;
+}
+.weui-tab__content {
+  height: 100%;
+}
+.person-info {
+  padding-left: 40rpx;
+}
+.person-info > view {
+  margin-bottom: 16rpx;
+}
+.person-info text {
+  font-size: 28rpx;
+  color: #7D7D7D;
+}
 
 /* 表格 */
-
-.table-wrap {
-  box-sizing: border-box;
+.scrollClass {
+  display: flex;
   width: 100%;
+  white-space: nowrap;
   height: 100%;
+  background-color: white;
   padding: 10px;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  box-sizing: border-box;
 }
-
-/* 表格代码  */
 
 .table {
-  border: 1px solid #dadada;
-  margin-left: 1%;
-}
-
-.tr {
+  display: inline-flex;
+  flex-direction: column;
+  border: 2rpx solid #dadada;
+  border-bottom: 0;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
+  font-size: 20rpx;
+  box-sizing: border-box;
 }
 
-.th, .td {
-  padding: 10px;
-  border-bottom: 1px solid #dadada;
-  border-right: 1px solid #dadada;
-  font-size: 28rpx;
-  text-align: center;
-  width: 100%;
-}
-
-.t15 {
-  flex-grow: 1;
-}
-
-.t25 {
-  flex-grow: 2;
-}
-
-.t30 {
-  flex-grow: 2;
+.table_header {
+  display: inline-flex;
 }
 
 .th {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  height: 90rpx;
+  border-right: 2rpx solid #dadada;
+  border-bottom: 2rpx solid #dadada;
+  justify-content: center;
+  align-items: center;
+  overflow-x: auto;
   font-weight: 600;
   background-color: #e9e9e9;
   color: #252525;
+}
+
+.table_main {
+  display: inline-flex;
+  flex-direction: row;
+}
+
+.td {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  height: 100rpx;
+  background: white;
+  justify-content: center;
+  align-items: center;
+  border: 2rpx solid #dadada;
+  border-top: 0;
+  border-left: 0;
+}
+
+.th.w15, .td.w15 {
+  width: 15%;
+}
+
+.th.w25, .td.w25 {
+  width: 25%;
+}
+
+.th.w35, .td.w35 {
+  width: 35%;
 }
 
 .name {

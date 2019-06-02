@@ -1,86 +1,99 @@
-<view class="page">
-  <view class="page__bd">
-    <view class="weui-tab">
-      <view class="weui-navbar">
-        <block wx:for="{{tabs}}" wx:key="*this">
-          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
-            <view class="weui-navbar__title">{{item}}</view>
-          </view>
-        </block>
-        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+<view class="weui-tab">
+  <view class="weui-navbar">
+    <block wx:for="{{tabs}}" wx:key="*this">
+      <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+        <view class="weui-navbar__title">{{item}}</view>
       </view>
-      <view class="weui-tab__panel">
-        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-          <view class='table-wrap'>
-            <view class="table">
-              <view class="tr">
-                <view class="th t30">姓名</view>
-                <view class="th t15">年龄</view>
-                <view class="th t30">联系电话</view>
-                <view class="th t25">交纳情况</view>
-              </view>
-              <view class="tr" wx:for="{{studentsList}}" wx:key="item.id">
-                <view class="td t30 name" bindtap='getPersonal'>{{item.name}}</view>
-                <view class="td t15">{{item.age}}</view>
-                <view class="td t30">{{item.phone}}</view>
-                <view class="td t25">{{item.situation ? '已交' : '未交'}}</view>
-              </view>
-            </view>
+    </block>
+    <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+  </view>
+  <view class="weui-tab__panel">
+    <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+      <scroll-view scroll-x="true" class='scrollClass'>
+        <view class='table'>
+          <view class='table_header'>
+            <view class='th w25'>姓名</view>
+            <view class='th w15'>年龄</view>
+            <view class='th w35'>联系电话</view>
+            <view class='th w25'>交纳情况</view>
+          </view>
+          <view class='table_main' wx:for="{{studentsList}}" wx:key="{{item.id}}">
+            <view class='td w25 name' bindtap='getPersonal' data-list="studentsList" data-index="{{index}}">{{item.name}}</view>
+            <view class='td w15'>{{item.age}}</view>
+            <view class='td w35'>{{item.phone}}</view>
+            <view class='td w25'>{{item.situation ? '已交' : '未交'}}</view>
           </view>
         </view>
-        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-          <view class='table-wrap'>
-            <view class="table">
-              <view class="tr">
-                <view class="th t30">姓名</view>
-                <view class="th t15">年龄</view>
-                <view class="th t30">联系电话</view>
-                <view class="th t25">交纳情况</view>
-              </view>
-              <view class="tr" wx:for="{{previousList}}" wx:key="item.id">
-                <view class="td t30 name" bindtap='getPersonal'>{{item.name}}</view>
-                <view class="td t15">{{item.age}}</view>
-                <view class="td t30">{{item.phone}}</view>
-                <view class="td t25">{{item.situation ? '已交' : '未交'}}</view>
-              </view>
-            </view>
+      </scroll-view>
+    </view>
+    <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+      <scroll-view scroll-x="true" class='scrollClass'>
+        <view class='table'>
+          <view class='table_header'>
+            <view class='th w25'>姓名</view>
+            <view class='th w15'>年龄</view>
+            <view class='th w35'>联系电话</view>
+            <view class='th w25'>交纳情况</view>
+          </view>
+          <view class='table_main' wx:for="{{previousList}}" wx:key="{{item.id}}">
+            <view class='td w25 name' bindtap='getPersonal' data-list="previousList" data-index="{{index}}">{{item.name}}</view>
+            <view class='td w15'>{{item.age}}</view>
+            <view class='td w35'>{{item.phone}}</view>
+            <view class='td w25'>{{item.situation ? '已交' : '未交'}}</view>
           </view>
         </view>
-        <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
-          <view class="weui-cell weui-cell_select">
-            <view class="weui-cell__hd weui-cell__hd_in-select-after">
-              <view class="weui-label">报名时间</view>
-            </view>
-            <view class="weui-cell__bd">
-              <picker mode="date" bindchange="bindApplyDateChange" value="{{applyDate}}" start="{{today}}" end="2030-09-01">
-                <view class="weui-select weui-select_in-select-after">{{applyDate}}</view>
-              </picker>
-            </view>
-          </view>
-          <view class="weui-cell weui-cell_select">
-            <view class="weui-cell__hd weui-cell__hd_in-select-after">
-              <view class="weui-label">截止时间</view>
-            </view>
-            <view class="weui-cell__bd">
-              <picker mode="date" bindchange="bindDeadlineDate" value="{{deadlineDate}}" start="{{today}}" end="2030-09-01">
-                <view class="weui-select weui-select_in-select-after">{{deadlineDate}}</view>
-              </picker>
-            </view>
-          </view>
+      </scroll-view>
+    </view>
+    <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">报名时间</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker mode="date" bindchange="bindApplyDateChange" value="{{applyDate}}" start="{{today}}" end="2030-09-01">
+            <view class="weui-select weui-select_in-select-after">{{applyDate}}</view>
+          </picker>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">截止时间</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker mode="date" bindchange="bindDeadlineDate" value="{{deadlineDate}}" start="{{today}}" end="2030-09-01">
+            <view class="weui-select weui-select_in-select-after">{{deadlineDate}}</view>
+          </picker>
         </view>
       </view>
     </view>
   </view>
-  <dialog show="{{show}}" title="个人信息">
-    <view>
-      <view>姓名：</view>
-      <view>年龄：</view>
-      <view>班级：</view>
-      <view>联系方式：<image src='{{IMG_URL}}/phone.png' style='height: 46rpx;width: 46rpx;' bindtap='callUp'></image></view>
-      <view>报名时间：</view>
-      <view>微信号：</view>
-      <view>微信昵称：</view>
-      <view>使用优惠券：</view>
-    </view>
-  </dialog>
 </view>
+<dialog show="{{show}}" title="个人信息">
+  <view class='person-info'>
+    <view>
+      <text style='letter-spacing: 42px;'>姓</text>
+      <text>名：</text>{{showStudent.name}}</view>
+    <view>
+      <text style='letter-spacing: 42px;'>年</text>
+      <text>龄：</text>{{showStudent.age}}</view>
+    <view>
+      <text style='letter-spacing: 42px;'>班</text>
+      <text>级：</text>{{showStudent.class}}</view>
+    <view>
+      <text style='letter-spacing: 4.67px;'>联系方</text>
+      <text>式：</text>{{showStudent.phone}}
+      <image src='{{IMG_URL}}/phone.png' style='height: 48rpx;width: 48rpx;margin-bottom: -12rpx;margin-left: 10rpx;' bindtap='callUp'></image>
+    </view>
+    <view>
+      <text style='letter-spacing: 4.67px;'>报名时</text>
+      <text>间：</text>{{showStudent.time}}</view>
+    <view>
+      <text style='letter-spacing: 14px;'>微信</text>
+      <text>号：</text>{{showStudent.WechatID}}</view>
+    <view>
+      <text style='letter-spacing: 4.67px;'>微信昵</text>
+      <text>称：</text>{{showStudent.WechatName}}</view>
+    <view>
+      <text>使用优惠券：</text>{{showStudent.discount ? '是' : '否'}}</view>
+  </view>
+</dialog>
