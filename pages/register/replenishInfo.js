@@ -1,6 +1,8 @@
 Page({
   data: {
-    files: []
+    files: [],
+    honor: '',
+    individualResume: ''
   },
   chooseImage: function (e) {
     var that = this;
@@ -12,10 +14,32 @@ Page({
         that.setData({
           files: that.data.files.concat(res.tempFilePaths)
         });
+        console.log(that.data.files)
       }
     })
   },
   finish: function (e) {
+    if (this.data.files.length == 0) {
+      wx.showModal({
+        content: "请至少上传一张照片",
+        showCancel: false,
+      })
+      return ;
+    }
+    if (!this.data.honor) {
+      wx.showModal({
+        content: "请输入所得荣誉",
+        showCancel: false,
+      })
+      return;
+    }
+    if (!this.data.individualResume) {
+      wx.showModal({
+        content: "请输入个人简介",
+        showCancel: false,
+      })
+      return;
+    }
     wx.navigateTo({
       url: './detailedInfo'
     })

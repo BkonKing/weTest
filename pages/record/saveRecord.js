@@ -4,8 +4,21 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
 
+  data: {
+    show: false,
+    album: 0,
+    albumList: ["新建文件夹", "新建文件夹1", "新建文件夹2"]
+  },
+  bindPickerChange: function (e) {
+    this.setData({
+      album: e.detail.value
+    })
+  } ,
+  submit: function (e) {
+    this.setData({
+      show: true
+    })
   },
 
   /**

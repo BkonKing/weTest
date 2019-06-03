@@ -39,7 +39,7 @@
       <view class="weui-label">个人简介</view>
     </view>
     <view class="weui-cell__bd">
-      <textarea class="weui-textarea" placeholder-class="phcolor" placeholder="请输入个人简介" style="height: 5em" />
+      <textarea value='{{individualResume}}' class="weui-textarea" placeholder-class="phcolor" placeholder="请输入个人简介" style="height: 5em" />
     </view>
   </view>
 </view>
@@ -49,7 +49,7 @@
       <view class="weui-label">获得荣誉</view>
     </view>
     <view class="weui-cell__bd">
-      <textarea class="weui-textarea" placeholder-class="phcolor" placeholder="请输入获得的荣誉" style="height: 5em" />
+      <textarea value='{{honor}}' class="weui-textarea" placeholder-class="phcolor" placeholder="请输入获得的荣誉" style="height: 5em" />
     </view>
   </view>
 </view>
