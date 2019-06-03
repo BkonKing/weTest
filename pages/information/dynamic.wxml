@@ -15,39 +15,31 @@
       <text style='border-left: 2px solid #2ABC59;'>　留言</text>
     </view>
     <view class='message-list'>
-      <view class='message-li'>
+      <view class='message-li' wx:for="{{leaveWords}}" wx:key="{{item.name}}">
         <view class='message-left'>
-          <image src='/static/images/icon_API.png'></image>
+          <image src='{{item.headPortrait}}'></image>
         </view>
         <view class='message-right'>
-          <view class='message-title'>小新</view>
-          <view class='message-content'>不错不错感谢分享。</view>
+          <view class='message-title'>{{item.name}}</view>
+          <view class='message-content'>{{item.content}}</view>
           <view class='message-description'>
-            <text class='message-date'>2019-06-12</text>
+            <text class='message-date'>{{item.date}}</text>
             <image src='/static/images/comment.png'></image>
-            <image src='/static/images/unpick.png'></image>
-            <text>95</text>
-          </view>
-        </view>
-      </view>
-      <view class='message-li'>
-        <view class='message-left'>
-          <image src='/static/images/icon_API.png'></image>
-        </view>
-        <view class='message-right'>
-          <view class='message-title'>小新</view>
-          <view class='message-content'>不错不错感谢分享。</view>
-          <view class='message-description'>
-            <text class='message-date'>2019-06-12</text>
-            <image src='/static/images/comment.png'></image>
-            <image src='/static/images/unpick.png'></image>
-            <text>95</text>
+            <image src='{{ item.pick ? "/static/images/pick.png" : "/static/images/unpick.png"}}' bindtap='changePick' data-index='{{index}}'></image>
+            <text>{{item.pickNum}}</text>
           </view>
         </view>
       </view>
     </view>
   </view>
-  <view class='edit-btn'>
-    <image src='/static/images/message.png' bindtap='message'></image>
+  <view class='edit-btn' bindtap='message'>
+    <image src='/static/images/message.png'></image>
   </view>
 </view>
+<dialog show="{{show}}" title="留言" height='{{240}}' footer="{{true}}">
+  <view class="weui-cell">
+    <view class="weui-cell__bd">
+      <textarea value='{{leaveWord}}' class="weui-textarea" placeholder-class="phcolor" placeholder="请输入留言" />
+    </view>
+  </view>
+</dialog>

@@ -51,7 +51,7 @@
         </view>
         <view class="weui-cell__bd">
           <picker mode="date" bindchange="bindApplyDateChange" value="{{applyDate}}" start="{{today}}" end="2030-09-01">
-            <view class="weui-select weui-select_in-select-after">{{applyDate}}</view>
+            <view class="weui-select weui-select_in-select-after" style='border-right: none;'>{{applyDate}}</view>
           </picker>
         </view>
       </view>
@@ -60,10 +60,13 @@
           <view class="weui-label">截止时间</view>
         </view>
         <view class="weui-cell__bd">
-          <picker mode="date" bindchange="bindDeadlineDate" value="{{deadlineDate}}" start="{{today}}" end="2030-09-01">
-            <view class="weui-select weui-select_in-select-after">{{deadlineDate}}</view>
+          <picker mode="date" bindchange="bindDeadlineDate" value="{{deadlineDate}}" start="{{applyDate}}" end="2030-09-01">
+            <view class="weui-select weui-select_in-select-after" style='border-right: none;'>{{deadlineDate}}</view>
           </picker>
         </view>
+      </view>
+      <view class="weui-cell_vcode" style='padding: 0 12px;margin: 70rpx 0 44rpx;'>
+        <button class="weui-btn" type="primary" bindtap='startApply'>开始</button>
       </view>
     </view>
   </view>

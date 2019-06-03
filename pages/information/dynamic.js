@@ -5,7 +5,54 @@ Page({
    * 页面的初始数据
    */
   data: {
+    show: false,
+    leaveWord: '',
+    leaveWords: [
+      {
+        headPortrait: '/static/images/icon_API.png',
+        name: '小新',
+        date: '2019-06-12',
+        content: '不错不错感谢分享。',
+        pick: 0,
+        pickNum: 95
+      },
+      {
+        headPortrait: '/static/images/icon_API.png',
+        name: '小新222',
+        date: '2019-06-12',
+        content: 'sdfsdf',
+        pick: 1,
+        pickNum: 40
+      }
+    ]
+  },
 
+  changePick: function (e) {
+    var index = e.target.dataset.index;
+    var picker = 'leaveWords[' + index + '].pick';
+    var pickNumer = 'leaveWords[' + index + '].pickNum';
+    var pick = this.data.leaveWords[index].pick ? 0 : 1;
+    var pickNum = pick ? this.data.leaveWords[index].pickNum + 1 : this.data.leaveWords[index].pickNum - 1;
+    this.setData({
+      [picker]: pick,
+      [pickNumer]: pickNum
+    })
+  },
+
+  message: function () {
+    this.setData({
+      show: true
+    })
+  },
+
+  ok: function () {
+    console.log(this.data.leaveWord)
+    if (!this.data.leaveWord) {
+      wx.showModal({
+        content: '留言不能为空',
+        showCancel: false
+      })
+    }
   },
 
   /**

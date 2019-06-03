@@ -1,18 +1,18 @@
 <view>
   <view style='width: 680rpx;height: 680rpx;border: 8rpx solid #E9E9E9;border-radius: 50%;margin: 72rpx auto 52rpx;'></view>
   <view style='text-align: center;font-size: 48rpx;'>
-    00:11:35 / 00:10:00
+    {{showTime}} / 00:10:00
   </view>
-  <view class='record-btn audition'>
-    <image src='/static/images/audition.png' bindtap='message'></image>
+  <view class='record-btn audition' bindtap='listening'>
+    <image src='/static/images/audition.png'></image>
     <text>试听</text>
   </view>
-  <view class='record-btn transcribe'>
-    <image src='/static/images/pause.png' bindtap='message'></image>
-    <text style='display: inline-block;margin-top: 35rpx;'>正在录制</text>
+  <view class='record-btn transcribe' bindtap='startRecord'>
+    <image src="{{ '/static/images/'+operationImg}}"></image>
+    <text style='display: inline-block;margin-top: 35rpx;'>{{operation}}</text>
   </view>
   <view class='record-btn save' bindtap='save'>
-    <image src='/static/images/save.png' bindtap='message'></image>
+    <image src='/static/images/save.png'></image>
     <text>保存</text>
   </view>
 </view>

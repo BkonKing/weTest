@@ -76,5 +76,13 @@ Page({
     wx.makePhoneCall({
       phoneNumber: this.data.showStudent.phone
     })
+  },
+  startApply: function () {
+    if (!this.data.applyDate && !this.data.deadlineDate) {
+      wx.showModal({
+        content: '请选择报名开始时间和截止时间',
+        showCancel: false
+      })
+    }
   }
 });

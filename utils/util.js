@@ -17,6 +17,22 @@ const formatDate = date => {
   return [year, month, day].map(formatNumber).join('-')
 }
 
+const formatMinute = time => {
+  var hour = '00';
+  var minute = 0;
+  if (time > 59) {
+    minute = '0' + parseInt(time / 60);
+  } else {
+    minute = '00'
+  }
+  var second = time % 60;
+  if (second < 10) {
+    second = '0' + second
+  }
+
+  return [hour, minute, second].map(formatNumber).join(':')
+}
+
 const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
@@ -24,5 +40,6 @@ const formatNumber = n => {
 
 module.exports = {
   formatTime: formatTime,
-  formatDate: formatDate
+  formatDate: formatDate,
+  formatMinute: formatMinute
 }
