@@ -1,0 +1,77 @@
+/**app.wxss**/
+@import './styles/weui.wxss';
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+} 
+
+.page-bg-title {
+  height: 40pt;
+  line-height: 40pt;
+  padding-left: 13px;
+  font-size: 15px;
+  background: #F5F5F5;
+}
+
+.edit-btn {
+  position: fixed;
+  right: 14px;
+  bottom: 55px;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background: linear-gradient(to top right, #FE830A, #FFC90E);
+}
+
+.edit-btn image {
+  width: 40rpx;
+  height: 40rpx;
+  margin: 30rpx;
+}
+
+.record-btn {
+  position: fixed;
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  background: linear-gradient(to top right, #FE830A, #FFC90E);
+}
+
+.weui-cells {
+  font-size: 28rpx;
+  color: #252525;
+}
+.weui-cells:before {
+  border-top:1rpx solid #F0F0F0;
+}
+.weui-cells:after {
+  border-bottom:1rpx solid #F0F0F0;
+}
+.weui-cell {
+  padding: 7px 15px;
+}
+.weui-cell:before {
+  left: 0;
+  border-top:1rpx solid #F0F0F0;
+}
+.weui-label {
+  color: #7D7D7D;
+}
+button[type=primary] {
+  border-radius: 23px;
+  background-color: #FFC438;
+}
+
+.phcolor {
+  color: #D7D7D7;
+}
+
+view {
+  font-size: 28rpx;
+}

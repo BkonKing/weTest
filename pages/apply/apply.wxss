@@ -1,0 +1,97 @@
+/* pages/apply/apply.wxss */
+page {
+  height: 100%;
+}
+.weui-tab__content {
+  height: 100%;
+}
+.person-info {
+  padding-left: 40rpx;
+}
+.person-info > view {
+  margin-bottom: 16rpx;
+}
+.person-info text {
+  font-size: 28rpx;
+  color: #7D7D7D;
+}
+
+/* 表格 */
+.scrollClass {
+  display: flex;
+  width: 100%;
+  white-space: nowrap;
+  height: 100%;
+  background-color: white;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.table {
+  display: inline-flex;
+  flex-direction: column;
+  border: 1rpx solid #dadada;
+  border-bottom: 0;
+  width: 100%;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.table_header {
+  display: inline-flex;
+}
+
+.th {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  height: 90rpx;
+  border-right: 1rpx solid #dadada;
+  border-bottom: 1rpx solid #dadada;
+  justify-content: center;
+  align-items: center;
+  overflow-x: auto;
+  font-weight: 600;
+  background-color: #e9e9e9;
+  color: #252525;
+}
+
+.table_main {
+  display: inline-flex;
+  flex-direction: row;
+}
+
+.td {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  height: 100rpx;
+  background: white;
+  justify-content: center;
+  align-items: center;
+  border: 1rpx solid #dadada;
+  border-top: 0;
+  border-left: 0;
+}
+
+.th.w15, .td.w15 {
+  width: 15%;
+}
+
+.th.w25, .td.w25 {
+  width: 25%;
+}
+
+.th.w35, .td.w35 {
+  width: 35%;
+}
+
+.table_main {
+  display: inline-flex;
+  flex-direction: row;
+}
+
+.name {
+  color: #1194f8;
+  text-decoration: underline;
+}

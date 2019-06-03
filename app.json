@@ -1,0 +1,54 @@
+{
+  "pages": [
+    "pages/record/record",
+    "pages/apply/apply",
+    "pages/index/index",
+    "pages/information/information",
+    "pages/information/dynamic",
+    "pages/information/editInfo",
+    "pages/register/basicInfo",
+    "pages/register/replenishInfo",
+    "pages/register/detailedInfo",
+    "pages/record/recording",
+    "pages/record/saveRecord"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "工作台",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/record/record",
+        "iconPath": "static/images/icon_component.png",
+        "selectedIconPath": "static/images/icon_component_HL.png",
+        "text": "录课程"
+      },
+      {
+        "pagePath": "pages/information/information",
+        "iconPath": "static/images/icon_API.png",
+        "selectedIconPath": "static/images/icon_API_HL.png",
+        "text": "消息"
+      },
+      {
+        "pagePath": "pages/register/basicInfo",
+        "iconPath": "static/images/icon_API.png",
+        "selectedIconPath": "static/images/icon_API_HL.png",
+        "text": "排课"
+      },
+      {
+        "pagePath": "pages/apply/apply",
+        "iconPath": "static/images/icon_API.png",
+        "selectedIconPath": "static/images/icon_API_HL.png",
+        "text": "报名"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

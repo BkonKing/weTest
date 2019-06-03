@@ -1,0 +1,47 @@
+/* pages/record/recording.wxss */
+
+.audition {
+  width: 100rpx;
+  height: 100rpx;
+  left: 84rpx;
+  bottom: 160rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #7d7d7d;
+}
+
+.audition image {
+  width: 50rpx;
+  height: 50rpx;
+  margin: 25rpx;
+}
+
+.transcribe {
+  left: calc(50% - 80rpx);
+  bottom: 125rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #7d7d7d;
+}
+
+.transcribe image {
+  width: 50rpx;
+  height: 70rpx;
+  margin: 45rpx 56rpx 0;
+}
+
+.save {
+  width: 100rpx;
+  height: 100rpx;
+  right: 84rpx;
+  bottom: 160rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #7d7d7d;
+}
+
+.save image {
+  width: 50rpx;
+  height: 50rpx;
+  margin: 26rpx;
+}

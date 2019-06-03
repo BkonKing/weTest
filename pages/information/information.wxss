@@ -1,0 +1,43 @@
+/* pages/information/information.wxss */
+
+.card {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid #F0F0F0;
+  background-color: #fff;
+  overflow: hidden;
+  color: #303133;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+.card .card-title {
+  color: #252525;
+  font-size: 32rpx;
+}
+
+.card .card-content{
+  color: #7D7D7D;
+  margin: 3px 0 10px;
+}
+
+.card .card-image {
+  width: 100%;
+  height: 230rpx;
+}
+
+.card .card-footer {
+  height: 40rpx;
+  text-align: right;
+}
+.card .card-footer text {
+  vertical-align: top;
+  display: inline-block;
+  height: 40rpx;
+  margin-left: 8rpx;
+}
+.card .card-footer image {
+  vertical-align: top;
+  height: 40rpx;
+  margin-left: 60rpx;
+}

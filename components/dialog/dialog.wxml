@@ -1,0 +1,22 @@
+<view class="dialog-bg" wx:if="{{show}}">
+</view>
+
+<view class="dialog" style="width:{{width}}rpx;" wx:if="{{show}}">
+
+    <view class="title">
+        <view>{{title}}</view>
+        <view>
+            <image class="close-icon" src="{{IMG_URL}}/close.png" bindtap="close">
+
+            </image>
+
+        </view>
+    </view>
+    <view style="height: {{height}}rpx;padding: 20px;">
+        <slot></slot>
+    </view>
+    <view class="footer" wx:if="{{footer}}">
+        <view class="btn-cancel" bindtap="cancel">取消</view>
+        <view class="btn-ok" bindtap="ok">确定</view>
+    </view>
+</view>

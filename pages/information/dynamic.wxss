@@ -1,0 +1,57 @@
+/* pages/information/dynamic.wxss */
+
+.message-list {
+  padding: 12px;
+}
+
+.message-list .message-li {
+  overflow: hidden;
+  padding: 5px 0;
+  border-bottom: 1rpx solid #F4F4F4;
+}
+
+.message-list .message-li:last-child {
+  border-bottom: none;
+}
+
+.message-list .message-left {
+  float: left;
+  width: 80rpx;
+}
+
+.message-list .message-left image {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
+
+.message-list .message-right {
+  float: right;
+  width: calc(100% - 100rpx);
+  margin-left: 20rpx;
+}
+
+.message-list .message-right .message-description {
+  text-align: right;
+}
+
+.message-list .message-right .message-description .message-date {
+  float: left;
+  font-size: 10px;
+  color: #7d7d7d;
+}
+
+.message-list .message-right .message-content {
+  font-size: 24rpx;
+  color: #4a4a4a;
+}
+
+.message-list .message-right image {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.message-list .message-right image + image {
+  margin-left: 60rpx;
+  margin-right: 10rpx;
+}
