@@ -1,5 +1,29 @@
 /* pages/record/record.wxss */
 
+.albumImg {
+  width: 120rpx;
+  height: 120rpx;
+  background: #FFC438;
+  position: relative;
+}
+.albumName {
+  position: absolute;
+  right: 0;
+  bottom: 10rpx;
+  width: 80rpx;
+  line-height: 1;
+  overflow: hidden;
+  display: block;
+  color: #fff;
+}
+.weui-media-box__title {
+  color: #252525;
+  font-size: 14px;
+}
+.weui-media-box__desc {
+  color: #7D7D7D;
+  font-size: 12px;
+}
 .record-btn {
   left: calc(50% - 80rpx);
   bottom: 60rpx;

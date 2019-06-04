@@ -90,8 +90,8 @@ view {
 
 radio .wx-radio-input {
   border-radius: 0; /* 圆角 */
-  width: 50rpx;
-  height: 50rpx;
+  width: 48rpx;
+  height: 48rpx;
 }
 
 /* 选中后的 背景样式 */

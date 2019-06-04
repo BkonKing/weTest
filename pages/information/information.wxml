@@ -2,18 +2,16 @@
   <view class="page-bg-title">
     发布的消息
   </view>
-  <navigator url='./dynamic' style='padding: 20px 10px 0;'>
+  <navigator wx:for="{{messageList}}" wx:key="{{item.id}}" url='./dynamic' style='padding: 20px 10px 0;'>
     <view class='card'>
-      <view class='card-title'>XX中心小学捐赠活动</view>
-      <view class='card-content'>
-        正文内容正文内容正文内容正文内容正文内容正文内 容正文内容正文内容正文内容正文内容正文...
-      </view>
-      <image class='card-image' src="/static/images/info.png"></image>
+      <view class='card-title'>{{item.title}}</view>
+      <view class='card-content'>{{item.news_content}}</view>
+      <image class='card-image' src="{{item.news_image}}"></image>
       <view class='card-footer'>
         <image src='/static/images/look.png' style='width: 55rpx;'></image>
-        <text>1025</text>
+        <text>{{item.count}}</text>
         <image src='/static/images/comment.png' style='width: 40rpx;'></image>
-        <text>95</text>
+        <text>{{item.leaveCount}}</text>
       </view>
     </view>
   </navigator>

@@ -1,26 +1,48 @@
 // pages/record/record.js
+var app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    albumList: [
-      {
-        art: '',
-        title: '课堂经典案例',
-        date: '2019/04/22'
+    albumList: [{
+      "createtime": "2019-06-04",
+      "id": "1234",
+      "teacherAlbumInfo": "",
+      "teacherAlbumName": "专辑2",
+      "teacherAlbumTitle": "糖豆豆2糖豆豆2",
+      "unionid": "123"
+    }, {
+      "createtime": "2019-06-03",
+      "id": "123",
+      "teacherAlbumInfo": "",
+      "teacherAlbumName": "专辑1",
+      "teacherAlbumTitle": "糖豆豆",
+      "unionid": "123"
+    }]
+  },
+  onLoad: function() {
+    var that = this;
+    if (app.globalData.teacherinfo.flag == 0) {
+      wx.redirectTo({
+        url: '/pages/register/basicInfo'
+      })
+      return;
+    }
+    wx.request({
+      url: 'https://www.gpper.cn/qjxt/gpper/api/album/list.do',
+      method: 'post',
+      data: {
+        userid: ''
       },
-      {
-        art: '',
-        title: '课堂经典案例1',
-        date: '2019/05/12'
-      },
-      {
-        art: '',
-        title: '课堂经典案例2',
-        date: '2019/02/26'
+      success: function(res) {
+        if (res.data.code == '0000') {
+          that.setData({
+            albumList: res.data.data
+          })
+        }
       }
-    ]
+    })
   }
 })

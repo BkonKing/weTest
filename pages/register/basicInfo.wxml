@@ -36,8 +36,8 @@
         <view class="weui-label">辅导课程</view>
       </view>
       <view class="weui-cell__bd">
-        <picker mode="multiSelector" name="curriculum" value="{{curriculum}}" range="{{curriculumList}}" bindchange="curriculumChange" bindcolumnchange="curriculumColumnChange">
-          <view class="weui-input">{{curriculumList[0][curriculum[0]]}},{{curriculumList[1][curriculum[1]]}}</view>
+        <picker mode="multiSelector" name="curriculum" range-key="{{'name'}}" value="{{curriculum}}" range="{{curriculumList}}" bindchange="curriculumChange" bindcolumnchange="curriculumColumnChange" data-id='{{curriculumList[index].id}}'>
+          <view class="weui-input">{{curriculumList[0][curriculum[0]].name}},{{curriculumList[1][curriculum[1]].name}}</view>
         </picker>
       </view>
     </view>
@@ -60,7 +60,7 @@
       </view>
       <view class="weui-cell__ft" style='padding-top: 4rpx;'>
         <button class="weui-btn" type="primary" size="mini" bindtap='getCode' disabled='{{intervalTime}}'>
-          {{intervalTime ? intervalTime + '秒后重获' : '获取验证码'}} 
+          {{intervalTime ? intervalTime + '秒后重获' : '获取验证码'}}
         </button>
       </view>
     </view>

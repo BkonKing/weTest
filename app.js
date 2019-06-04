@@ -1,15 +1,29 @@
 //app.js
 App({
   onLaunch: function () {
+    var that = this;
     // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
+    // var logs = wx.getStorageSync('logs') || []
+    // logs.unshift(Date.now())
+    // wx.setStorageSync('logs', logs)
 
     // 登录
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        wx.request({
+          url: 'https://www.gpper.cn/qjxt/gpper/api/login.do',
+          method: 'post',
+          data: {
+            code: res.code
+          },
+          success: function(res) {
+            if (res.data.code == '0000') {
+              that.globalData.userid = res.data.id
+              that.globalData.teacherinfo = res.data.teacherinfo
+            }
+          }
+        })
       }
     })
     // 获取用户信息
@@ -42,6 +56,10 @@ App({
     })
   },
   globalData: {
+    userid: '',
+    teacherinfo: {
+      flag: 0
+    },
     userInfo: null,
     imgurl: "/static/images"
   }

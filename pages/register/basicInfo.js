@@ -2,7 +2,21 @@
 import WxValidate from '../../utils/WxValidate';
 Page({
   onLoad: function() {
+    var that = this;
     this.initValidate();
+    this.getClasstyp(0, function(res) {
+      var curriculum0 = 'curriculumList[0]';
+      var curriculum1 = 'curriculumList[1]';
+      that.setData({
+        [curriculum0]: [{ "fid": 0, "id": 1, "name": "阿萨德", "sort": 1 }]
+      })
+      console.log(this.data.curriculumList[0][0].id)
+      this.getClasstyp(this.data.curriculumList[0][0].id, function(response) {
+        that.setData({
+          [curriculum1]: [{ "fid": 0, "id": 1, "name": "阿萨德", "sort": 1 }]
+        })
+      })
+    })
   },
   /**
    * 页面的初始数据
@@ -16,11 +30,22 @@ Page({
     phone: '',
     code: '',
     intervalTime: 0,
-    curriculumList: [
-      ["文化类", "艺术类", "体育类"],
-      ["语文", "数学", "英语"]
-    ],
+    curriculumList: [],
     region: ['福建省', '福州市', '鼓楼区']
+  },
+  getClasstyp: function (fid, callback) {
+    wx.request({
+      url: 'https://www.gpper.cn/qjxt/gpper/api/classtyp/list.do',
+      method: 'post',
+      data: {
+        fid: fid
+      },
+      success: function (res) {
+        if (res.data.code == '0000') {
+          callback(res)
+        }
+      }
+    })
   },
   // 课程选择
   curriculumChange: function(e) {
@@ -88,11 +113,18 @@ Page({
     if (!this.isPhone(this.data.phone)) {
       return false;
     }
-    // wx.request({
-    //   url: '',
-    // })
-    this.setData({
-      intervalTime: 59
+    wx.request({
+      url: 'https://www.gpper.cn/qjxt/gpper/api/sms.do',
+      method: 'post',
+      data: {
+        phone: this.data.phone,
+        type: 'zc'
+      },
+      success: function (res) {
+        that.setData({
+          intervalTime: res.data.timeEnd
+        })
+      }
     })
     var InterValObj = setInterval(function() {
       if (that.data.intervalTime == 0) {
