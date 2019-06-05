@@ -30,7 +30,7 @@ page {
 .table {
   display: inline-flex;
   flex-direction: column;
-  border: 1rpx solid #dadada;
+  border: 1rpx solid #D7D7D7;
   border-bottom: 0;
   width: 100%;
   font-size: 28rpx;
@@ -46,13 +46,12 @@ page {
   flex-direction: column;
   width: 25%;
   height: 90rpx;
-  border-right: 1rpx solid #dadada;
-  border-bottom: 1rpx solid #dadada;
+  border-right: 1rpx solid #D7D7D7;
+  border-bottom: 1rpx solid #D7D7D7;
   justify-content: center;
   align-items: center;
   overflow-x: auto;
-  font-weight: 600;
-  background-color: #e9e9e9;
+  background-color: #E9E9E9;
   color: #252525;
 }
 
@@ -91,7 +90,17 @@ page {
   flex-direction: row;
 }
 
+.table_main:nth-child(odd) .td{
+  background-color: #F8F8F8;
+}
+
 .name {
   color: #1194f8;
   text-decoration: underline;
+}
+
+.weui-navbar__title {
+  font-size: 16px;
+  width: 100%;
+  max-width: none;
 }

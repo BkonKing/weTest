@@ -1,7 +1,7 @@
 // pages/apply/apply.js
 var util = require("../../utils/util.js");
 var app = getApp();
-var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
+var sliderWidth = 50; // 需要设置slider的宽度，用于计算中间位置
 
 Page({
   data: {
@@ -71,13 +71,14 @@ Page({
       url: 'https://www.gpper.cn/qjxt/gpper/api/userbm/list.do',
       method: 'post',
       data: {
-        userid: '',
+        userid: app.globalData.userid,
         isGraduation: num
       },
       success: function (res) {
-        // that.setData({
-        //   [field]: res.data.data
-        // })
+        that.setData({
+          // [field]: res.data.data
+          [field]: []
+        })
       }
     })
   },
@@ -95,7 +96,7 @@ Page({
         url: 'https://www.gpper.cn/qjxt/gpper/api/applyStart.do',
         method: 'post',
         data: {
-          userid: ''
+          userid: app.globalData.userid
         },
         success: function(res) {
           that.setData({
@@ -143,7 +144,7 @@ Page({
       url: 'https://www.gpper.cn/qjxt/gpper/api/userbm/list.do',
       method: 'post',
       data: {
-        userid: '',
+        userid: app.globalData.userid,
         startTime: this.data.startTime,
         endTime: this.data.endTime
       },

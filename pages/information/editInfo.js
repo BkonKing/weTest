@@ -1,4 +1,5 @@
 // pages/information/edit.js
+var app = getApp();
 Page({
 
   /**
@@ -6,7 +7,6 @@ Page({
    */
   data: {
     files: [],
-    userid: '',
     id: "",
     newsContent: "",
     title: "",
@@ -36,19 +36,25 @@ Page({
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function(res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        that.setData({
-          files: res.tempFilePaths
-        });
         wx.request({
           url: 'https://www.gpper.cn/qjxt/gpper/api/upload/picture.do',
           method: 'post',
-          data: {
-            userid: ''
+          header: {
+            'content-type': 'application/x-www-form-urlencoded',
           },
-          success: function(res) {
-            if (res.data.code == '0000') {
+          data: {
+            userid: app.globalData.userid
+          },
+          success: function(response) {
+            if (response.data.code == '0000') {
               that.setData({
-                imageId: res.data.imageId
+                files: res.tempFilePaths,
+                imageId: response.data.imageId
+              })
+            } else {
+              wx.showModal({
+                title: '上传失败，请重新上传！',
+                showCancel: false
               })
             }
           }
@@ -74,7 +80,7 @@ Page({
       url: 'https://www.gpper.cn/qjxt/gpper/api/news/publishNews.do',
       method: 'post',
       data: {
-        userid: that.data.userid,
+        userid: app.globalData.userid,
         id: that.data.id,
         newsContent: that.data.newsContent,
         title: that.data.title,

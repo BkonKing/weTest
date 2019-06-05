@@ -1,4 +1,5 @@
 // pages/information/information.js
+var app = getApp();
 Page({
 
   /**
@@ -23,7 +24,7 @@ Page({
       url: 'https://www.gpper.cn/qjxt/gpper/api/news/list.do',
       method: 'post',
       data: {
-        userid: ''
+        userid: app.globalData.userid
       },
       success: function(res) {
         if (res.data.code == '0000') {

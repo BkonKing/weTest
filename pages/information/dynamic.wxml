@@ -1,29 +1,28 @@
 <view>
-  <view style='font-size: 48rpx;text-align: center;'>金鹰语言教育秋季招生啦！</view>
+  <view style='font-size: 48rpx;text-align: center;'>{{news.title}}</view>
   <view style='padding: 13px;'>
     <view style='text-align: center;'>
-      <text style='color: #0096FF;float: left;'>张老师</text>
-      <text style='color: #D7D7D7;'>2019-04-18</text>
-      <text style='color: #D7D7D7;float: right;'>7451阅读</text>
+      <text style='color: #0096FF;float: left;'>{{news.teacherName}}</text>
+      <text style='color: #D7D7D7;'>{{news.createtime}}</text>
+      <text style='color: #D7D7D7;float: right;'>{{news.count}}阅读</text>
     </view>
-    <image src='/static/images/info.png' style='width: 100%;height: 163px;'></image>
-    <view style='color: #7D7D7D;'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes,
-      nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.</view>
+    <image src='{{news.news_image}}' style='width: 100%;height: 163px;'></image>
+    <view style='color: #7D7D7D;'>{{news.news_content}}</view>
   </view>
   <view>
     <view style='padding: 10px 0;background: #E9E9E9;'>
       <text style='border-left: 2px solid #2ABC59;'>　留言</text>
     </view>
     <view class='message-list'>
-      <view class='message-li' wx:for="{{leaveWords}}" wx:key="{{item.name}}">
+      <view class='message-li' wx:for="{{leaveWords}}" wx:key="{{item.id}}">
         <view class='message-left'>
-          <image src='{{item.headPortrait}}'></image>
+          <image src='{{item.wechaturl}}'></image>
         </view>
         <view class='message-right'>
-          <view class='message-title'>{{item.name}}</view>
-          <view class='message-content'>{{item.content}}</view>
+          <view class='message-title'>{{item.wechatname}}</view>
+          <view class='message-content'>{{item.newMessage}}</view>
           <view class='message-description'>
-            <text class='message-date'>{{item.date}}</text>
+            <text class='message-date'>{{item.createtime}}</text>
             <!-- <image src='/static/images/comment.png'></image>
             <image src='{{ item.pick ? "/static/images/pick.png" : "/static/images/unpick.png"}}' bindtap='changePick' data-index='{{index}}'></image>
             <text>{{item.pickNum}}</text> -->

@@ -24,25 +24,27 @@ Page({
   },
   onLoad: function() {
     var that = this;
-    // if (app.globalData.teacherinfo.flag == 0) {
-    //   wx.redirectTo({
-    //     url: '/pages/register/basicInfo'
-    //   })
-    //   return;
-    // }
-    wx.request({
-      url: 'https://www.gpper.cn/qjxt/gpper/api/album/list.do',
-      method: 'post',
-      data: {
-        userid: ''
-      },
-      success: function(res) {
-        if (res.data.code == '0000') {
-          that.setData({
-            albumList: res.data.data
-          })
+    app.getUser().then(() => {
+      // if (app.globalData.teacherinfo.flag == 0) {
+      //   wx.redirectTo({
+      //     url: '/pages/register/basicInfo'
+      //   })
+      //   return;
+      // }
+      wx.request({
+        url: 'https://www.gpper.cn/qjxt/gpper/api/album/list.do',
+        method: 'post',
+        data: {
+          userid: app.globalData.userid
+        },
+        success: function(res) {
+          if (res.data.code == '0000') {
+            that.setData({
+              albumList: res.data.data
+            })
+          }
         }
-      }
+      })
     })
   }
 })

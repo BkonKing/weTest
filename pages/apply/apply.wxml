@@ -45,24 +45,26 @@
       </scroll-view>
     </view>
     <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
-      <view class="weui-cell weui-cell_select">
-        <view class="weui-cell__hd weui-cell__hd_in-select-after">
-          <view class="weui-label">报名时间</view>
+      <view class='weui-cells'>
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">报名时间</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker mode="date" bindchange="bindApplyDateChange" value="{{startTime}}" start="{{today}}">
+              <view class="weui-select weui-select_in-select-after" style='border-right: none;'>{{startTime}}</view>
+            </picker>
+          </view>
         </view>
-        <view class="weui-cell__bd">
-          <picker mode="date" bindchange="bindApplyDateChange" value="{{startTime}}" start="{{today}}">
-            <view class="weui-select weui-select_in-select-after" style='border-right: none;'>{{startTime}}</view>
-          </picker>
-        </view>
-      </view>
-      <view class="weui-cell weui-cell_select">
-        <view class="weui-cell__hd weui-cell__hd_in-select-after">
-          <view class="weui-label">截止时间</view>
-        </view>
-        <view class="weui-cell__bd">
-          <picker mode="date" bindchange="bindDeadlineDate" value="{{endTime}}" start="{{endTime}}">
-            <view class="weui-select weui-select_in-select-after" style='border-right: none;'>{{endTime}}</view>
-          </picker>
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">截止时间</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker mode="date" bindchange="bindDeadlineDate" value="{{endTime}}" start="{{endTime}}">
+              <view class="weui-select weui-select_in-select-after" style='border-right: none;'>{{endTime}}</view>
+            </picker>
+          </view>
         </view>
       </view>
       <view class="weui-cell_vcode" style='padding: 0 12px;margin: 70rpx 0 44rpx;'>
