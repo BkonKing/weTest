@@ -24,12 +24,12 @@ Page({
   },
   onLoad: function() {
     var that = this;
-    if (app.globalData.teacherinfo.flag == 0) {
-      wx.redirectTo({
-        url: '/pages/register/basicInfo'
-      })
-      return;
-    }
+    // if (app.globalData.teacherinfo.flag == 0) {
+    //   wx.redirectTo({
+    //     url: '/pages/register/basicInfo'
+    //   })
+    //   return;
+    // }
     wx.request({
       url: 'https://www.gpper.cn/qjxt/gpper/api/album/list.do',
       method: 'post',

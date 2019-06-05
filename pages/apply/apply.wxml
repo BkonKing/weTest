@@ -18,10 +18,10 @@
             <view class='th w25'>交纳情况</view>
           </view>
           <view class='table_main' wx:for="{{studentsList}}" wx:key="{{item.id}}">
-            <view class='td w25 name' bindtap='getPersonal' data-list="studentsList" data-index="{{index}}">{{item.name}}</view>
-            <view class='td w15'>{{item.age}}</view>
-            <view class='td w35'>{{item.phone}}</view>
-            <view class='td w25'>{{item.situation ? '已交' : '未交'}}</view>
+            <view class='td w25 name' bindtap='getPersonal' data-list="studentsList" data-index="{{index}}">{{item.xsName}}</view>
+            <view class='td w15'>{{item.xsAge}}</view>
+            <view class='td w35'>{{item.bmPhone}}</view>
+            <view class='td w25'>{{item.isPay ? '已交' : '未交'}}</view>
           </view>
         </view>
       </scroll-view>
@@ -36,10 +36,10 @@
             <view class='th w25'>交纳情况</view>
           </view>
           <view class='table_main' wx:for="{{previousList}}" wx:key="{{item.id}}">
-            <view class='td w25 name' bindtap='getPersonal' data-list="previousList" data-index="{{index}}">{{item.name}}</view>
-            <view class='td w15'>{{item.age}}</view>
-            <view class='td w35'>{{item.phone}}</view>
-            <view class='td w25'>{{item.situation ? '已交' : '未交'}}</view>
+            <view class='td w25 name' bindtap='getPersonal' data-list="previousList" data-index="{{index}}">{{item.xsName}}</view>
+            <view class='td w15'>{{item.xsAge}}</view>
+            <view class='td w35'>{{item.bmPhone}}</view>
+            <view class='td w25'>{{item.isPay ? '已交' : '未交'}}</view>
           </view>
         </view>
       </scroll-view>
@@ -50,8 +50,8 @@
           <view class="weui-label">报名时间</view>
         </view>
         <view class="weui-cell__bd">
-          <picker mode="date" bindchange="bindApplyDateChange" value="{{applyDate}}" start="{{today}}" end="2030-09-01">
-            <view class="weui-select weui-select_in-select-after" style='border-right: none;'>{{applyDate}}</view>
+          <picker mode="date" bindchange="bindApplyDateChange" value="{{startTime}}" start="{{today}}">
+            <view class="weui-select weui-select_in-select-after" style='border-right: none;'>{{startTime}}</view>
           </picker>
         </view>
       </view>
@@ -60,8 +60,8 @@
           <view class="weui-label">截止时间</view>
         </view>
         <view class="weui-cell__bd">
-          <picker mode="date" bindchange="bindDeadlineDate" value="{{deadlineDate}}" start="{{applyDate}}" end="2030-09-01">
-            <view class="weui-select weui-select_in-select-after" style='border-right: none;'>{{deadlineDate}}</view>
+          <picker mode="date" bindchange="bindDeadlineDate" value="{{endTime}}" start="{{endTime}}">
+            <view class="weui-select weui-select_in-select-after" style='border-right: none;'>{{endTime}}</view>
           </picker>
         </view>
       </view>
@@ -74,29 +74,23 @@
 <dialog show="{{show}}" title="个人信息">
   <view class='person-info'>
     <view>
-      <text style='letter-spacing: 42px;'>姓</text>
-      <text>名：</text>{{showStudent.name}}</view>
+      <text>姓　　名：</text>{{showStudent.xsName}}</view>
     <view>
-      <text style='letter-spacing: 42px;'>年</text>
-      <text>龄：</text>{{showStudent.age}}</view>
+      <text>年　　龄：</text>{{showStudent.xsAge }}</view>
     <view>
-      <text style='letter-spacing: 42px;'>班</text>
-      <text>级：</text>{{showStudent.class}}</view>
+      <text>评　　级：</text>{{showStudent.fraction}}</view>
     <view>
-      <text style='letter-spacing: 4.67px;'>联系方</text>
-      <text>式：</text>{{showStudent.phone}}
+      <text>联系方式：</text>{{showStudent.bmPhone}}
       <image src='{{IMG_URL}}/phone.png' style='height: 48rpx;width: 48rpx;margin-bottom: -12rpx;margin-left: 10rpx;' bindtap='callUp'></image>
     </view>
     <view>
-      <text style='letter-spacing: 4.67px;'>报名时</text>
-      <text>间：</text>{{showStudent.time}}</view>
+      <text>报名时间：</text>{{showStudent.createtime}}</view>
     <view>
-      <text style='letter-spacing: 14px;'>微信</text>
-      <text>号：</text>{{showStudent.WechatID}}</view>
+      <text>报名课程：</text>{{showStudent.bmName }}</view>
     <view>
-      <text style='letter-spacing: 4.67px;'>微信昵</text>
-      <text>称：</text>{{showStudent.WechatName}}</view>
+      <text style='letter-spacing: 12rpx;'>微信</text>
+      <text>号：</text>{{showStudent.wechatid}}</view>
     <view>
-      <text>使用优惠券：</text>{{showStudent.discount ? '是' : '否'}}</view>
+      <text>微信昵称：</text>{{showStudent.wechatname}}</view>
   </view>
 </dialog>

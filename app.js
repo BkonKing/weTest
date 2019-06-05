@@ -1,6 +1,6 @@
 //app.js
 App({
-  onLaunch: function () {
+  onLaunch: function() {
     var that = this;
     // 展示本地存储能力
     // var logs = wx.getStorageSync('logs') || []
@@ -13,10 +13,14 @@ App({
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         wx.request({
           url: 'https://www.gpper.cn/qjxt/gpper/api/login.do',
-          method: 'post',
+          method: 'POST',
           data: {
-            code: res.code
+            code: 'sdfwerxcvxcvcv'
           },
+          header: {
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          dataType: 'json',
           success: function(res) {
             if (res.data.code == '0000') {
               that.globalData.userid = res.data.id
@@ -54,6 +58,16 @@ App({
         }
       }
     })
+    function JSON_to_URLEncoded(element, key, list) {
+      var list = list || [];
+      if (typeof (element) == 'object') {
+        for (var idx in element)
+          JSON_to_URLEncoded(element[idx], key ? key + '[' + idx + ']' : idx, list);
+      } else {
+        list.push(key + '=' + encodeURIComponent(element));
+      }
+      return list.join('&');
+    }
   },
   globalData: {
     userid: '',
