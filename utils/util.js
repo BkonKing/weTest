@@ -38,8 +38,27 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+const requestPost = (url, data, successCallback, errorCallback) => {
+  wx.showLoading()
+  wx.request({
+    url: url,
+    method: 'post',
+    data: data,
+    success: function(res) {
+      successCallback(res)
+    },
+    header: {
+      'content-type': 'application/x-www-form-urlencoded',
+    },
+    complete: function() {
+      wx.hideLoading()
+    }
+  })
+}
+
 module.exports = {
   formatTime: formatTime,
   formatDate: formatDate,
-  formatMinute: formatMinute
+  formatMinute: formatMinute,
+  requestPost: requestPost
 }

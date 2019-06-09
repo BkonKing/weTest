@@ -1,19 +1,47 @@
 // pages/register/register.js
+var app = getApp();
 import WxValidate from '../../utils/WxValidate';
+import {
+  requestPost
+} from '../../utils/util.js';
 Page({
-  onLoad: function() {
+  onLoad: function(e) {
+    if (e.amend) {
+      var teacherinfo = app.globalData.teacherinfo;
+      this.setData({
+        teacherName: teacherinfo.teacherName,
+        teacherSex: teacherinfo.teacherSex,
+        graduateSchool: teacherinfo.graduateSchool,
+        curriculum: [0, 0],
+        phone: teacherinfo.phone,
+        region: [0, 0, 0],
+        amend: 1
+      })
+    }
     var that = this;
     this.initValidate();
-    this.getClasstyp(0, function(res) {
-      var curriculum0 = 'curriculumList[0]';
-      var curriculum1 = 'curriculumList[1]';
-      that.setData({
-        [curriculum0]: [{ "fid": 0, "id": 1, "name": "阿萨德", "sort": 1 }]
+    this.getClasstyp('0', res => {
+      this.setData({
+        'curriculumList[0]': res.data.data
       })
-      console.log(this.data.curriculumList[0][0].id)
-      this.getClasstyp(this.data.curriculumList[0][0].id, function(response) {
-        that.setData({
-          [curriculum1]: [{ "fid": 0, "id": 1, "name": "阿萨德", "sort": 1 }]
+      this.getClasstyp(this.data.curriculumList[0][0].id, response => {
+        this.setData({
+          'curriculumList[1]': response.data.data
+        })
+      })
+    })
+    this.getArea('86', res => {
+      this.setData({
+        'regionList[0]': res.data.data
+      })
+      this.getArea(this.data.regionList[0][0].code, response => {
+        this.setData({
+          'regionList[1]': response.data.data
+        })
+        this.getArea(this.data.regionList[1][0].code, obj => {
+          this.setData({
+            'regionList[2]': obj.data.data
+          })
         })
       })
     })
@@ -22,28 +50,33 @@ Page({
    * 页面的初始数据
    */
   data: {
-    name: '',
-    sex: '',
-    academy: '',
+    teacherName: '',
+    teacherSex: '',
+    graduateSchool: '',
     curriculum: [0, 0],
-    region: '',
     phone: '',
-    code: '',
+    message: '',
     intervalTime: 0,
     curriculumList: [],
-    region: ['福建省', '福州市', '鼓楼区']
+    region: [0, 0, 0],
+    regionList: [],
+    amend: 0
   },
-  getClasstyp: function (fid, callback) {
-    wx.request({
-      url: 'https://www.gpper.cn/qjxt/gpper/api/classtyp/list.do',
-      method: 'post',
-      data: {
-        fid: fid
-      },
-      success: function (res) {
-        if (res.data.code == '0000') {
-          callback(res)
-        }
+  getClasstyp: function(fid, callback) {
+    requestPost('https://www.gpper.cn/qjxt/gpper/api/classtype/list.do', {
+      fid: fid
+    }, function(res) {
+      if (res.data.code == '0000') {
+        callback(res)
+      }
+    })
+  },
+  getArea: function(fid, callback) {
+    requestPost('https://www.gpper.cn/qjxt/gpper/api/dictDistrict/list.do', {
+      parent: fid
+    }, function(res) {
+      if (res.data.code == '0000') {
+        callback(res)
       }
     })
   },
@@ -67,35 +100,72 @@ Page({
     };
     data.curriculum[e.detail.column] = e.detail.value;
     if (e.detail.column == 0) {
-      switch (data.curriculum[0]) {
-        case 0:
-          data.curriculumList[1] = ["语文", "数学", "英语"];
-          break;
-        case 1:
-          data.curriculumList[1] = ['画画', '钢琴', '小提琴'];
-          break;
-        case 2:
-          data.curriculumList[1] = ['篮球', '足球', '乒乓球'];
-          break;
-      }
-      data.curriculum[1] = 0;
+      this.getClasstyp(this.data.curriculumList[0][e.detail.value].id, response => {
+        data.curriculumList[1] = response.data.data;
+        console.log(response.data.data)
+        data.curriculum[1] = 0;
+        this.setData(data);
+      })
+    } else {
+      this.setData(data);
     }
-    this.setData(data);
+  },
+  regionColumnChange: function(e) {
+    var data = {
+      regionList: this.data.regionList,
+      region: this.data.region
+    };
+    data.region[e.detail.column] = e.detail.value;
+    if (e.detail.column == 0) {
+      this.getArea(this.data.regionList[0][e.detail.value].code, response => {
+        data.regionList[1] = response.data.data;
+        data.region[1] = 0;
+        this.getArea(this.data.regionList[1][0].code, obj => {
+          data.regionList[2] = obj.data.data;
+          data.region[2] = 0;
+          this.setData(data);
+        })
+      })
+    } else if (e.detail.column == 1) {
+      this.getArea(this.data.regionList[1][e.detail.value].code, obj => {
+        data.regionList[2] = obj.data.data;
+        data.region[2] = 0;
+        this.setData(data);
+      })
+    } else {
+      this.setData(data);
+    }
   },
   initValidate() {
     const rules = {
-      name: {
-        required: true,
-        minlength: 2
+      teacherName: {
+        required: true
+      },
+      teacherSex: {
+        required: true
+      },
+      graduateSchool: {
+        required: true
+      },
+      message: {
+        required: true
       },
       phone: {
         required: true
       }
     }
     const messages = {
-      name: {
-        required: '请填写姓名',
-        minlength: '请输入正确的名称'
+      teacherName: {
+        required: '请填写姓名'
+      },
+      teacherSex: {
+        required: '请选择性别'
+      },
+      graduateSchool: {
+        required: '请填写毕业院校'
+      },
+      message: {
+        required: '请填写验证码'
       },
       phone: {
         required: '请填写手机号'
@@ -115,27 +185,38 @@ Page({
     }
     wx.request({
       url: 'https://www.gpper.cn/qjxt/gpper/api/sms.do',
-      method: 'post',
       data: {
         phone: this.data.phone,
         type: 'zc'
       },
-      success: function (res) {
-        that.setData({
-          intervalTime: res.data.timeEnd
-        })
+      success: res => {
+        if (res.data.code == '0000') {
+          this.setData({
+            intervalTime: res.data.timeEnd
+          })
+          var InterValObj = setInterval(function () {
+            if (that.data.intervalTime == 0) {
+              clearInterval(InterValObj); // 停止计时器
+            } else {
+              var time = that.data.intervalTime - 1;
+              that.setData({
+                intervalTime: time
+              })
+            }
+          }, 1000);
+        } else if (res.data.code == '-1') {
+          wx.showModal({
+            content: '短信发送在时间间隔内',
+            showCancel: false
+          })
+        } else {
+          wx.showModal({
+            content: '发送短信次数上限',
+            showCancel: false
+          })
+        }
       }
     })
-    var InterValObj = setInterval(function() {
-      if (that.data.intervalTime == 0) {
-        clearInterval(InterValObj); // 停止计时器
-      } else {
-        var time = that.data.intervalTime - 1;
-        that.setData({
-          intervalTime: time
-        })
-      }
-    }, 1000);
   },
   isPhone: function(value) {
     var isMob = /^((\+?86)|(\(\+86\)))?(1[3456789][0123456789]{9})$/;
@@ -154,7 +235,7 @@ Page({
       url: './replenishInfo'
     })
     const params = e.detail.value
-    console.log(params)
+    params.message = Number(params.message)
     if (!this.WxValidate.checkForm(params)) {
       const error = this.WxValidate.errorList[0]
       wx.showModal({
@@ -166,8 +247,40 @@ Page({
     if (!this.isPhone(params.phone)) {
       return false;
     }
-    wx.navigateTo({
-      url: './replenishInfo'
+    let user = {
+      userid: wx.getStorageSync('userid'),
+      teacherProvincesCode: this.data.regionList[0][this.data.region[0]].code,
+      teacherCityCode: this.data.regionList[1][this.data.region[1]].code,
+      teacherAreaCode: this.data.regionList[2][this.data.region[2]].code
+    };
+    let newObj = {};
+    // 13599023245
+    Object.assign(newObj, params, user);
+    wx.request({
+      url: 'https://www.gpper.cn/qjxt/gpper/api/nextStep.do',
+      data: newObj,
+      success: res => {
+        if (res.data.code == -1) {
+          wx.showModal({
+            content: '验证码错误，请重新输入',
+            showCancel: false
+          })
+        } else if (res.data.code == -2) {
+          wx.showModal({
+            content: '验证码已失效，请重新获取',
+            showCancel: false
+          })
+        } else {
+          if (this.data.amend) {
+            wx.navigateTo({
+              url: './replenishInfo?amend=1'
+            })
+          }
+          wx.navigateTo({
+            url: './replenishInfo'
+          })
+        }
+      }
     })
   }
 })

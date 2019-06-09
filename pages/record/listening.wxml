@@ -1,0 +1,36 @@
+<view>
+  <view>
+    <image src='{{albumInfo.teacherClassImage}}' style='width: 100%;height: 360rpx;'></image>
+    <view class='teacherAlbumTitle'>{{albumInfo.teacherAlbumTitle}}</view>
+    <view class='teacherAlbumInfo'>{{albumInfo.teacherAlbumInfo}}</view>
+    <view class='schedule-box'>
+      <view class='schedule'>
+        <view style='overflow: hidden;color: #fff;font-size: 12px;'>
+          <text style='float: left;'>{{showTime1}}</text>
+          <text style='float: right;'>10:00</text>
+        </view>
+        <slider bindchange="sliderChange" activeColor='#3cc51f' block-size="8" left-icon="cancel" right-icon="success_no_circle" value='{{audioTime}}' />
+      </view>
+    </view>
+    <view>
+      <view class='audio-btn'>
+        <view class='iconfont backward'></view>
+        <view class='play-btn' catchtap='playAudio'>
+          <view class='iconfont pause' wx:if="{{isPlayAudio}}"></view>
+          <view class='iconfont play' wx:else></view>
+        </view>
+        <view class='iconfont forward'></view>
+      </view>
+    </view>
+  </view>
+  <view style='height: 10px;width: 100%;background: #f4f4f4;'></view>
+  <view>
+    <view class='curriculum-list'>课程列表</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell" wx:for="{{curriculumList}}" wx:key="{{item.id}}">
+        <view class="weui-cell__bd">{{item.teacherClassTitle}}</view>
+        <view class="weui-cell__ft" bindtap='listenTest' data-index='{{index}}'>试听</view>
+      </view>
+    </view>
+  </view>
+</view>

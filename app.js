@@ -43,10 +43,11 @@ App({
     return new Promise((resolve, reject) => {
       wx.login({
         success: res => {
+          wx.showLoading()
           if (res.code) {
             // 发送 res.code 到后台换取 openId, sessionKey, unionId
             wx.request({
-              url: 'https://www.gpper.cn/qjxt/gpper/api/login.do ',
+              url: 'https://www.gpper.cn/qjxt/gpper/api/login.do',
               data: {
                 code: res.code,
               },
@@ -59,7 +60,7 @@ App({
               success: function(response) {
                 // console.log(response)
                 if (response.data.code == '0000') {
-                  that.globalData.userid = response.data.id
+                  wx.setStorageSync('userid', response.data.id)
                   that.globalData.teacherinfo = response.data.teacherinfo
                   resolve(response)
                 }
@@ -80,7 +81,6 @@ App({
     })
   },
   globalData: {
-    userid: '',
     teacherinfo: {},
     userInfo: null,
     imgurl: "/static/images"

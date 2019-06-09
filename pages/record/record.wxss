@@ -3,9 +3,10 @@
 .albumImg {
   width: 120rpx;
   height: 120rpx;
-  background: #FFC438;
+  background: #ffc438;
   position: relative;
 }
+
 .albumName {
   position: absolute;
   right: 0;
@@ -16,14 +17,17 @@
   display: block;
   color: #fff;
 }
+
 .weui-media-box__title {
   color: #252525;
   font-size: 14px;
 }
+
 .weui-media-box__desc {
-  color: #7D7D7D;
+  color: #7d7d7d;
   font-size: 12px;
 }
+
 .record-btn {
   left: calc(50% - 80rpx);
   bottom: 60rpx;
@@ -35,4 +39,52 @@
   width: 50rpx;
   height: 70rpx;
   margin: 22rpx 56rpx 0;
+}
+
+.content {
+  /* margin-right:0; */
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  -webkit-transform: translateX(150rpx);
+  transform: translateX(150rpx);
+  margin-left: -150rpx;
+}
+
+.touch-item {
+  height: 90px;
+  width: 100%;
+  display: flex;
+  /* //均匀排布每个元素 */
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.operation {
+  display: flex;
+  width: 300rpx;
+  height: 100%;
+  -webkit-transform: translateX(300rpx);
+  transform: translateX(300rpx);
+  -webkit-transition: all 0.4s;
+}
+
+.operation > view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  width: 50%;
+}
+
+.del {
+  background-color: red;
+}
+
+.edit {
+  background-color: #1aad19;
+}
+
+.touch-move-active .content, .touch-move-active .operation {
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
 }

@@ -2,7 +2,7 @@
   <view class="page-bg-title">
     发布的消息
   </view>
-  <navigator wx:for="{{messageList}}" wx:key="{{item.id}}" url='./dynamic' style='padding: 20px 10px 0;'>
+  <navigator wx:for="{{messageList}}" wx:key="{{item.id}}" url='./dynamic?id={{item.id}}' style='padding: 20px 10px 0;'>
     <view class='card'>
       <view class='card-title'>{{item.title}}</view>
       <view class='card-content'>{{item.news_content}}</view>

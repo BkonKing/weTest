@@ -1,10 +1,9 @@
 // pages/information/edit.js
+import {
+  requestPost
+} from '../../utils/util.js';
 var app = getApp();
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     files: [],
     id: "",
@@ -12,18 +11,12 @@ Page({
     title: "",
     imageId: ""
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function() {
-  },
-  formTitle: function (e) {
+  formTitle: function(e) {
     this.setData({
       title: e.detail.value
     })
   },
-  formContent: function (e) {
+  formContent: function(e) {
     this.setData({
       newsContent: e.detail.value
     })
@@ -36,27 +29,19 @@ Page({
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function(res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        wx.request({
-          url: 'https://www.gpper.cn/qjxt/gpper/api/upload/picture.do',
-          method: 'post',
-          header: {
-            'content-type': 'application/x-www-form-urlencoded',
-          },
-          data: {
-            userid: app.globalData.userid
-          },
-          success: function(response) {
-            if (response.data.code == '0000') {
-              that.setData({
-                files: res.tempFilePaths,
-                imageId: response.data.imageId
-              })
-            } else {
-              wx.showModal({
-                title: '上传失败，请重新上传！',
-                showCancel: false
-              })
-            }
+        requestPost('https://www.gpper.cn/qjxt/gpper/api/upload/picture.do', {
+          userid: wx.getStorageSync('userid')
+        }, function(response) {
+          if (response.data.code == '0000') {
+            that.setData({
+              files: res.tempFilePaths,
+              imageId: response.data.imageId
+            })
+          } else {
+            wx.showModal({
+              title: '上传失败，请重新上传！',
+              showCancel: false
+            })
           }
         })
       }
@@ -72,28 +57,23 @@ Page({
       this.showMo("请填写内容")
       return false
     }
-    if (!this.data.imageId) {
-      this.showMo("请上传图片或者重新上传图片")
-      return false
-    }
-    wx.request({
-      url: 'https://www.gpper.cn/qjxt/gpper/api/news/publishNews.do',
-      method: 'post',
-      data: {
-        userid: app.globalData.userid,
-        id: that.data.id,
-        newsContent: that.data.newsContent,
-        title: that.data.title,
-        imageId: that.data.imageId
-      },
-      success: function (res) {
-        if (res.data.code == '0000') {
-          that.showMo("发布成功")
-        }
+    // if (!this.data.imageId) {
+    //   this.showMo("请上传图片或者重新上传图片")
+    //   return false
+    // }
+    requestPost('https://www.gpper.cn/qjxt/gpper/api/news/publishNews.do', {
+      userid: wx.getStorageSync('userid'),
+      id: that.data.id,
+      newsContent: that.data.newsContent,
+      title: that.data.title,
+      imageId: that.data.imageId
+    }, function(res) {
+      if (res.data.code == '0000') {
+        that.showMo("发布成功")
       }
     })
   },
-  showMo: function (content) {
+  showMo: function(content) {
     wx.showModal({
       content: content,
       showCancel: false

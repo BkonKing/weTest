@@ -1,5 +1,45 @@
 /* pages/record/recording.wxss */
 
+.animation-element-wrapper {
+  width: 680rpx;
+  height: 680rpx;
+  border: 8rpx solid #e9e9e9;
+  border-radius: 50%;
+  margin: 72rpx auto 52rpx;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 200rpx 150rpx;
+}
+
+.animation-element {
+  position: absolute;
+  width: 1px;
+  height: 320rpx;
+  background: #ffa60c;
+  transition: all 1s linear;
+}
+
+.animation-box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.animation-line {
+  width: 4px;
+  border-radius: 2px;
+  margin-right: 2px;
+  background: #e9e9e9;
+  transition: all 4s linear;
+}
+
+.animation-line.pass {
+  transition: all 4s linear;
+  background: linear-gradient(#fe830a, #ffc90e);
+}
+
 .audition {
   width: 100rpx;
   height: 100rpx;

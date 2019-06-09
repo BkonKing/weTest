@@ -1,0 +1,83 @@
+/* pages/record/listening.wxss */
+
+.curriculum-list {
+  padding: 5px 0 5px 10px;
+  color: #3cc51f;
+  font-size: 16px;
+  border-bottom: 2px solid #3cc51f;
+}
+
+.teacherAlbumTitle {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.teacherAlbumInfo {
+  color: #7d7d7d;
+  text-align: center;
+}
+
+.weui-cells .weui-cell {
+  padding-left: 25px;
+}
+
+.weui-cells .weui-cell__bd {
+  color: #7d7d7d;
+}
+
+.weui-cells .weui-cell__ft {
+  color: #3cc51f;
+}
+
+.schedule-box {
+  width: 100%;
+  height: 34px;
+  box-sizing: border-box;
+  padding: 0 15px;
+}
+
+.schedule {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  border-radius: 17px;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.schedule slider {
+  margin: 0;
+  margin-left: 5px;
+  margin-top: -5px;
+  width: 96%;
+}
+
+.audio-btn {
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.audio-btn > view {
+  display: inline-block;
+  border: 2px solid #838383;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  line-height: 25px;
+  text-align: center;
+  color: #838383;
+}
+
+.audio-btn > view.play-btn {
+  width: 45px;
+  height: 45px;
+  line-height: 45px;
+  border-color: #3cc51f;
+}
+.audio-btn > view.play-btn .iconfont{
+  font-size: 26px;
+  color: #3cc51f;
+}

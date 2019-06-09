@@ -1,5 +1,5 @@
 // pages/information/information.js
-var app = getApp();
+import { requestPost } from '../../utils/util.js';
 Page({
 
   /**
@@ -18,20 +18,15 @@ Page({
       "unionid": "123"
     }]
   },
-  onLoad: function() {
+  onShow: function() {
     var that = this;
-    wx.request({
-      url: 'https://www.gpper.cn/qjxt/gpper/api/news/list.do',
-      method: 'post',
-      data: {
-        userid: app.globalData.userid
-      },
-      success: function(res) {
-        if (res.data.code == '0000') {
-          that.setData({
-            albumList: res.data.data
-          })
-        }
+    requestPost('https://www.gpper.cn/qjxt/gpper/api/news/list.do', {
+      userid: wx.getStorageSync('userid')
+    }, function (res) {
+      if (res.data.code == '0000') {
+        that.setData({
+          albumList: res.data.data
+        })
       }
     })
   },

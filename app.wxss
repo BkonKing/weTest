@@ -1,5 +1,6 @@
 /**app.wxss**/
 @import './styles/weui.wxss';
+@import './styles/iconfont.wxss';
 
 .container {
   height: 100%;
@@ -74,8 +75,13 @@ button[type=primary] {
   background-color: #ffc438;
 }
 
-button[type=primary]:disabled {
-  background-color: #ffc438 !important;
+button[disabled] {
+  background: #ffc438 !important;
+}
+button[type=primary]:hover,
+.button-hover,
+.other-button-hover {
+  background: #ffc438 !important;
 }
 
 .phcolor {

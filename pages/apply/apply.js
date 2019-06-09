@@ -65,24 +65,20 @@ Page({
     });
     this.getuserbm(-1, 'studentsList');
   },
-  getuserbm: function (num, field) {
+  getuserbm: function(num, field) {
     var that = this;
-    wx.request({
-      url: 'https://www.gpper.cn/qjxt/gpper/api/userbm/list.do',
-      method: 'post',
-      data: {
-        userid: app.globalData.userid,
-        isGraduation: num
-      },
-      success: function (res) {
-        that.setData({
-          // [field]: res.data.data
-          [field]: []
-        })
-      }
+    util.requestPost('https://www.gpper.cn/qjxt/gpper/api/userbm/list.do', {
+      userid: wx.getStorageSync('userid'),
+      isGraduation: num
+    }, function(res) {
+      that.setData({
+        // [field]: res.data.data
+        [field]: []
+      })
     })
   },
   tabClick: function(e) {
+    var that = this;
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id
@@ -94,11 +90,10 @@ Page({
     } else if (e.currentTarget.id == '2') {
       wx.request({
         url: 'https://www.gpper.cn/qjxt/gpper/api/applyStart.do',
-        method: 'post',
         data: {
-          userid: app.globalData.userid
+          userid: wx.getStorageSync('userid')
         },
-        success: function(res) {
+        success: function (res) {
           that.setData({
             isApplyStart: '',
             startTime: '',
@@ -106,6 +101,15 @@ Page({
           })
         }
       })
+      // util.requestPost('https://www.gpper.cn/qjxt/gpper/api/applyStart.do', {
+      //   userid: wx.getStorageSync('userid')
+      // }, function(res) {
+      //   that.setData({
+      //     isApplyStart: '',
+      //     startTime: '',
+      //     endTime: ''
+      //   })
+      // })
     }
   },
   getPersonal: function(e, item) {
@@ -138,26 +142,21 @@ Page({
         content: '请选择报名开始时间和截止时间',
         showCancel: false
       })
-      return ;
+      return;
     }
-    wx.request({
-      url: 'https://www.gpper.cn/qjxt/gpper/api/userbm/list.do',
-      method: 'post',
-      data: {
-        userid: app.globalData.userid,
-        startTime: this.data.startTime,
-        endTime: this.data.endTime
-      },
-      success: function (res) {
-        // that.setData({
-        //   [field]: res.data.data
-        // })
-        if (res.data.code == '0000') {
-          wx.showModal({
-            content: '报名开启成功',
-            showCancel: false
-          })
-        }
+    util.requestPost('https://www.gpper.cn/qjxt/gpper/api/userbm/list.do', {
+      userid: wx.getStorageSync('userid'),
+      startTime: this.data.startTime,
+      endTime: this.data.endTime
+    }, function(res) {
+      // that.setData({
+      //   [field]: res.data.data
+      // })
+      if (res.data.code == '0000') {
+        wx.showModal({
+          content: '报名开启成功',
+          showCancel: false
+        })
       }
     })
   }

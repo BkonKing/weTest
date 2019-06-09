@@ -12,10 +12,15 @@ const options = {
   frameSize: 50, //指定帧大小，单位 KB
 }
 Page({
-
-  /**
-   * 页面的初始数据
-   */
+  onReady: function () {
+    this.animation = wx.createAnimation({
+      duration: 600000
+    })
+  },
+  translate: function () {
+    this.animation.left(680).step()
+    // this.setData({ animation: this.animation.export() })
+  },
   data: {
     operationImg: 'play.png',
     operation: '开始',
@@ -23,7 +28,8 @@ Page({
     recordingTime: 0,
     showTime: '00:00:00',
     tempFilePath: '',
-    recordState: 0
+    recordState: 0,
+    left: 0
   },
   listening: function() {
     var that = this;
@@ -61,13 +67,16 @@ Page({
     that.data.setInter = setInterval(
       function() {
         var time = that.data.recordingTime + 1;
+        var left = that.data.left + 1 > 364 ? 0 : that.data.left + 1
         that.setData({
           recordingTime: time,
-          showTime: util.formatMinute(time)
+          showTime: util.formatMinute(time),
+          left: left
         })
       }, 1000);
   },
   startRecord: function(e) {
+    this.translate();
     clearInterval(this.data.setInter);
     if (this.data.recordState == 0) {
       recorderManager.start(options);
@@ -84,6 +93,7 @@ Page({
   onLoad: function(options) {
     var that = this;
     recorderManager.onStart(() => {
+      this.translate();
       console.log("开始");
       //开始录音计时   
       that.recordingTimer();
@@ -141,9 +151,9 @@ Page({
         // },
         //参数绑定
         formData: {
-          userid: app.globalData.userid
+          userid: wx.getStorageSync('userid')
         },
-        success: function(ress) {
+        success: function(res) {
           if (res.data.code == '0000') {
             wx.showToast({
               title: '保存完成',

@@ -1,5 +1,40 @@
 <view>
-  <view style='width: 680rpx;height: 680rpx;border: 8rpx solid #E9E9E9;border-radius: 50%;margin: 72rpx auto 52rpx;'></view>
+  <view class='animation-element-wrapper'>
+    <view class='animation-box'>
+      <view class="animation-element" style='left: {{left}}rpx'></view>
+      <view class='animation-line {{left > 0 ? "pass":""}}' style='height: 66rpx;'></view>
+      <view class='animation-line {{left > 12 ? "pass":""}}' style='height: 80rpx;'></view>
+      <view class='animation-line {{left > 24 ? "pass":""}}' style='height: 90rpx;'></view>
+      <view class='animation-line {{left > 36 ? "pass":""}}' style='height: 136rpx;'></view>
+      <view class='animation-line {{left > 48 ? "pass":""}}' style='height: 220rpx;'></view>
+      <view class='animation-line {{left > 60 ? "pass":""}}' style='height: 280rpx;'></view>
+      <view class='animation-line {{left > 72 ? "pass":""}}' style='height: 220rpx;'></view>
+      <view class='animation-line {{left > 84 ? "pass":""}}' style='height: 136rpx;'></view>
+      <view class='animation-line {{left > 96 ? "pass":""}}' style='height: 90rpx;'></view>
+      <view class='animation-line {{left > 108 ? "pass":""}}' style='height: 180rpx;'></view>
+      <view class='animation-line {{left > 120 ? "pass":""}}' style='height: 150rpx;'></view>
+      <view class='animation-line {{left > 132 ? "pass":""}}' style='height: 160rpx;'></view>
+      <view class='animation-line {{left > 144 ? "pass":""}}' style='height: 80rpx;'></view>
+      <view class='animation-line {{left > 156 ? "pass":""}}' style='height: 130rpx;'></view>
+      <view class='animation-line {{left > 168 ? "pass":""}}' style='height: 160rpx;'></view>
+      <view class='animation-line {{left > 180 ? "pass":""}}' style='height: 139rpx;'></view>
+      <view class='animation-line {{left > 192 ? "pass":""}}' style='height: 170rpx;'></view>
+      <view class='animation-line {{left > 204 ? "pass":""}}' style='height: 80rpx;'></view>
+      <view class='animation-line {{left > 216 ? "pass":""}}' style='height: 146rpx;'></view>
+      <view class='animation-line {{left > 228 ? "pass":""}}' style='height: 62rpx;'></view>
+      <view class='animation-line {{left > 240 ? "pass":""}}' style='height: 80rpx;'></view>
+      <view class='animation-line {{left > 252 ? "pass":""}}' style='height: 62rpx;'></view>
+      <view class='animation-line {{left > 264 ? "pass":""}}' style='height: 76rpx;'></view>
+      <view class='animation-line {{left > 276 ? "pass":""}}' style='height: 108rpx;'></view>
+      <view class='animation-line {{left > 288 ? "pass":""}}' style='height: 76rpx;'></view>
+      <view class='animation-line {{left > 300 ? "pass":""}}' style='height: 94rpx;'></view>
+      <view class='animation-line {{left > 312 ? "pass":""}}' style='height: 76rpx;'></view>
+      <view class='animation-line {{left > 324 ? "pass":""}}' style='height: 64rpx;'></view>
+      <view class='animation-line {{left > 336 ? "pass":""}}' style='height: 48rpx;'></view>
+      <view class='animation-line {{left > 348 ? "pass":""}}' style='height: 38rpx;'></view>
+      <view class='animation-line {{left > 360 ? "pass":""}}' style='height: 38rpx;'></view>
+    </view>
+  </view>
   <view style='text-align: center;font-size: 48rpx;'>
     {{showTime}} / 00:10:00
   </view>

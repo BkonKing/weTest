@@ -4,19 +4,25 @@
   </view>
   <view class="page__bd">
     <view class="weui-panel weui-panel_access">
-      <view class="weui-panel__bd">
-        <navigator wx:for="{{albumList}}" wx:key="{{item.title}}" url="./recording" open-type="redirect" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
-          <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-            <view class='albumImg'>
-              <text class='albumName'>{{item.teacherAlbumName}}</text>
+      <view class="weui-panel__bd contents">
+        <view bindtap='toDetail' wx:for="{{albumList}}" wx:key="{{item.title}}" open-type="redirect" class=" {{item.isTouchMove ? 'touch-move-active' : ''}} touch-item" data-index="{{index}}" bindtouchstart="touchstart" bindtouchmove="touchmove">
+          <view class='weui-media-box weui-media-box_appmsg content'>
+            <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+              <view class='albumImg'>
+                <text class='albumName'>{{item.teacherAlbumName}}</text>
+              </view>
+              <!-- <image class="weui-media-box__thumb" src="{{item.art}}" /> -->
             </view>
-            <!-- <image class="weui-media-box__thumb" src="{{item.art}}" /> -->
+            <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+              <view class="weui-media-box__title">{{item.teacherAlbumTitle}}</view>
+              <view class="weui-media-box__desc">{{item.createtime}}</view>
+            </view>
           </view>
-          <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-            <view class="weui-media-box__title">{{item.teacherAlbumTitle}}</view>
-            <view class="weui-media-box__desc">{{item.createtime}}</view>
+          <view class='operation'>
+            <view class="edit" catchtap="edit" data-index="{{index}}">修改</view>
+            <view class="del" catchtap="del" data-index="{{index}}">删除</view>
           </view>
-        </navigator>
+        </view>
       </view>
     </view>
   </view>

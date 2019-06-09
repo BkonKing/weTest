@@ -1,10 +1,8 @@
 // pages/information/dynamic.js
-var app = getApp();
+import {
+  requestPost
+} from '../../utils/util.js';
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     show: false,
     news: null,
@@ -52,12 +50,22 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
+    // requestPost('https://www.gpper.cn/qjxt/gpper/api/news/showLeave.do', {
+    //   userid: wx.getStorageSync('userid'),
+    //   id: ''
+    // }, function(res) {
+    //   if (res.data.code == '0000') {
+    //     that.setData({
+    //       news: res.data.news,
+    //       leaveWords: res.data.data
+    //     })
+    //   }
+    // })
     wx.request({
       url: 'https://www.gpper.cn/qjxt/gpper/api/news/showLeave.do',
-      method: 'get',
       data: {
-        userid: app.globalData.userid,
-        id: ''
+        userid: wx.getStorageSync('userid'),
+        id: options.id
       },
       success: function(res) {
         if (res.data.code == '0000') {
@@ -68,54 +76,5 @@ Page({
         }
       }
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
   }
 })
