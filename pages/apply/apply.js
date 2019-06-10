@@ -88,28 +88,28 @@ Page({
     } else if (e.currentTarget.id == '1') {
       this.getuserbm(-2, 'previousList');
     } else if (e.currentTarget.id == '2') {
-      wx.request({
-        url: 'https://www.gpper.cn/qjxt/gpper/api/applyStart.do',
-        data: {
-          userid: wx.getStorageSync('userid')
-        },
-        success: function (res) {
-          that.setData({
-            isApplyStart: '',
-            startTime: '',
-            endTime: ''
-          })
-        }
-      })
-      // util.requestPost('https://www.gpper.cn/qjxt/gpper/api/applyStart.do', {
-      //   userid: wx.getStorageSync('userid')
-      // }, function(res) {
-      //   that.setData({
-      //     isApplyStart: '',
-      //     startTime: '',
-      //     endTime: ''
-      //   })
+      // wx.request({
+      //   url: 'https://www.gpper.cn/qjxt/gpper/api/applyStart.do',
+      //   data: {
+      //     userid: wx.getStorageSync('userid')
+      //   },
+      //   success: function (res) {
+      //     that.setData({
+      //       isApplyStart: '',
+      //       startTime: '',
+      //       endTime: ''
+      //     })
+      //   }
       // })
+      util.requestPost('https://www.gpper.cn/qjxt/gpper/api/applyStart.do', {
+        userid: wx.getStorageSync('userid')
+      }, res => {
+        that.setData({
+          isApplyStart: res.data.isApplyStart,
+          startTime: res.data.startTime,
+          endTime: res.data.endTime
+        })
+      })
     }
   },
   getPersonal: function(e, item) {
@@ -144,7 +144,7 @@ Page({
       })
       return;
     }
-    util.requestPost('https://www.gpper.cn/qjxt/gpper/api/userbm/list.do', {
+    util.requestPost('https://www.gpper.cn/qjxt/gpper/api/applyTime.do', {
       userid: wx.getStorageSync('userid'),
       startTime: this.data.startTime,
       endTime: this.data.endTime

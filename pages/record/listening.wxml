@@ -7,19 +7,19 @@
       <view class='schedule'>
         <view style='overflow: hidden;color: #fff;font-size: 12px;'>
           <text style='float: left;'>{{showTime1}}</text>
-          <text style='float: right;'>10:00</text>
+          <text style='float: right;'>{{showTime2}}</text>
         </view>
         <slider bindchange="sliderChange" activeColor='#3cc51f' block-size="8" left-icon="cancel" right-icon="success_no_circle" value='{{audioTime}}' />
       </view>
     </view>
     <view>
       <view class='audio-btn'>
-        <view class='iconfont backward'></view>
+        <view class='iconfont backward' bindtap='prevAudio'></view>
         <view class='play-btn' catchtap='playAudio'>
           <view class='iconfont pause' wx:if="{{isPlayAudio}}"></view>
           <view class='iconfont play' wx:else></view>
         </view>
-        <view class='iconfont forward'></view>
+        <view class='iconfont forward' bindtap='nextAudio'></view>
       </view>
     </view>
   </view>

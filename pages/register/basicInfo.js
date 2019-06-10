@@ -185,9 +185,13 @@ Page({
     }
     wx.request({
       url: 'https://www.gpper.cn/qjxt/gpper/api/sms.do',
+      method: 'post',
       data: {
         phone: this.data.phone,
         type: 'zc'
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
       },
       success: res => {
         if (res.data.code == '0000') {
@@ -231,11 +235,12 @@ Page({
     return false;
   },
   formSubmit: function(e) {
-    wx.navigateTo({
-      url: './replenishInfo'
-    })
+    // wx.navigateTo({
+    //   url: './replenishInfo'
+    // })
     const params = e.detail.value
     params.message = Number(params.message)
+    params.phone = Number(params.phone)
     if (!this.WxValidate.checkForm(params)) {
       const error = this.WxValidate.errorList[0]
       wx.showModal({
@@ -258,7 +263,11 @@ Page({
     Object.assign(newObj, params, user);
     wx.request({
       url: 'https://www.gpper.cn/qjxt/gpper/api/nextStep.do',
+      method: 'post',
       data: newObj,
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+      },
       success: res => {
         if (res.data.code == -1) {
           wx.showModal({
@@ -270,7 +279,7 @@ Page({
             content: '验证码已失效，请重新获取',
             showCancel: false
           })
-        } else {
+        } else if (res.data.code == '0000') {
           if (this.data.amend) {
             wx.navigateTo({
               url: './replenishInfo?amend=1'

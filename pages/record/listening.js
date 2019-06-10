@@ -5,8 +5,7 @@ import {
 Page({
   data: {
     audiolist: {
-      audiosrc: 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
-      coverimg: "https://goss.veer.com/creative/vcg/veer/800water/veer-146156021.jpg"
+      audiosrc: 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46'
     },
     isPlayAudio: false,
     audioSeek: 0,
@@ -15,7 +14,8 @@ Page({
     showTime2: '00:00',
     audioTime: 0,
     curriculumList: [],
-    albumInfo: null
+    albumInfo: null,
+    index: 0
   },
   onLoad: function() {
     this.setData({
@@ -166,17 +166,51 @@ Page({
     clearInterval(this.data.durationIntval);
   },
   listenTest: function(e) {
+    this.setData({
+      index: e.currentTarget.dataset.index
+    })
     this.getAudio(e.currentTarget.dataset.index);
+  },
+  prevAudio: function(e) {
+    if (this.data.index) {
+      this.setData({
+        index: this.data.index - 1
+      })
+    } else {
+      wx.showModal({
+        content: '已是第一课',
+      })
+    }
+    this.getAudio(this.data.index)
+  },
+  nextAudio: function (e) {
+    if (this.data.index == this.data.curriculumList.length - 1) {
+      wx.showModal({
+        content: '已是最后一课',
+      })
+    } else {
+      this.setData({
+        index: this.data.index + 1
+      })
+    }
+    this.getAudio(this.data.index)
   },
   getAudio: function(index) {
     var that = this;
     requestPost('https://www.gpper.cn/qjxt/gpper/api/albuminfo/play.do', {
       userid: wx.getStorageSync('userid'),
       videoId: this.data.curriculumList[index].videoId
-    }, function(res) {
+    }, res => {
+      clearInterval(this.data.durationIntval);
       that.setData({
-        'audiolist.audiosrc': res.data.play_url
+        'audiolist.audiosrc': res.data.play_url,
+        isPlayAudio: false,
+        audioSeek: 0,
+        audioDuration: 0,
+        showTime1: '00:00'
       })
+      this.Initialization();
+      this.loadaudio();
     })
   }
 })

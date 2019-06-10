@@ -114,11 +114,19 @@ Page({
       })
       return false;
     }
+    let user = {
+      userid: wx.getStorageSync('userid'),
+      imageId: this.data.imageId
+    };
+    let newObj = {};
+    // 13599023245
+    Object.assign(newObj, params, user);
     wx.request({
       url: 'https://www.gpper.cn/qjxt/gpper/api/albumInfo/add.do',
       method: 'post',
-      data: {
-        userid: wx.getStorageSync('userid')
+      data: newObj,
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
       },
       success: function(response) {
         if (response.data.code == '0000') {
@@ -147,11 +155,11 @@ Page({
     this.initValidate();
     requestPost('https://www.gpper.cn/qjxt/gpper/api/album/selectAlbum.do', {
       userid: wx.getStorageSync('userid')
-    }, function(response) {
+    }, response => {
       if (response.data.code == '0000') {
-        that.setData({
-          albumList: response.data.data
-        })
+        // that.setData({
+        //   albumList: response.data.data
+        // })
       }
     })
   }

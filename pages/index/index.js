@@ -4,7 +4,7 @@ const app = getApp()
 Page({
   onLoad: function() {
     app.getUser().then(() => {
-      if (app.globalData.teacherinfo.flag != 0) {
+      if (app.globalData.teacherinfo.flag == 0) {
         wx.redirectTo({
           url: '/pages/register/basicInfo'
         })

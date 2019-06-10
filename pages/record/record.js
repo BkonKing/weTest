@@ -51,10 +51,10 @@ Page({
       userid: wx.getStorageSync('userid')
     }, function (res) {
       if (res.data.code == '0000') {
-        that.setData({
-          albumList: res.data.data,
-          curriculumList: res.data.data2
-        })
+        // that.setData({
+        //   albumList: res.data.data,
+        //   curriculumList: res.data.data2
+        // })
       }
     });
   },

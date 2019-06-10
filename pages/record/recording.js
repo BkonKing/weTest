@@ -53,12 +53,12 @@ Page({
   },
   save: function() {
     var that = this;
-    if (this.data.recordState != 0) {
-      recorderManager.stop();
-    }
     wx.navigateTo({
       url: './saveRecord'
     })
+    if (this.data.recordState != 0) {
+      recorderManager.stop();
+    }
   },
   //录音计时器
   recordingTimer: function() {
