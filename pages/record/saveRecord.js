@@ -14,6 +14,10 @@ Page({
     files: [],
     imageId: '',
     audioId: '',
+    teacherAlbumTitle: '',
+    teacherAlbumInfo: '',
+    teacherAlbumName: '',
+    albumState: false,
     albumList: [{
       "createtime": "2019-06-04",
       "id": "1234",
@@ -59,39 +63,15 @@ Page({
   },
   bindPickerChange: function(e) {
     this.setData({
-      album: e.detail.value
+      album: e.detail.value,
+      teacherAlbumInfo: this.data.albumList[e.detail.value].teacherAlbumInfo,
+      teacherAlbumName: this.data.albumList[e.detail.value].teacherAlbumName,
+      teacherAlbumTitle: this.data.albumList[e.detail.value].teacherAlbumTitle,
+      albumState: this.isNew(this.data.albumList[e.detail.value].teacherAlbumName)
     })
   },
-  initValidate() {
-    const rules = {
-      teacherAlbumTitle: {
-        required: true
-      },
-      teacherAlbumInfo: {
-        required: true
-      },
-      album: {
-        required: true
-      },
-      teacherAlbumName: {
-        required: true
-      }
-    }
-    const messages = {
-      teacherAlbumTitle: {
-        required: '请填写标题'
-      },
-      teacherAlbumInfo: {
-        required: '请填写课程简介'
-      },
-      album: {
-        required: '请选择专辑'
-      },
-      teacherAlbumName: {
-        required: '请填写专辑名称'
-      }
-    }
-    this.WxValidate = new WxValidate(rules, messages)
+  isNew(name) {
+    return name.indexOf('新建') == -1
   },
   formSubmit: function(e) {
     // wx.navigateTo({
@@ -99,14 +79,6 @@ Page({
     // })
     var that = this;
     const params = e.detail.value
-    if (!this.WxValidate.checkForm(params)) {
-      const error = this.WxValidate.errorList[0]
-      wx.showModal({
-        content: error.msg,
-        showCancel: false,
-      })
-      return false
-    }
     if (!this.data.agreement) {
       wx.showModal({
         content: "请阅读并同意使用条款和隐私政策",
@@ -116,7 +88,8 @@ Page({
     }
     let user = {
       userid: wx.getStorageSync('userid'),
-      imageId: this.data.imageId
+      imageId: this.data.imageId,
+      id: this.data.albumList[this.data.album].id
     };
     let newObj = {};
     // 13599023245
@@ -151,8 +124,10 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function() {
-    this.initValidate();
+  onLoad: function(e) {
+    this.setData({
+      audioId: e.audioId
+    })
     requestPost('https://www.gpper.cn/qjxt/gpper/api/album/selectAlbum.do', {
       userid: wx.getStorageSync('userid')
     }, response => {
@@ -160,6 +135,12 @@ Page({
         // that.setData({
         //   albumList: response.data.data
         // })
+        this.setData({
+          teacherAlbumInfo: this.data.albumList[0].teacherAlbumInfo,
+          teacherAlbumName: this.data.albumList[0].teacherAlbumName,
+          teacherAlbumTitle: this.data.albumList[0].teacherAlbumTitle,
+          albumState: this.isNew(this.data.albumList[0].teacherAlbumName)
+        })
       }
     })
   }

@@ -30,7 +30,8 @@ Page({
       success: function(res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         requestPost('https://www.gpper.cn/qjxt/gpper/api/upload/picture.do', {
-          userid: wx.getStorageSync('userid')
+          userid: wx.getStorageSync('userid'),
+          imageUrl: "www.gpper.cn\\pepper\\mi-xx-operate\\WebRoot\\images\\"
         }, function(response) {
           if (response.data.code == '0000') {
             that.setData({
@@ -66,10 +67,11 @@ Page({
       id: that.data.id,
       newsContent: that.data.newsContent,
       title: that.data.title,
-      imageId: that.data.imageId
-    }, function(res) {
+      imageId: that.data.imageId || 'sdfsdfsdf'
+    }, res => {
       if (res.data.code == '0000') {
-        that.showMo("发布成功")
+        this.showMo("发布成功")
+        wx.navigateBack()
       }
     })
   },

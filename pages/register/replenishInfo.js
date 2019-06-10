@@ -49,13 +49,13 @@ Page({
     })
   },
   finish: function(e) {
-    if (this.data.files.length == 0) {
-      wx.showModal({
-        content: "请至少上传一张照片",
-        showCancel: false,
-      })
-      return;
-    }
+    // if (this.data.files.length == 0) {
+    //   wx.showModal({
+    //     content: "请至少上传一张照片",
+    //     showCancel: false,
+    //   })
+    //   return;
+    // }
     if (!this.data.teacherHonor) {
       wx.showModal({
         content: "请输入所得荣誉",
@@ -74,12 +74,13 @@ Page({
       userid: wx.getStorageSync('urserid'),
       teacherInfo: this.data.teacherInfo,
       teacherHonor: this.data.teacherHonor,
-      imageId: this.data.imageId
-    }, function(res) {
-
-    })
-    wx.navigateTo({
-      url: './detailedInfo'
+      imageId: this.data.imageId || "sfsdewfwef"
+    }, (res) => {
+      if (res.data.code == "0000") {
+        wx.switchTab({
+          url: '../record/record',
+        })
+      }
     })
   }
 })

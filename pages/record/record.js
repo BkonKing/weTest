@@ -116,7 +116,20 @@ Page({
   },
   //删除事件
   del: function(e) {
-    console.log(e)
+    wx.showModal({
+      title: '提示',
+      content: '是否删除该专辑！！',
+      success(res) {
+        if (res.confirm) {
+          requestPost('https://www.gpper.cn/qjxt/gpper/api/albumInfo/deleteAlbum.do', {
+            userid: wx.getStorageSync('userid'),
+            id: e.currentTarget.dataset.id
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
   },
   edit: function(e) {
     wx.navigateTo({

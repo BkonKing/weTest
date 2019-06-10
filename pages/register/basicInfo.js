@@ -254,6 +254,8 @@ Page({
     }
     let user = {
       userid: wx.getStorageSync('userid'),
+      classBigId: this.data.curriculumList[0][this.data.curriculum[0]].id,
+      classTwoId: this.data.curriculumList[1][this.data.curriculum[1]].fid,
       teacherProvincesCode: this.data.regionList[0][this.data.region[0]].code,
       teacherCityCode: this.data.regionList[1][this.data.region[1]].code,
       teacherAreaCode: this.data.regionList[2][this.data.region[2]].code
