@@ -23,42 +23,58 @@ Page({
       })
     }
   },
+  formTeacherInfo: function (e) {
+    this.setData({
+      teacherInfo: e.detail.value
+    })
+  },
+  formTeacherHonor: function (e) {
+    this.setData({
+      teacherHonor: e.detail.value
+    })
+  },
   chooseImage: function(e) {
     var that = this;
     wx.chooseImage({
-      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      sizeType: ['original', 'compressed'], 
+      sourceType: ['album', 'camera'], 
       success: function(res) {
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        requestPost('https://www.gpper.cn/qjxt/gpper/api/upload/picture.do', {
-          userid: wx.getStorageSync('userid')
-        }, function(response) {
-          if (response.data.code == '0000') {
-            that.setData({
-              files: res.tempFilePaths,
-              imageId: response.data.imageId
-            })
-          } else {
-            wx.showModal({
-              title: '上传失败，请重新上传！',
-              showCancel: false
-            })
+        wx.uploadFile({
+          url: 'https://www.gpper.cn/qjxt/gpper/api/upload/picture.do', 
+          filePath: res.tempFilePaths[0],
+          name: "imageUrl", 
+          // header: {
+          //   "Content-Type": "multipart/form-data"
+          // },
+          //参数绑定
+          formData: {
+            userid: wx.getStorageSync('userid')
+          },
+          success: function (response) {
+            var data = JSON.parse(response.data)
+            if (data.code == '0000') {
+              that.setData({
+                files: res.tempFilePaths,
+                imageId: data.imageId
+              })
+            } else {
+              wx.showModal({
+                title: '上传失败，请重新上传！',
+                showCancel: false
+              })
+            }
+          },
+          fail: function (ress) {
+            console.log("图片上传失败");
           }
         })
       }
     })
   },
   finish: function(e) {
-    // if (this.data.files.length == 0) {
-    //   wx.showModal({
-    //     content: "请至少上传一张照片",
-    //     showCancel: false,
-    //   })
-    //   return;
-    // }
-    if (!this.data.teacherHonor) {
+    if (this.data.files.length == 0) {
       wx.showModal({
-        content: "请输入所得荣誉",
+        content: "请至少上传一张照片",
         showCancel: false,
       })
       return;
@@ -70,13 +86,23 @@ Page({
       })
       return;
     }
+    if (!this.data.teacherHonor) {
+      wx.showModal({
+        content: "请输入所得荣誉",
+        showCancel: false,
+      })
+      return;
+    }
     requestPost('https://www.gpper.cn/qjxt/gpper/api/teacherRegister.do', {
-      userid: wx.getStorageSync('urserid'),
+      userid: wx.getStorageSync('userid'),
       teacherInfo: this.data.teacherInfo,
       teacherHonor: this.data.teacherHonor,
-      imageId: this.data.imageId || "sfsdewfwef"
+      imageId: this.data.imageId
     }, (res) => {
       if (res.data.code == "0000") {
+        wx.showToast({
+          title: '注册成功！！！',
+        })
         wx.switchTab({
           url: '../record/record',
         })
