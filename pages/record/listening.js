@@ -4,9 +4,7 @@ import {
 } from '../../utils/util.js';
 Page({
   data: {
-    audiolist: {
-      audiosrc: 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46'
-    },
+    audiosrc: '',
     isPlayAudio: false,
     audioSeek: 0,
     audioDuration: 0,
@@ -15,12 +13,13 @@ Page({
     audioTime: 0,
     curriculumList: [],
     albumInfo: null,
+    teacherClassImage: '',
     index: 0
   },
   onLoad: function() {
     this.setData({
       curriculumList: wx.getStorageSync('curriculum') || [],
-      albumInfo: wx.getStorageSync('album') || {}
+      albumInfo: wx.getStorageSync('album') || {},
     })
     this.getAudio(0)
   },
@@ -31,9 +30,9 @@ Page({
   //初始化播放器，获取duration
   Initialization() {
     var t = this;
-    if (this.data.audiolist.audiosrc.length != 0) {
+    if (this.data.audiosrc) {
       //设置src
-      innerAudioContext.src = this.data.audiolist.audiosrc;
+      innerAudioContext.src = this.data.audiosrc;
       //运行一次
       innerAudioContext.play();
       innerAudioContext.pause();
@@ -62,7 +61,7 @@ Page({
   //拖动进度条事件
   sliderChange(e) {
     var that = this;
-    innerAudioContext.src = this.data.audiolist.audiosrc;
+    innerAudioContext.src = this.data.audiosrc;
     //获取进度条百分比
     var value = e.detail.value;
     this.setData({
@@ -98,7 +97,7 @@ Page({
       });
     } else {
       //如果在暂停，获取播放时间并继续播放
-      innerAudioContext.src = this.data.audiolist.audiosrc;
+      innerAudioContext.src = this.data.audiosrc;
       if (innerAudioContext.duration != 0) {
         this.setData({
           audioDuration: innerAudioContext.duration
@@ -203,7 +202,8 @@ Page({
     }, res => {
       clearInterval(this.data.durationIntval);
       that.setData({
-        'audiolist.audiosrc': res.data.play_url,
+        audiosrc: res.data.play_url,
+        teacherClassImage: this.data.curriculumList[index].teacherClassImage,
         isPlayAudio: false,
         audioSeek: 0,
         audioDuration: 0,

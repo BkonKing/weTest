@@ -18,7 +18,7 @@
         <view class="weui-label">专辑名称</view>
       </view>
       <view class="weui-cell__bd">
-        <input name="teacherAlbumName" value='{{teacherAlbumName}}' disabled='{{albumState}}' class="weui-input" placeholder-class="phcolor" placeholder="请输入专辑名称" />
+        <input name="teacherAlbumTitle" value='{{teacherAlbumTitle}}' disabled='{{albumState}}' class="weui-input" placeholder-class="phcolor" placeholder="请输入专辑名称" />
       </view>
     </view>
     <view class="weui-cell weui-cell_input">
@@ -55,7 +55,7 @@
         <view class="weui-label">课程名称</view>
       </view>
       <view class="weui-cell__bd">
-        <input name="teacherAlbumTitle" value='{{teacherAlbumTitle}}' disabled='{{albumState}}' class="weui-input" placeholder-class="phcolor" placeholder="请输入标题" />
+        <input name="teacherClassTitle" value='{{teacherClassTitle}}' class="weui-input" placeholder-class="phcolor" placeholder="请输入标题" />
       </view>
     </view>
   </view>

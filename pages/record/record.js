@@ -6,17 +6,12 @@ Page({
     albumList: [],
     curriculumList: {}
   },
-  onLoad: function() {
-    var that = this;
-    // wx.redirectTo({
-    //   url: '/pages/register/basicInfo'
-    // })
-
+  onShow: function() {
     requestPost('https://www.gpper.cn/qjxt/gpper/api/album/list.do', {
       userid: wx.getStorageSync('userid')
-    }, function (res) {
+    }, (res) => {
       if (res.data.code == '0000') {
-        that.setData({
+        this.setData({
           albumList: res.data.data,
           curriculumList: res.data.data2
         })
@@ -97,8 +92,12 @@ Page({
     })
   },
   edit: function(e) {
+    var index = e.currentTarget.dataset.index;
+    var id = this.data.albumList[index].id;
+    wx.setStorageSync('album', this.data.albumList[index]);
+    wx.setStorageSync('curriculum', this.data.curriculumList[id]);
     wx.navigateTo({
-      url: './saveRecord',
+      url: './saveRecord?edit=1',
     })
   },
   toDetail: function(e) {

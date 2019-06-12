@@ -18,19 +18,15 @@ const formatDate = date => {
 }
 
 const formatMinute = time => {
-  var hour = '00';
-  var minute = 0;
-  if (time > 59) {
-    minute = '0' + parseInt(time / 60);
-  } else {
-    minute = '00'
+  var minute = parseInt(time / 60);
+  var second = parseInt(time % 60);
+  if (minute.toString().length == 1) {
+    minute = `0${minute}`;
   }
-  var second = time % 60;
-  if (second < 10) {
-    second = '0' + second
+  if (second.toString().length == 1) {
+    second = `0${second}`;
   }
-
-  return [hour, minute, second].map(formatNumber).join(':')
+  return [minute, second].map(formatNumber).join(':')
 }
 
 const formatNumber = n => {
@@ -44,11 +40,15 @@ const requestPost = (url, data, successCallback, errorCallback) => {
     url: url,
     method: 'post',
     data: data,
+    header: {
+      'content-type': 'application/x-www-form-urlencoded',
+    },
     success: function(res) {
       successCallback(res)
     },
-    header: {
-      'content-type': 'application/x-www-form-urlencoded',
+    fail: function(ress) {
+      console.log(ress)
+      errorCallback(ress)
     },
     complete: function() {
       wx.hideLoading()

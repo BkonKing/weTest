@@ -6,8 +6,8 @@
       <text style='color: #D7D7D7;'>{{news.createtime}}</text>
       <text style='color: #D7D7D7;float: right;'>{{news.count}}阅读</text>
     </view>
-    <image src='{{news.news_image}}' style='width: 100%;height: 163px;'></image>
-    <view style='color: #7D7D7D;'>{{news.news_content}}</view>
+    <image src='{{news.newsImage}}' style='width: 100%;height: 163px;'></image>
+    <view style='color: #7D7D7D;'>{{news.newsContent}}</view>
   </view>
   <view>
     <view style='padding: 10px 0;background: #E9E9E9;'>

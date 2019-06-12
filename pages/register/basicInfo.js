@@ -12,9 +12,9 @@ Page({
         teacherName: teacherinfo.teacherName,
         teacherSex: teacherinfo.teacherSex,
         graduateSchool: teacherinfo.graduateSchool,
-        curriculum: [0, 0],
+        curriculum: [teacherinfo.classBigId, teacherinfo.classTwoId],
         phone: teacherinfo.phone,
-        region: [0, 0, 0],
+        region: [teacherinfo.teacherProvincesCode, teacherinfo.teacherCityCode, teacherinfo.teacherAreaCode],
         amend: 1
       })
     }

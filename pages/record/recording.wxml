@@ -36,7 +36,7 @@
     </view>
   </view>
   <view style='text-align: center;font-size: 48rpx;'>
-    {{showTime}} / 00:10:00
+    {{showTime}} / 10:00
   </view>
   <view class='record-btn audition' bindtap='listening'>
     <image src='/static/images/audition.png'></image>
@@ -46,8 +46,12 @@
     <image src="{{ '/static/images/'+operationImg}}"></image>
     <text style='display: inline-block;margin-top: 35rpx;'>{{operation}}</text>
   </view>
-  <view class='record-btn save' bindtap='save'>
+  <view class='record-btn save' bindtap='save' wx:if="{{recordState != 3}}">
     <image src='/static/images/save.png'></image>
     <text>保存</text>
+  </view>
+  <view class='record-btn save' bindtap='uploadVoice' wx:if="{{recordState == 3}}">
+    <image src='/static/images/save.png'></image>
+    <text>上传</text>
   </view>
 </view>

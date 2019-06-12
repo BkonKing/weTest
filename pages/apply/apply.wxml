@@ -51,7 +51,7 @@
             <view class="weui-label">报名时间</view>
           </view>
           <view class="weui-cell__bd">
-            <picker mode="date" bindchange="bindApplyDateChange" value="{{startTime}}" start="{{today}}">
+            <picker mode="date" bindchange="bindApplyDateChange" value="{{startTime}}">
               <view class="weui-select weui-select_in-select-after" style='border-right: none;'>{{startTime}}</view>
             </picker>
           </view>

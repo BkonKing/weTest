@@ -12,97 +12,27 @@ const options = {
   frameSize: 50, //指定帧大小，单位 KB
 }
 Page({
-  onReady: function () {
-    this.animation = wx.createAnimation({
-      duration: 600000
-    })
-  },
-  translate: function () {
-    this.animation.left(680).step()
-    // this.setData({ animation: this.animation.export() })
-  },
   data: {
     operationImg: 'play.png',
     operation: '开始',
     setInter: undefined,
     recordingTime: 0,
-    showTime: '00:00:00',
+    showTime: '00:00',
     tempFilePath: '',
     recordState: 0,
     left: 0
   },
-  listening: function() {
-    var that = this;
-    // wx.playVoice({
-    //   filePath: that.data.tempFilePath,
-    //   complete() {}
-    // })
-    // wx.playBackgroundAudio({
-    //   //播放地址
-    //   dataUrl: that.data.tempFilePath
-    // })
-    innerAudioContext.autoplay = true
-    innerAudioContext.src = that.data.tempFilePath,
-      innerAudioContext.onPlay(() => {
-        console.log('开始播放')
-      })
-    innerAudioContext.onError((res) => {
-      console.log(res.errMsg)
-      console.log(res.errCode)
-    })
-  },
-  save: function() {
-    var that = this;
-    
-    if (this.data.recordState != 0) {
-      recorderManager.stop();
-    }
-  },
-  //录音计时器
-  recordingTimer: function() {
-    var that = this;
-    //将计时器赋值给setInter
-    that.data.setInter = setInterval(
-      function() {
-        var time = that.data.recordingTime + 1;
-        var left = that.data.left + 1 > 364 ? 0 : that.data.left + 1
-        that.setData({
-          recordingTime: time,
-          showTime: util.formatMinute(time),
-          left: left
-        })
-      }, 1000);
-  },
-  startRecord: function(e) {
-    clearInterval(this.data.setInter);
-    if (this.data.recordState == 0) {
-      recorderManager.start(options);
-    } else if (this.data.recordState == 1) {
-      recorderManager.pause()
-    } else {
-      recorderManager.resume()
-    }
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options) {
+  onLoad(options) {
     var that = this;
     recorderManager.onStart(() => {
-      this.translate();
-      console.log("开始");
       //开始录音计时   
       that.recordingTimer();
+      console.log("开始");
       that.setData({
         operationImg: 'pause.png',
         operation: '正在录制中',
         recordState: 1
       })
-    });
-    //错误回调
-    recorderManager.onError((res) => {
-      console.log(res);
     });
     recorderManager.onPause(() => {
       console.log("清除");
@@ -120,41 +50,99 @@ Page({
         operation: '已完成，重新录制',
         tempFilePath: res.tempFilePath,
         recordingTime: 0,
-        recordState: 0
+        recordState: 3
       })
-      console.log('。。停止录音。。', res.tempFilePath)
-      const {
-        tempFilePath
-      } = res;
-      //上传录音
-      wx.uploadFile({
-        url: 'https://www.gpper.cn/qjxt/gpper/api/upload/audio.do', //这是你自己后台的连接
-        filePath: res.tempFilePath,
-        name: "audioUrl", //后台要绑定的名称
-        // header: {
-        //   "Content-Type": "multipart/form-data"
-        // },
-        //参数绑定
-        formData: {
-          userid: wx.getStorageSync('userid')
-        },
-        success: function(response) {
-          var data = JSON.parse(response.data)
-          if (data.code == '0000') {
-            wx.showToast({
-              title: '保存完成',
-              icon: 'success',
-              duration: 2000
-            })
-            wx.navigateTo({
-              url: './saveRecord?audioId=' + data.audioId
-            })
-          }
-        },
-        fail: function(ress) {
-          console.log("。。录音保存失败。。");
-        }
+      console.log('停止录音');
+    });
+            //错误回调
+            recorderManager.onError((res) => {
+              console.log(res);
+            });
+  },
+  listening() {
+    var that = this;
+    innerAudioContext.autoplay = true
+    innerAudioContext.src = that.data.tempFilePath,
+      innerAudioContext.onPlay(() => {
+        console.log('开始播放')
       })
+    innerAudioContext.onError((res) => {
+      console.log(res.errMsg)
+      console.log(res.errCode)
     })
+  },
+  save() {
+    var that = this;
+    if (this.data.recordState != 0) {
+      recorderManager.stop();
+    } else {
+      wx.showModal({
+        content: '请先录音',
+        showCancel: false
+      })
+    }
+  },
+  startRecord(e) {
+    clearInterval(this.data.setInter);
+    if (this.data.recordState == 1) {
+      recorderManager.pause()
+    } else if (this.data.recordState == 2) {
+      recorderManager.resume()
+    } else {
+      recorderManager.start(options);
+    }
+  },
+  uploadVoice() {
+    innerAudioContext.stop();
+    wx.uploadFile({
+      url: 'https://www.gpper.cn/qjxt/gpper/api/upload/audio.do', //这是你自己后台的连接
+      filePath: this.data.tempFilePath,
+      name: "audioUrl", //后台要绑定的名称
+      // header: {
+      //   "Content-Type": "multipart/form-data"
+      // },
+      //参数绑定
+      formData: {
+        userid: wx.getStorageSync('userid')
+      },
+      success: function(response) {
+        var data = JSON.parse(response.data)
+        if (data.code == '0000') {
+          wx.showModal({
+            content: '录音上传成功！！！',
+            showCancel: false,
+            success(res) {
+              if (res.confirm) {
+                wx.navigateTo({
+                  url: './saveRecord?audioId=' + data.audioId
+                })
+              }
+            }
+          })
+        } else {
+          wx.showModal({
+            content: '录音上传失败，请重新上传',
+            showCancel: false
+          })}      },
+      fail: function(ress) {
+        console.log("。。录音保存失败。。");
+      }
+  })
+  },
+  //录音计时器
+  recordingTimer() {
+    //将计时器赋值给setInter
+    this.data.setInter = setInterval(
+      () => {
+        var time = this.data.recordingTime + 1;
+        var left = this.data.left + 1 > 364 ? 0 : this.data.left + 1
+        this.setData({
+          recordingTime: time,
+          showTime: util.formatMinute(time),
+          left: left
+        })
+      }, 1000);
   }
+
+ 
 })

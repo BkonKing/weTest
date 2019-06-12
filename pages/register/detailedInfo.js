@@ -5,13 +5,20 @@ Page({
     teacherinfo: null
   },
   onLoad: function (options) {
-    this.setData({
-      teacherinfo: app.globalData.teacherinfo
+    app.getUser().then((res) => {
+      this.setData({
+        teacherinfo: res.data.teacherinfo
+      })
     })
   },
   amend: function (e) {
     wx.navigateTo({
       url: '/pages/register/basicInfo?amend=1'
+    })
+  },
+  toWorkbench(e) {
+    wx.switchTab({
+      url: '/pages/record/record'
     })
   }
 })

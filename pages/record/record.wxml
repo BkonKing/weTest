@@ -19,7 +19,7 @@
             </view>
           </view>
           <view class='operation'>
-            <view class="edit" catchtap="edit" data-id="{{index}}">修改</view>
+            <view class="edit" catchtap="edit" data-index="{{index}}" data-id="{{item.id}}">修改</view>
             <view class="del" catchtap="del" data-id="{{item.id}}">删除</view>
           </view>
         </view>

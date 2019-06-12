@@ -17,6 +17,7 @@ Page({
     teacherAlbumTitle: '',
     teacherAlbumInfo: '',
     teacherAlbumName: '',
+    teacherClassTitle: '',
     albumState: false,
     albumList: [],
     agreement: 0
@@ -38,7 +39,22 @@ Page({
           albumList: data
         })
       }
-    })
+    });
+    if (e.edit) {
+      var albumInfo = wx.getStorageSync('album');
+      var albumInfo = wx.getStorageSync('curriculum');
+      console.log(albumInfo)
+      this.setData({
+        files: [albumInfo],
+        imageId: '',
+        audioId: '',
+        teacherAlbumTitle: '',
+        teacherAlbumInfo: '',
+        teacherAlbumName: '',
+        teacherClassTitle: '',
+        albumState: false
+      })
+    }
   },
   chooseImage: function(e) {
     var that = this;
@@ -108,10 +124,18 @@ Page({
     let newObj = {};
     // 13599023245
     Object.assign(newObj, params, user);
-    requestPost('https://www.gpper.cn/qjxt/gpper/api/albumInfo/add.do', newObj, function (response) {
+    requestPost('https://www.gpper.cn/qjxt/gpper/api/albumInfo/add.do', newObj, (response) => {
       if (response.data.code == '0000') {
-        that.setData({
-          albumList: response.data.data
+        wx.showModal({
+          content: '发布成功！',
+          showCancel: false,
+          success(res) {
+            if (res.confirm) {
+              wx.switchTab({
+                url: './record'
+              })
+            }
+          }
         })
       }
     })

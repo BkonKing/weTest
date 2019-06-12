@@ -4,26 +4,26 @@
       <view class="weui-label">照片</view>
     </view>
     <view class="weui-cell__bd" style='height: 80rpx;padding: 10px 0;'>
-      <image class='picture' src='{{teacherinfo.teacherImage}}'></image>
+      <image class='picture' src='https://{{teacherinfo.teacherImage}}'></image>
     </view>
   </view>
   <view class="weui-cell">
     <view class="weui-cell__hd">
       <view class="weui-label">姓名</view>
     </view>
-    <view class="weui-cell__bd">{{teacherinfo.teacherImage}}</view>
+    <view class="weui-cell__bd">{{teacherinfo.teacherName}}</view>
   </view>
   <view class="weui-cell">
     <view class="weui-cell__hd">
       <view class="weui-label">性别</view>
     </view>
-    <view class="weui-cell__bd">{{teacherinfo.teacherImage}}</view>
+    <view class="weui-cell__bd">{{teacherinfo.teacherSex?'男':'女'}}</view>
   </view>
   <view class="weui-cell">
     <view class="weui-cell__hd">
       <view class="weui-label">毕业院校</view>
     </view>
-    <view class="weui-cell__bd">{{teacherinfo.teacherImage}}</view>
+    <view class="weui-cell__bd">{{teacherinfo.graduateSchool}}</view>
   </view>
   <view class="weui-cell">
     <view class="weui-cell__hd">
@@ -41,15 +41,16 @@
     <view class="weui-cell__hd">
       <view class="weui-label">个人简介</view>
     </view>
-    <view class="weui-cell__bd">{{teacherinfo.teacherImage}}</view>
+    <view class="weui-cell__bd">{{teacherinfo.teacherInfo}}</view>
   </view>
   <view class="weui-cell">
     <view class="weui-cell__hd">
       <view class="weui-label">获取荣誉</view>
     </view>
-    <view class="weui-cell__bd">{{teacherinfo.teacherImage}}</view>
+    <view class="weui-cell__bd">{{teacherinfo.teacherHonor}}</view>
   </view>
   <view class="weui-cell_vcode" style='padding: 0 12px;margin: 70rpx 0 44rpx;'>
     <button class="weui-btn" type="primary" bindtap="amend">修改</button>
+    <button class="weui-btn" type="primary" bindtap="toWorkbench">进入工作台</button>
   </view>
 </view>

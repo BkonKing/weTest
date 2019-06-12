@@ -9,40 +9,8 @@ Page({
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
-    studentsList: [{
-      "bmName": "弹指",
-      "bmPhone": "111111",
-      "createtime": "2019-05-30",
-      "fraction": "A",
-      "id": "1",
-      "isGraduation": "1",
-      "isPay": "",
-      "pxId": "1",
-      "remarks": "1231",
-      "unionid": "123",
-      "wechatid": "qqqq",
-      "wechatname": "www",
-      "wechaturl": "",
-      "xsAge": "11",
-      "xsName": "张三"
-    }],
-    previousList: [{
-      "bmName": "弹指1",
-      "bmPhone": "111111",
-      "createtime": "2019-05-30",
-      "fraction": "A",
-      "id": "1",
-      "isGraduation": "1",
-      "isPay": "",
-      "pxId": "1",
-      "remarks": "1231",
-      "unionid": "123",
-      "wechatid": "qqqq",
-      "wechatname": "www",
-      "wechaturl": "",
-      "xsAge": "11",
-      "xsName": "张三22"
-    }],
+    studentsList: [],
+    previousList: [],
     show: false,
     startTime: '',
     endTime: '',
@@ -50,10 +18,13 @@ Page({
     showStudent: null,
     IMG_URL: app.globalData.imgurl
   },
-  onLoad: function() {
+  onShow: function() {
     var that = this;
+    // this.setData({
+    //   today: util.formatDate(new Date())
+    // })
     this.setData({
-      today: util.formatDate(new Date())
+      activeIndex: 0
     })
     wx.getSystemInfo({
       success: function(res) {
@@ -72,8 +43,7 @@ Page({
       isGraduation: num
     }, function(res) {
       that.setData({
-        // [field]: res.data.data
-        [field]: []
+        [field]: res.data.data
       })
     })
   },
@@ -88,26 +58,13 @@ Page({
     } else if (e.currentTarget.id == '1') {
       this.getuserbm(-2, 'previousList');
     } else if (e.currentTarget.id == '2') {
-      // wx.request({
-      //   url: 'https://www.gpper.cn/qjxt/gpper/api/applyStart.do',
-      //   data: {
-      //     userid: wx.getStorageSync('userid')
-      //   },
-      //   success: function (res) {
-      //     that.setData({
-      //       isApplyStart: '',
-      //       startTime: '',
-      //       endTime: ''
-      //     })
-      //   }
-      // })
       util.requestPost('https://www.gpper.cn/qjxt/gpper/api/applyStart.do', {
         userid: wx.getStorageSync('userid')
       }, res => {
         that.setData({
-          isApplyStart: res.data.isApplyStart,
-          startTime: res.data.startTime,
-          endTime: res.data.endTime
+          isApplyStart: res.data.data.isApplyStart,
+          startTime: res.data.data.startTime || '',
+          endTime: res.data.data.endTime || ''
         })
       })
     }
@@ -149,13 +106,12 @@ Page({
       startTime: this.data.startTime,
       endTime: this.data.endTime
     }, function(res) {
-      // that.setData({
-      //   [field]: res.data.data
-      // })
       if (res.data.code == '0000') {
         wx.showModal({
-          content: '报名开启成功',
-          showCancel: false
+          content: '报名开启成功!!!',
+          showCancel: false,
+          success(res) {
+          }
         })
       }
     })

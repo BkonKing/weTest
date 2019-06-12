@@ -84,8 +84,15 @@ Page({
       imageId: that.data.imageId || 'sdfsdfsdf'
     }, res => {
       if (res.data.code == '0000') {
-        this.showMo("发布成功")
-        wx.navigateBack()
+        wx.showModal({
+          content: '发布成功！！！',
+          showCancel: false,
+          success(res) {
+            if (res.confirm) {
+              wx.navigateBack()
+            }
+          }
+        })
       }
     })
   },

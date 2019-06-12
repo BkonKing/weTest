@@ -13,13 +13,8 @@ Page({
     if (e.amend) {
       var teacherinfo = app.globalData.teacherinfo;
       this.setData({
-        teacherName: teacherinfo.teacherName,
-        teacherSex: teacherinfo.teacherSex,
-        graduateSchool: teacherinfo.graduateSchool,
-        curriculum: [0, 0],
-        phone: teacherinfo.phone,
-        region: [0, 0, 0],
-        amend: 1
+        teacherHonor: teacherinfo.teacherName,
+        teacherInfo: teacherinfo.teacherSex,
       })
     }
   },
@@ -100,11 +95,16 @@ Page({
       imageId: this.data.imageId
     }, (res) => {
       if (res.data.code == "0000") {
-        wx.showToast({
-          title: '注册成功！！！',
-        })
-        wx.switchTab({
-          url: '../record/record',
+        wx.showModal({
+          content: '注册成功！！！',
+          showCancel: false,
+          success(res) {
+            if (res.confirm) {
+              wx.navigateTo({
+                url: './detailedInfo',
+              })
+            }
+          }
         })
       }
     })
