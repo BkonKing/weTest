@@ -53,9 +53,7 @@ Page({
   },
   save: function() {
     var that = this;
-    wx.navigateTo({
-      url: './saveRecord'
-    })
+    
     if (this.data.recordState != 0) {
       recorderManager.stop();
     }
@@ -76,7 +74,6 @@ Page({
       }, 1000);
   },
   startRecord: function(e) {
-    this.translate();
     clearInterval(this.data.setInter);
     if (this.data.recordState == 0) {
       recorderManager.start(options);
@@ -107,15 +104,6 @@ Page({
     recorderManager.onError((res) => {
       console.log(res);
     });
-    recorderManager.onResume((res) => {
-      console.log("重新开始");
-      that.recordingTimer();
-      that.setData({
-        operationImg: 'pause.png',
-        operation: '正在录制中',
-        recordState: 1
-      })
-    });
     recorderManager.onPause(() => {
       console.log("清除");
       that.setData({
@@ -138,14 +126,11 @@ Page({
       const {
         tempFilePath
       } = res;
-      wx.navigateTo({
-        url: './saveRecord'
-      })
       //上传录音
       wx.uploadFile({
         url: 'https://www.gpper.cn/qjxt/gpper/api/upload/audio.do', //这是你自己后台的连接
-        filePath: tempFilePath,
-        name: "file", //后台要绑定的名称
+        filePath: res.tempFilePath,
+        name: "audioUrl", //后台要绑定的名称
         // header: {
         //   "Content-Type": "multipart/form-data"
         // },
@@ -153,15 +138,16 @@ Page({
         formData: {
           userid: wx.getStorageSync('userid')
         },
-        success: function(res) {
-          if (res.data.code == '0000') {
+        success: function(response) {
+          var data = JSON.parse(response.data)
+          if (data.code == '0000') {
             wx.showToast({
               title: '保存完成',
               icon: 'success',
               duration: 2000
             })
             wx.navigateTo({
-              url: './saveRecord?audioId=' + res.data.audioId
+              url: './saveRecord?audioId=' + data.audioId
             })
           }
         },

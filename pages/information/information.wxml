@@ -5,8 +5,8 @@
   <navigator wx:for="{{messageList}}" wx:key="{{item.id}}" url='./dynamic?id={{item.id}}' style='padding: 20px 10px 0;'>
     <view class='card'>
       <view class='card-title'>{{item.title}}</view>
-      <view class='card-content'>{{item.news_content}}</view>
-      <image class='card-image' src="{{item.news_image}}"></image>
+      <view class='card-content'>{{item.newsContent}}</view>
+      <image class='card-image' src="{{item.newsImage}}"></image>
       <view class='card-footer'>
         <image src='/static/images/look.png' style='width: 55rpx;'></image>
         <text>{{item.count}}</text>

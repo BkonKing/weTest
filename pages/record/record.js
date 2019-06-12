@@ -3,43 +3,8 @@ var app = getApp();
 import { requestPost } from '../../utils/util.js'
 Page({
   data: {
-    albumList: [{
-      "createtime": "2019-06-04",
-      "id": "1234",
-      "teacherAlbumInfo": "",
-      "teacherAlbumName": "专辑2",
-      "teacherAlbumTitle": "糖豆豆2糖豆豆2",
-      "unionid": "123"
-    }, {
-      "createtime": "2019-06-03",
-      "id": "123",
-      "teacherAlbumInfo": "",
-      "teacherAlbumName": "专辑1",
-      "teacherAlbumTitle": "糖豆豆",
-      "unionid": "123"
-    }],
-    curriculumList: {
-      "123": [{
-        "albumId": "123",
-        "createtime": "2019-06-04",
-        "flag": "1",
-        "id": "1",
-        "teacherClassImage": "",
-        "teacherClassTitle": "糖豆豆",
-        "unionid": "123",
-        "videoId": "12312"
-      }, {
-        "albumId": "123",
-        "createtime": "2019-06-04",
-        "flag": "1",
-        "id": "1",
-        "teacherClassImage": "",
-        "teacherClassTitle": "糖豆豆2222",
-        "unionid": "123",
-        "videoId": "24234"
-      }],
-      "1234": []
-    }
+    albumList: [],
+    curriculumList: {}
   },
   onLoad: function() {
     var that = this;
@@ -51,10 +16,10 @@ Page({
       userid: wx.getStorageSync('userid')
     }, function (res) {
       if (res.data.code == '0000') {
-        // that.setData({
-        //   albumList: res.data.data,
-        //   curriculumList: res.data.data2
-        // })
+        that.setData({
+          albumList: res.data.data,
+          curriculumList: res.data.data2
+        })
       }
     });
   },

@@ -7,14 +7,7 @@ Page({
     show: false,
     news: null,
     // leaveWord: '',
-    leaveWords: [{
-      "createtime": "2019-05-13",
-      "id": "2c9058006ab00e4c016ab01a06f9003a",
-      "newMessage": "感谢评论！",
-      "wechatid": "1",
-      "wechatname": "廖思宇",
-      "wechaturl": ""
-    }]
+    leaveWords: []
   },
 
   // changePick: function (e) {
@@ -50,30 +43,15 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
-    // requestPost('https://www.gpper.cn/qjxt/gpper/api/news/showLeave.do', {
-    //   userid: wx.getStorageSync('userid'),
-    //   id: ''
-    // }, function(res) {
-    //   if (res.data.code == '0000') {
-    //     that.setData({
-    //       news: res.data.news,
-    //       leaveWords: res.data.data
-    //     })
-    //   }
-    // })
-    wx.request({
-      url: 'https://www.gpper.cn/qjxt/gpper/api/news/showLeave.do',
-      data: {
-        userid: wx.getStorageSync('userid'),
-        id: options.id
-      },
-      success: function(res) {
-        if (res.data.code == '0000') {
-          that.setData({
-            news: res.data.news,
-            leaveWords: res.data.data
-          })
-        }
+    requestPost('https://www.gpper.cn/qjxt/gpper/api/news/showLeave.do', {
+      userid: wx.getStorageSync('userid'),
+      id: options.id
+    }, function(res) {
+      if (res.data.code == '0000') {
+        that.setData({
+          news: res.data.news,
+          leaveWords: res.data.data
+        })
       }
     })
   }

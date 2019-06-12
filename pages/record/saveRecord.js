@@ -18,22 +18,27 @@ Page({
     teacherAlbumInfo: '',
     teacherAlbumName: '',
     albumState: false,
-    albumList: [{
-      "createtime": "2019-06-04",
-      "id": "1234",
-      "teacherAlbumInfo": "",
-      "teacherAlbumName": "专辑2",
-      "teacherAlbumTitle": "糖豆豆2糖豆豆2",
-      "unionid": "123"
-    }, {
-      "createtime": "2019-06-03",
-      "id": "123",
-      "teacherAlbumInfo": "",
-      "teacherAlbumName": "专辑1",
-      "teacherAlbumTitle": "糖豆豆",
-      "unionid": "123"
-    }],
+    albumList: [],
     agreement: 0
+  },
+  onLoad: function (e) {
+    this.setData({
+      audioId: e.audioId
+    })
+    requestPost('https://www.gpper.cn/qjxt/gpper/api/album/selectAlbum.do', {
+      userid: wx.getStorageSync('userid')
+    }, response => {
+      if (response.data.code == '0000') {
+        var data = [{
+          teacherAlbumName: '新建专辑',
+          id: ''
+        }]
+        data.concat(response.data.data)
+        this.setData({
+          albumList: data
+        })
+      }
+    })
   },
   chooseImage: function(e) {
     var that = this;
@@ -81,16 +86,10 @@ Page({
       teacherAlbumInfo: this.data.albumList[e.detail.value].teacherAlbumInfo,
       teacherAlbumName: this.data.albumList[e.detail.value].teacherAlbumName,
       teacherAlbumTitle: this.data.albumList[e.detail.value].teacherAlbumTitle,
-      albumState: this.isNew(this.data.albumList[e.detail.value].teacherAlbumName)
+      albumState: this.data.albumList[e.detail.value].id || 0
     })
   },
-  isNew(name) {
-    return name.indexOf('新建') == -1
-  },
   formSubmit: function(e) {
-    // wx.navigateTo({
-    //   url: './replenishInfo'
-    // })
     var that = this;
     const params = e.detail.value
     if (!this.data.agreement) {
@@ -103,24 +102,17 @@ Page({
     let user = {
       userid: wx.getStorageSync('userid'),
       imageId: this.data.imageId,
-      id: this.data.albumList[this.data.album].id
+      id: this.data.albumList[this.data.album].id,
+      audioId: this.data.audioId
     };
     let newObj = {};
     // 13599023245
     Object.assign(newObj, params, user);
-    wx.request({
-      url: 'https://www.gpper.cn/qjxt/gpper/api/albumInfo/add.do',
-      method: 'post',
-      data: newObj,
-      header: {
-        'content-type': 'application/x-www-form-urlencoded',
-      },
-      success: function(response) {
-        if (response.data.code == '0000') {
-          that.setData({
-            albumList: response.data.data
-          })
-        }
+    requestPost('https://www.gpper.cn/qjxt/gpper/api/albumInfo/add.do', newObj, function (response) {
+      if (response.data.code == '0000') {
+        that.setData({
+          albumList: response.data.data
+        })
       }
     })
   },
@@ -132,30 +124,6 @@ Page({
   showCommitment() {
     this.setData({
       show: true
-    })
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(e) {
-    this.setData({
-      audioId: e.audioId
-    })
-    requestPost('https://www.gpper.cn/qjxt/gpper/api/album/selectAlbum.do', {
-      userid: wx.getStorageSync('userid')
-    }, response => {
-      if (response.data.code == '0000') {
-        // that.setData({
-        //   albumList: response.data.data
-        // })
-        this.setData({
-          teacherAlbumInfo: this.data.albumList[0].teacherAlbumInfo,
-          teacherAlbumName: this.data.albumList[0].teacherAlbumName,
-          teacherAlbumTitle: this.data.albumList[0].teacherAlbumTitle,
-          albumState: this.isNew(this.data.albumList[0].teacherAlbumName)
-        })
-      }
     })
   }
 })
