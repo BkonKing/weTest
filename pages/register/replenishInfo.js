@@ -7,12 +7,19 @@ Page({
     files: [],
     teacherHonor: '',
     teacherInfo: '',
+    teacherVoId: '',
     imageId: ''
   },
   onLoad: function(e) {
+    this.setData({
+      teacherVoId: e.teacherVoId
+    })
+    var data = wx.getStorageSync("register");
+    console.log(data)
     if (e.amend) {
       var teacherinfo = app.globalData.teacherinfo;
       this.setData({
+        files: [teacherinfo.teacherImage],
         teacherHonor: teacherinfo.teacherName,
         teacherInfo: teacherinfo.teacherSex,
       })
@@ -92,6 +99,7 @@ Page({
       userid: wx.getStorageSync('userid'),
       teacherInfo: this.data.teacherInfo,
       teacherHonor: this.data.teacherHonor,
+      teacherVoId: this.data.teacherVoId,
       imageId: this.data.imageId
     }, (res) => {
       if (res.data.code == "0000") {

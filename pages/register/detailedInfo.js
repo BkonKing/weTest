@@ -2,13 +2,19 @@
 var app = getApp();
 Page({
   data: {
-    teacherinfo: null
+    teacherinfo: null,
+    classText: '',
+    city: ''
   },
   onLoad: function (options) {
     app.getUser().then((res) => {
+      var data = wx.getStorageSync("register");
+      console.log(data)
       this.setData({
-        teacherinfo: res.data.teacherinfo
-      })
+        teacherinfo: res.data.teacherinfo,
+        classText: data.classText,
+        city: data.city
+      }) 
     })
   },
   amend: function (e) {

@@ -14,45 +14,60 @@ Page({
     files: [],
     imageId: '',
     audioId: '',
-    teacherAlbumTitle: '',
     teacherAlbumInfo: '',
     teacherAlbumName: '',
     teacherClassTitle: '',
     albumState: false,
     albumList: [],
-    agreement: 0
+    agreement: 0,
+    edit: false
   },
   onLoad: function (e) {
-    this.setData({
-      audioId: e.audioId
-    })
-    requestPost('https://www.gpper.cn/qjxt/gpper/api/album/selectAlbum.do', {
-      userid: wx.getStorageSync('userid')
-    }, response => {
-      if (response.data.code == '0000') {
-        var data = [{
-          teacherAlbumName: '新建专辑',
-          id: ''
-        }]
-        data.concat(response.data.data)
-        this.setData({
-          albumList: data
-        })
+    wx.request({
+      url: 'https://www.gpper.cn/qjxt/gpper/api/album/selectAlbum.do',
+      data: {
+        userid: wx.getStorageSync('userid')
+      },
+      success: (res) => {
+        if (res.data.code == '0000') {
+          var data = [{
+            teacherAlbumName: '新建专辑',
+            id: ''
+          }]
+          data.concat(res.data.data)
+          this.setData({
+            albumList: data
+          })
+        }
       }
-    });
+    })
+    // requestPost('https://www.gpper.cn/qjxt/gpper/api/album/selectAlbum.do', {
+    //   userid: wx.getStorageSync('userid')
+    // }, response => {
+    //   if (response.data.code == '0000') {
+    //     var data = [{
+    //       teacherAlbumName: '新建专辑',
+    //       id: ''
+    //     }]
+    //     data.concat(response.data.data)
+    //     this.setData({
+    //       albumList: data
+    //     })
+    //   }
+    // });
     if (e.edit) {
       var albumInfo = wx.getStorageSync('album');
-      var albumInfo = wx.getStorageSync('curriculum');
-      console.log(albumInfo)
       this.setData({
-        files: [albumInfo],
-        imageId: '',
-        audioId: '',
-        teacherAlbumTitle: '',
-        teacherAlbumInfo: '',
-        teacherAlbumName: '',
-        teacherClassTitle: '',
-        albumState: false
+        files: [albumInfo.teacherAlbumImage],
+        imageId: "",
+        teacherAlbumInfo: albumInfo.teacherAlbumInfo,
+        teacherAlbumName: albumInfo.teacherAlbumName,
+        albumState: false,
+        edit: true
+      })
+    } else {
+      this.setData({
+        audioId: e.audioId
       })
     }
   },
@@ -101,44 +116,69 @@ Page({
       album: e.detail.value,
       teacherAlbumInfo: this.data.albumList[e.detail.value].teacherAlbumInfo,
       teacherAlbumName: this.data.albumList[e.detail.value].teacherAlbumName,
-      teacherAlbumTitle: this.data.albumList[e.detail.value].teacherAlbumTitle,
       albumState: this.data.albumList[e.detail.value].id || 0
     })
   },
   formSubmit: function(e) {
     var that = this;
     const params = e.detail.value
-    if (!this.data.agreement) {
-      wx.showModal({
-        content: "请阅读并同意使用条款和隐私政策",
-        showCancel: false,
-      })
-      return false;
-    }
-    let user = {
-      userid: wx.getStorageSync('userid'),
-      imageId: this.data.imageId,
-      id: this.data.albumList[this.data.album].id,
-      audioId: this.data.audioId
-    };
-    let newObj = {};
-    // 13599023245
-    Object.assign(newObj, params, user);
-    requestPost('https://www.gpper.cn/qjxt/gpper/api/albumInfo/add.do', newObj, (response) => {
-      if (response.data.code == '0000') {
+    if (!this.data.edit) {
+      if (!this.data.agreement) {
         wx.showModal({
-          content: '发布成功！',
+          content: "请阅读并同意使用条款和隐私政策",
           showCancel: false,
-          success(res) {
-            if (res.confirm) {
-              wx.switchTab({
-                url: './record'
-              })
-            }
-          }
         })
+        return false;
       }
-    })
+      let user = {
+        userid: wx.getStorageSync('userid'),
+        imageId: this.data.imageId,
+        id: this.data.albumList[this.data.album].id,
+        audioId: this.data.audioId
+      };
+      let newObj = {};
+      // 13599023245
+      Object.assign(newObj, params, user);
+      requestPost('https://www.gpper.cn/qjxt/gpper/api/albumInfo/add.do', newObj, (response) => {
+        if (response.data.code == '0000') {
+          wx.showModal({
+            content: '发布成功！',
+            showCancel: false,
+            success(res) {
+              if (res.confirm) {
+                wx.switchTab({
+                  url: './record'
+                })
+              }
+            }
+          })
+        }
+      })
+    } else {
+      const params = e.detail.value
+      let user = {
+        userid: wx.getStorageSync('userid'),
+        imageId: this.data.imageId,
+        id: this.data.albumList[this.data.album].id
+      };
+      let newObj = {};
+      Object.assign(newObj, params, user);
+      requestPost('https://www.gpper.cn/qjxt/gpper/api/album/edit.do', newObj, (response) => {
+        if (response.data.code == '0000') {
+          wx.showModal({
+            content: '修改成功！',
+            showCancel: false,
+            success(res) {
+              if (res.confirm) {
+                wx.switchTab({
+                  url: './record'
+                })
+              }
+            }
+          })
+        }
+      })
+    }
   },
   checkboxChange: function(e) {
     this.setData({

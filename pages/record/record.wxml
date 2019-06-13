@@ -8,19 +8,19 @@
         <view bindtap='toDetail' wx:for="{{albumList}}" wx:key="{{item.id}}" open-type="redirect" class=" {{item.isTouchMove ? 'touch-move-active' : ''}} touch-item" data-index="{{index}}" bindtouchstart="touchstart" bindtouchmove="touchmove">
           <view class='weui-media-box weui-media-box_appmsg content'>
             <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-              <view class='albumImg'>
+              <!-- <view class='albumImg'>
                 <text class='albumName'>{{item.teacherAlbumName}}</text>
-              </view>
-              <!-- <image class="weui-media-box__thumb" src="{{item.art}}" /> -->
+              </view> -->
+              <image class="albumImg" src="{{item.teacherAlbumImage}}" />
             </view>
             <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-              <view class="weui-media-box__title">{{item.teacherAlbumTitle}}</view>
+              <view class="weui-media-box__title">{{item.teacherAlbumName}}</view>
               <view class="weui-media-box__desc">{{item.createtime}}</view>
             </view>
           </view>
           <view class='operation'>
             <view class="edit" catchtap="edit" data-index="{{index}}" data-id="{{item.id}}">修改</view>
-            <view class="del" catchtap="del" data-id="{{item.id}}">删除</view>
+            <view class="del" catchtap="del" data-index="{{index}}" data-id="{{item.id}}">删除</view>
           </view>
         </view>
       </view>

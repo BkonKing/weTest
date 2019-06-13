@@ -13,7 +13,6 @@ Page({
     audioTime: 0,
     curriculumList: [],
     albumInfo: null,
-    teacherClassImage: '',
     index: 0
   },
   onLoad: function() {
@@ -42,8 +41,9 @@ Page({
         setTimeout(function() {
           //延时获取音频真正的duration
           var duration = innerAudioContext.duration;
+          console.log(duration)
           var min = parseInt(duration / 60);
-          var sec = parseInt(duration % 60);
+          var sec = Math.ceil(parseFloat(duration % 60));
           if (min.toString().length == 1) {
             min = `0${min}`;
           }
@@ -195,22 +195,40 @@ Page({
     this.getAudio(this.data.index)
   },
   getAudio: function(index) {
-    var that = this;
-    requestPost('https://www.gpper.cn/qjxt/gpper/api/albuminfo/play.do', {
-      userid: wx.getStorageSync('userid'),
-      videoId: this.data.curriculumList[index].videoId
-    }, res => {
-      clearInterval(this.data.durationIntval);
-      that.setData({
-        audiosrc: res.data.play_url,
-        teacherClassImage: this.data.curriculumList[index].teacherClassImage,
-        isPlayAudio: false,
-        audioSeek: 0,
-        audioDuration: 0,
-        showTime1: '00:00'
-      })
-      this.Initialization();
-      this.loadaudio();
+    wx.request({
+      url: 'https://www.gpper.cn/qjxt/gpper/api/albumInfo/play.do',
+      data: {
+        userid: wx.getStorageSync('userid'),
+        videoId: this.data.curriculumList[index].videoId
+      },
+      success: (res) => {
+        clearInterval(this.data.durationIntval);
+        this.setData({
+          audiosrc: res.data.play_url,
+          isPlayAudio: false,
+          audioSeek: 0,
+          audioDuration: 0,
+          showTime1: '00:00'
+        })
+        this.Initialization();
+        this.loadaudio();
+      }
     })
+    // requestPost('https://www.gpper.cn/qjxt/gpper/api/albumInfo/play.do', {
+    //   userid: wx.getStorageSync('userid'),
+    //   videoId: this.data.curriculumList[index].videoId
+    // }, res => {
+    //   clearInterval(this.data.durationIntval);
+    //   that.setData({
+    //     audiosrc: res.data.play_url,
+    //     teacherClassImage: this.data.curriculumList[index].teacherClassImage,
+    //     isPlayAudio: false,
+    //     audioSeek: 0,
+    //     audioDuration: 0,
+    //     showTime1: '00:00'
+    //   })
+    //   this.Initialization();
+    //   this.loadaudio();
+    // })
   }
 })

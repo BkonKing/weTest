@@ -1,12 +1,15 @@
 // pages/record/record.js
 var app = getApp();
-import { requestPost } from '../../utils/util.js'
+import {
+  requestPost
+} from '../../utils/util.js'
 Page({
   data: {
     albumList: [],
     curriculumList: {}
   },
   onShow: function() {
+    var that = this;
     requestPost('https://www.gpper.cn/qjxt/gpper/api/album/list.do', {
       userid: wx.getStorageSync('userid')
     }, (res) => {
@@ -81,9 +84,21 @@ Page({
       content: '是否删除该专辑！！',
       success(res) {
         if (res.confirm) {
-          requestPost('https://www.gpper.cn/qjxt/gpper/api/albumInfo/deleteAlbum.do', {
-            userid: wx.getStorageSync('userid'),
-            id: e.currentTarget.dataset.id
+          wx.request({
+            url: 'https://www.gpper.cn/qjxt/gpper/api/album/deleteAlbum.do',
+            data: {
+              userid: wx.getStorageSync('userid'),
+              id: e.currentTarget.dataset.id
+            },
+            success: (res) => {
+              if (res.data.code == '0000') {
+                var list = this.data.albumList
+                list.splice(e.currentTarget.dataset.index, 1);
+                this.setData({
+                  albumList: list
+                })
+              }
+            }
           })
         } else if (res.cancel) {
           console.log('用户点击取消')

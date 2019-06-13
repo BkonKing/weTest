@@ -4,7 +4,7 @@
       <view class="weui-label">照片</view>
     </view>
     <view class="weui-cell__bd" style='height: 80rpx;padding: 10px 0;'>
-      <image class='picture' src='https://{{teacherinfo.teacherImage}}'></image>
+      <image class='picture' src='{{teacherinfo.teacherImage}}'></image>
     </view>
   </view>
   <view class="weui-cell">
@@ -29,13 +29,13 @@
     <view class="weui-cell__hd">
       <view class="weui-label">辅导课程</view>
     </view>
-    <view class="weui-cell__bd">{{teacherinfo.teacherImage}}</view>
+    <view class="weui-cell__bd">{{classText}}</view>
   </view>
   <view class="weui-cell">
     <view class="weui-cell__hd">
       <view class="weui-label">所在城市</view>
     </view>
-    <view class="weui-cell__bd">{{teacherinfo.teacherImage}}</view>
+    <view class="weui-cell__bd">{{city}}</view>
   </view>
   <view class="weui-cell">
     <view class="weui-cell__hd">

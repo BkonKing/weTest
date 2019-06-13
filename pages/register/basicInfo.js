@@ -24,7 +24,7 @@ Page({
       this.setData({
         'curriculumList[0]': res.data.data
       })
-      this.getClasstyp(this.data.curriculumList[0][0].id, response => {
+      this.getClasstyp(this.data.curriculumList[0][this.data.curriculum[0]].id, response => {
         this.setData({
           'curriculumList[1]': response.data.data
         })
@@ -34,11 +34,11 @@ Page({
       this.setData({
         'regionList[0]': res.data.data
       })
-      this.getArea(this.data.regionList[0][0].code, response => {
+      this.getArea(this.data.regionList[0][this.data.region[0]].code, response => {
         this.setData({
           'regionList[1]': response.data.data
         })
-        this.getArea(this.data.regionList[1][0].code, obj => {
+        this.getArea(this.data.regionList[1][this.data.region[1]].code, obj => {
           this.setData({
             'regionList[2]': obj.data.data
           })
@@ -46,9 +46,6 @@ Page({
       })
     })
   },
-  /**
-   * 页面的初始数据
-   */
   data: {
     teacherName: '',
     teacherSex: '',
@@ -183,42 +180,34 @@ Page({
     if (!this.isPhone(this.data.phone)) {
       return false;
     }
-    wx.request({
-      url: 'https://www.gpper.cn/qjxt/gpper/api/sms.do',
-      method: 'post',
-      data: {
-        phone: this.data.phone,
-        type: 'zc'
-      },
-      header: {
-        'content-type': 'application/x-www-form-urlencoded',
-      },
-      success: res => {
-        if (res.data.code == '0000') {
-          this.setData({
-            intervalTime: res.data.timeEnd
-          })
-          var InterValObj = setInterval(function () {
-            if (that.data.intervalTime == 0) {
-              clearInterval(InterValObj); // 停止计时器
-            } else {
-              var time = that.data.intervalTime - 1;
-              that.setData({
-                intervalTime: time
-              })
-            }
-          }, 1000);
-        } else if (res.data.code == '-1') {
-          wx.showModal({
-            content: '短信发送在时间间隔内',
-            showCancel: false
-          })
-        } else {
-          wx.showModal({
-            content: '发送短信次数上限',
-            showCancel: false
-          })
-        }
+    requestPost('https://www.gpper.cn/qjxt/gpper/api/sms.do', {
+      phone: this.data.phone,
+      type: 'zc'
+    }, res => {
+      if (res.data.code == '0000') {
+        this.setData({
+          intervalTime: res.data.timeEnd
+        })
+        var InterValObj = setInterval(function () {
+          if (that.data.intervalTime == 0) {
+            clearInterval(InterValObj); // 停止计时器
+          } else {
+            var time = that.data.intervalTime - 1;
+            that.setData({
+              intervalTime: time
+            })
+          }
+        }, 1000);
+      } else if (res.data.code == '-1') {
+        wx.showModal({
+          content: '短信发送在时间间隔内',
+          showCancel: false
+        })
+      } else {
+        wx.showModal({
+          content: '发送短信次数上限',
+          showCancel: false
+        })
       }
     })
   },
@@ -235,9 +224,6 @@ Page({
     return false;
   },
   formSubmit: function(e) {
-    // wx.navigateTo({
-    //   url: './replenishInfo'
-    // })
     const params = e.detail.value
     params.message = Number(params.message)
     params.phone = Number(params.phone)
@@ -261,7 +247,6 @@ Page({
       teacherAreaCode: this.data.regionList[2][this.data.region[2]].code
     };
     let newObj = {};
-    // 13599023245
     Object.assign(newObj, params, user);
     wx.request({
       url: 'https://www.gpper.cn/qjxt/gpper/api/nextStep.do',
@@ -283,12 +268,18 @@ Page({
           })
         } else if (res.data.code == '0000') {
           if (this.data.amend) {
+            wx.setStorageSync("register", {
+              curriculum: this.data.curriculum,
+              region: this.data.region,
+              city: this.data.regionList[0][this.data.region[0]].name + '' + this.data.regionList[1][this.data.region[1]].name + '' + this.data.regionList[2][this.data.region[2]].name,
+              classText: this.data.curriculumList[0][this.data.curriculum[0]].name + ',' + this.data.curriculumList[1][this.data.curriculum[1]].name
+            });
             wx.navigateTo({
               url: './replenishInfo?amend=1'
             })
           }
           wx.navigateTo({
-            url: './replenishInfo'
+            url: './replenishInfo?teacherVoId=' + res.data.teacherVoId
           })
         }
       }
