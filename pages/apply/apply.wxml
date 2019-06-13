@@ -61,7 +61,7 @@
             <view class="weui-label">截止时间</view>
           </view>
           <view class="weui-cell__bd">
-            <picker mode="date" bindchange="bindDeadlineDate" value="{{endTime}}" start="{{endTime}}">
+            <picker mode="date" bindchange="bindDeadlineDate" value="{{endTime}}" start="{{startTime}}">
               <view class="weui-select weui-select_in-select-after" style='border-right: none;'>{{endTime}}</view>
             </picker>
           </view>

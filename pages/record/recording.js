@@ -26,13 +26,15 @@ Page({
     var that = this;
     recorderManager.onStart(() => {
       //开始录音计时   
-      that.recordingTimer();
       console.log("开始");
       that.setData({
         operationImg: 'pause.png',
         operation: '正在录制中',
+        recordingTime: 1,
+        showTime: util.formatMinute(1),
         recordState: 1
       })
+      that.recordingTimer();
     });
     recorderManager.onPause(() => {
       console.log("清除");
@@ -135,7 +137,7 @@ Page({
     this.data.setInter = setInterval(
       () => {
         var time = this.data.recordingTime + 1;
-        var left = this.data.left + 1 > 364 ? 0 : this.data.left + 1
+        var left = this.data.left + 4 > 364 ? 0 : this.data.left + 4
         this.setData({
           recordingTime: time,
           showTime: util.formatMinute(time),

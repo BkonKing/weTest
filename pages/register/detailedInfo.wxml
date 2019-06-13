@@ -50,7 +50,7 @@
     <view class="weui-cell__bd">{{teacherinfo.teacherHonor}}</view>
   </view>
   <view class="weui-cell_vcode" style='padding: 0 12px;margin: 70rpx 0 44rpx;'>
-    <button class="weui-btn" type="primary" bindtap="amend">修改</button>
+    <!-- <button class="weui-btn" type="primary" bindtap="amend">修改</button> -->
     <button class="weui-btn" type="primary" bindtap="toWorkbench">进入工作台</button>
   </view>
 </view>

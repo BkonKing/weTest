@@ -13,7 +13,7 @@
 
 .animation-element {
   position: absolute;
-  width: 1px;
+  width: 2px;
   height: 320rpx;
   background: #ffa60c;
   transition: all 1s linear;

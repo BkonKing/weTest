@@ -23,38 +23,20 @@ Page({
     edit: false
   },
   onLoad: function (e) {
-    wx.request({
-      url: 'https://www.gpper.cn/qjxt/gpper/api/album/selectAlbum.do',
-      data: {
-        userid: wx.getStorageSync('userid')
-      },
-      success: (res) => {
-        if (res.data.code == '0000') {
-          var data = [{
-            teacherAlbumName: '新建专辑',
-            id: ''
-          }]
-          data.concat(res.data.data)
-          this.setData({
-            albumList: data
-          })
-        }
+    requestPost('https://www.gpper.cn/qjxt/gpper/api/album/selectAlbum.do', {
+      userid: wx.getStorageSync('userid')
+    }, response => {
+      if (response.data.code == '0000') {
+        var data = [{
+          teacherAlbumName: '新建专辑',
+          id: ''
+        }]
+        data.concat(response.data.data)
+        this.setData({
+          albumList: data
+        })
       }
-    })
-    // requestPost('https://www.gpper.cn/qjxt/gpper/api/album/selectAlbum.do', {
-    //   userid: wx.getStorageSync('userid')
-    // }, response => {
-    //   if (response.data.code == '0000') {
-    //     var data = [{
-    //       teacherAlbumName: '新建专辑',
-    //       id: ''
-    //     }]
-    //     data.concat(response.data.data)
-    //     this.setData({
-    //       albumList: data
-    //     })
-    //   }
-    // });
+    });
     if (e.edit) {
       var albumInfo = wx.getStorageSync('album');
       this.setData({

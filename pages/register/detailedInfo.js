@@ -8,6 +8,7 @@ Page({
   },
   onLoad: function (options) {
     app.getUser().then((res) => {
+      wx.hideLoading();
       var data = wx.getStorageSync("register");
       console.log(data)
       this.setData({

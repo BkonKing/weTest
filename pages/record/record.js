@@ -79,25 +79,27 @@ Page({
   },
   //删除事件
   del: function(e) {
+    var that = this;
     wx.showModal({
       title: '提示',
       content: '是否删除该专辑！！',
       success(res) {
         if (res.confirm) {
-          wx.request({
-            url: 'https://www.gpper.cn/qjxt/gpper/api/album/deleteAlbum.do',
-            data: {
-              userid: wx.getStorageSync('userid'),
-              id: e.currentTarget.dataset.id
-            },
-            success: (res) => {
-              if (res.data.code == '0000') {
-                var list = this.data.albumList
-                list.splice(e.currentTarget.dataset.index, 1);
-                this.setData({
-                  albumList: list
-                })
-              }
+          requestPost('https://www.gpper.cn/qjxt/gpper/api/album/deleteAlbum.do', {
+            userid: wx.getStorageSync('userid'),
+            id: e.currentTarget.dataset.id
+          }, (res) => {
+            if (res.data.code == '0000') {
+              var list = that.data.albumList
+              list.splice(e.currentTarget.dataset.index, 1);
+              that.setData({
+                albumList: list
+              })
+              wx.showToast({
+                title: '删除成功！',
+                icon: 'success',
+                duration: 2000
+              })
             }
           })
         } else if (res.cancel) {

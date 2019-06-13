@@ -267,15 +267,15 @@ Page({
             showCancel: false
           })
         } else if (res.data.code == '0000') {
+          wx.setStorageSync("register", {
+            curriculum: this.data.curriculum,
+            region: this.data.region,
+            city: this.data.regionList[0][this.data.region[0]].name + '' + this.data.regionList[1][this.data.region[1]].name + '' + this.data.regionList[2][this.data.region[2]].name,
+            classText: this.data.curriculumList[0][this.data.curriculum[0]].name + ',' + this.data.curriculumList[1][this.data.curriculum[1]].name
+          });
           if (this.data.amend) {
-            wx.setStorageSync("register", {
-              curriculum: this.data.curriculum,
-              region: this.data.region,
-              city: this.data.regionList[0][this.data.region[0]].name + '' + this.data.regionList[1][this.data.region[1]].name + '' + this.data.regionList[2][this.data.region[2]].name,
-              classText: this.data.curriculumList[0][this.data.curriculum[0]].name + ',' + this.data.curriculumList[1][this.data.curriculum[1]].name
-            });
             wx.navigateTo({
-              url: './replenishInfo?amend=1'
+              url: './replenishInfo?amend=1&teacherVoId=' + res.data.teacherVoId
             })
           }
           wx.navigateTo({

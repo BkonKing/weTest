@@ -130,7 +130,7 @@ Page({
           sec = `0${sec}`;
         }
         var min1 = parseInt(duration / 60);
-        var sec1 = parseInt(duration % 60);
+        var sec1 = Math.ceil(parseFloat(duration % 60));
         if (min1.toString().length == 1) {
           min1 = `0${min1}`;
         }
@@ -162,6 +162,7 @@ Page({
   },
   onUnload: function() {
     //卸载页面，清除计步器
+    innerAudioContext.pause();
     clearInterval(this.data.durationIntval);
   },
   listenTest: function(e) {
@@ -195,40 +196,20 @@ Page({
     this.getAudio(this.data.index)
   },
   getAudio: function(index) {
-    wx.request({
-      url: 'https://www.gpper.cn/qjxt/gpper/api/albumInfo/play.do',
-      data: {
-        userid: wx.getStorageSync('userid'),
-        videoId: this.data.curriculumList[index].videoId
-      },
-      success: (res) => {
-        clearInterval(this.data.durationIntval);
-        this.setData({
-          audiosrc: res.data.play_url,
-          isPlayAudio: false,
-          audioSeek: 0,
-          audioDuration: 0,
-          showTime1: '00:00'
-        })
-        this.Initialization();
-        this.loadaudio();
-      }
+    requestPost('https://www.gpper.cn/qjxt/gpper/api/albumInfo/play.do', {
+      userid: wx.getStorageSync('userid'),
+      videoId: this.data.curriculumList[index].videoId
+    }, res => {
+      clearInterval(this.data.durationIntval);
+      this.setData({
+        audiosrc: res.data.play_url,
+        isPlayAudio: false,
+        audioSeek: 0,
+        audioDuration: 0,
+        showTime1: '00:00'
+      })
+      this.Initialization();
+      this.loadaudio();
     })
-    // requestPost('https://www.gpper.cn/qjxt/gpper/api/albumInfo/play.do', {
-    //   userid: wx.getStorageSync('userid'),
-    //   videoId: this.data.curriculumList[index].videoId
-    // }, res => {
-    //   clearInterval(this.data.durationIntval);
-    //   that.setData({
-    //     audiosrc: res.data.play_url,
-    //     teacherClassImage: this.data.curriculumList[index].teacherClassImage,
-    //     isPlayAudio: false,
-    //     audioSeek: 0,
-    //     audioDuration: 0,
-    //     showTime1: '00:00'
-    //   })
-    //   this.Initialization();
-    //   this.loadaudio();
-    // })
   }
 })

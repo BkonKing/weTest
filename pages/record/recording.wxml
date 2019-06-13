@@ -48,7 +48,7 @@
   </view>
   <view class='record-btn save' bindtap='save' wx:if="{{recordState != 3}}">
     <image src='/static/images/save.png'></image>
-    <text>保存</text>
+    <text>完成</text>
   </view>
   <view class='record-btn save' bindtap='uploadVoice' wx:if="{{recordState == 3}}">
     <image src='/static/images/save.png'></image>
