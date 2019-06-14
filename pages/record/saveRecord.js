@@ -12,6 +12,7 @@ Page({
     show: false,
     album: 0,
     files: [],
+    id: '',
     imageId: '',
     audioId: '',
     teacherAlbumInfo: '',
@@ -22,25 +23,12 @@ Page({
     agreement: 0,
     edit: false
   },
-  onLoad: function (e) {
-    requestPost('https://www.gpper.cn/qjxt/gpper/api/album/selectAlbum.do', {
-      userid: wx.getStorageSync('userid')
-    }, response => {
-      if (response.data.code == '0000') {
-        var data = [{
-          teacherAlbumName: '新建专辑',
-          id: ''
-        }]
-        data.concat(response.data.data)
-        this.setData({
-          albumList: data
-        })
-      }
-    });
+  onLoad: function(e) {
     if (e.edit) {
       var albumInfo = wx.getStorageSync('album');
       this.setData({
         files: [albumInfo.teacherAlbumImage],
+        id: albumInfo.id,
         imageId: "",
         teacherAlbumInfo: albumInfo.teacherAlbumInfo,
         teacherAlbumName: albumInfo.teacherAlbumName,
@@ -48,6 +36,20 @@ Page({
         edit: true
       })
     } else {
+      requestPost('https://www.gpper.cn/qjxt/gpper/api/album/selectAlbum.do', {
+        userid: wx.getStorageSync('userid')
+      }, response => {
+        if (response.data.code == '0000') {
+          var data = [{
+            teacherAlbumName: '新建专辑',
+            id: ''
+          }]
+          data = data.concat(response.data.data)
+          this.setData({
+            albumList: data
+          })
+        }
+      });
       this.setData({
         audioId: e.audioId
       })
@@ -72,7 +74,7 @@ Page({
           formData: {
             userid: wx.getStorageSync('userid')
           },
-          success: function (response) {
+          success: function(response) {
             var data = JSON.parse(response.data)
             if (data.code == '0000') {
               that.setData({
@@ -86,8 +88,11 @@ Page({
               })
             }
           },
-          fail: function (ress) {
-            console.log("图片上传失败");
+          fail: function(ress) {
+            wx.showModal({
+              title: '上传失败，请重新上传！',
+              showCancel: false
+            })
           }
         })
       }
@@ -141,7 +146,7 @@ Page({
       let user = {
         userid: wx.getStorageSync('userid'),
         imageId: this.data.imageId,
-        id: this.data.albumList[this.data.album].id
+        id: this.data.id
       };
       let newObj = {};
       Object.assign(newObj, params, user);

@@ -10,7 +10,7 @@ Page({
     app.getUser().then((res) => {
       wx.hideLoading();
       var data = wx.getStorageSync("register");
-      console.log(data)
+      // console.log(data)
       this.setData({
         teacherinfo: res.data.teacherinfo,
         classText: data.classText,

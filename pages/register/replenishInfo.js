@@ -15,7 +15,7 @@ Page({
       teacherVoId: e.teacherVoId
     })
     var data = wx.getStorageSync("register");
-    console.log(data)
+    // console.log(data)
     if (e.amend) {
       var teacherinfo = app.globalData.teacherinfo;
       this.setData({
@@ -67,7 +67,10 @@ Page({
             }
           },
           fail: function (ress) {
-            console.log("图片上传失败");
+            wx.showModal({
+              title: '上传失败，请重新上传！',
+              showCancel: false
+            })
           }
         })
       }

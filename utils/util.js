@@ -47,7 +47,7 @@ const requestPost = (url, data, successCallback, errorCallback) => {
       successCallback(res)
     },
     fail: function(ress) {
-      console.log(ress)
+      // console.log(ress)
       errorCallback(ress)
     },
     complete: function() {

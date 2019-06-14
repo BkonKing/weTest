@@ -1,7 +1,7 @@
 <form bindsubmit="formSubmit">
   <view class="weui-cells weui-cells_after-title">
     <view style='background: #FFF8D4;height: 70rpx;line-height: 70rpx;padding: 0 12px;color: #F38C13;'>课后小测可进入网站后台进行发布。</view>
-    <view class="weui-cell weui-cell_input weui-cell_vcode">
+    <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{!edit}}">
       <view class="weui-cell__hd">
         <view class="weui-label">专辑</view>
       </view>

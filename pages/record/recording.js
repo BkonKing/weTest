@@ -26,7 +26,7 @@ Page({
     var that = this;
     recorderManager.onStart(() => {
       //开始录音计时   
-      console.log("开始");
+      // console.log("开始");
       that.setData({
         operationImg: 'pause.png',
         operation: '正在录制中',
@@ -37,7 +37,7 @@ Page({
       that.recordingTimer();
     });
     recorderManager.onPause(() => {
-      console.log("清除");
+      // console.log("清除");
       that.setData({
         operationImg: 'play.png',
         operation: '继续录音',
@@ -54,23 +54,30 @@ Page({
         recordingTime: 0,
         recordState: 3
       })
-      console.log('停止录音');
+      // console.log('停止录音');
     });
-            //错误回调
-            recorderManager.onError((res) => {
-              console.log(res);
-            });
+    //错误回调
+    recorderManager.onError((res) => {
+      wx.showModal({
+        content: res,
+        showCancel: false
+      })
+    });
   },
   listening() {
     var that = this;
     innerAudioContext.autoplay = true
     innerAudioContext.src = that.data.tempFilePath,
       innerAudioContext.onPlay(() => {
-        console.log('开始播放')
+        // console.log('开始播放')
       })
     innerAudioContext.onError((res) => {
-      console.log(res.errMsg)
-      console.log(res.errCode)
+      wx.showModal({
+        content: res.errMsg,
+        showCancel: false
+      })
+      // console.log(res.errMsg)
+      // console.log(res.errCode)
     })
   },
   save() {
@@ -125,11 +132,16 @@ Page({
           wx.showModal({
             content: '录音上传失败，请重新上传',
             showCancel: false
-          })}      },
+          })
+        }
+      },
       fail: function(ress) {
-        console.log("。。录音保存失败。。");
+        wx.showModal({
+          content: '录音上传失败，请重新上传',
+          showCancel: false
+        })
       }
-  })
+    })
   },
   //录音计时器
   recordingTimer() {
@@ -146,5 +158,5 @@ Page({
       }, 1000);
   }
 
- 
+
 })

@@ -41,7 +41,7 @@ Page({
         setTimeout(function() {
           //延时获取音频真正的duration
           var duration = innerAudioContext.duration;
-          console.log(duration)
+          // console.log(duration)
           var min = parseInt(duration / 60);
           var sec = Math.ceil(parseFloat(duration % 60));
           if (min.toString().length == 1) {

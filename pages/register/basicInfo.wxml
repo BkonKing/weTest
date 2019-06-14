@@ -13,7 +13,7 @@
         <view class="weui-label">性别</view>
       </view>
       <view class="weui-cell__bd">
-        <radio-group value='{{teacherSex}}' name="teacherSex" class="radio-group" bindchange="radioChange">
+        <radio-group value='{{teacherSex}}' name="teacherSex" class="radio-group">
           <label class="radio">
             <radio value="1" checked="{{false}}" />男
           </label>
@@ -56,7 +56,7 @@
         <view class="weui-label">手机号</view>
       </view>
       <view class="weui-cell__bd">
-        <input type='number' value='{{phone}}' name="phone" class="weui-input" bindblur="phoneBlur" placeholder-class="phcolor" placeholder="请输入手机号" />
+        <input type='number' value='{{phone}}' name="phone" class="weui-input" bindinput="phoneBlur" placeholder-class="phcolor" placeholder="请输入手机号" />
       </view>
       <view class="weui-cell__ft" style='padding-top: 4rpx;'>
         <button class="weui-btn" type="primary" size="mini" bindtap='getCode' disabled='{{intervalTime}}'>
@@ -69,7 +69,7 @@
         <view class="weui-label">验证码</view>
       </view>
       <view class="weui-cell__bd">
-        <input type='number' value='{{message}}' name="message" class="weui-input" placeholder-class="phcolor" placeholder="请输入验证码" />
+        <input type='number' value='{{messageCode}}' name="messageCode" class="weui-input" placeholder-class="phcolor" placeholder="请输入验证码" />
       </view>
     </view>
   </view>

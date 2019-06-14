@@ -52,7 +52,7 @@ Page({
     graduateSchool: '',
     curriculum: [0, 0],
     phone: '',
-    message: '',
+    messageCode: '',
     intervalTime: 0,
     curriculumList: [],
     region: [0, 0, 0],
@@ -99,7 +99,7 @@ Page({
     if (e.detail.column == 0) {
       this.getClasstyp(this.data.curriculumList[0][e.detail.value].id, response => {
         data.curriculumList[1] = response.data.data;
-        console.log(response.data.data)
+        // console.log(response.data.data)
         data.curriculum[1] = 0;
         this.setData(data);
       })
@@ -144,7 +144,7 @@ Page({
       graduateSchool: {
         required: true
       },
-      message: {
+      messageCode: {
         required: true
       },
       phone: {
@@ -161,7 +161,7 @@ Page({
       graduateSchool: {
         required: '请填写毕业院校'
       },
-      message: {
+      messageCode: {
         required: '请填写验证码'
       },
       phone: {
@@ -198,14 +198,9 @@ Page({
             })
           }
         }, 1000);
-      } else if (res.data.code == '-1') {
-        wx.showModal({
-          content: '短信发送在时间间隔内',
-          showCancel: false
-        })
       } else {
         wx.showModal({
-          content: '发送短信次数上限',
+          content: res.data.message || '请稍后再试',
           showCancel: false
         })
       }
@@ -225,7 +220,7 @@ Page({
   },
   formSubmit: function(e) {
     const params = e.detail.value
-    params.message = Number(params.message)
+    params.messageCode = Number(params.messageCode)
     params.phone = Number(params.phone)
     if (!this.WxValidate.checkForm(params)) {
       const error = this.WxValidate.errorList[0]
@@ -256,17 +251,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded',
       },
       success: res => {
-        if (res.data.code == -1) {
-          wx.showModal({
-            content: '验证码错误，请重新输入',
-            showCancel: false
-          })
-        } else if (res.data.code == -2) {
-          wx.showModal({
-            content: '验证码已失效，请重新获取',
-            showCancel: false
-          })
-        } else if (res.data.code == '0000') {
+        if (res.data.code == '0000') {
           wx.setStorageSync("register", {
             curriculum: this.data.curriculum,
             region: this.data.region,
@@ -280,6 +265,11 @@ Page({
           }
           wx.navigateTo({
             url: './replenishInfo?teacherVoId=' + res.data.teacherVoId
+          })
+        } else {
+          wx.showModal({
+            content: res.data.message,
+            showCancel: false
           })
         }
       }
