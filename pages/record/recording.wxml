@@ -2,37 +2,37 @@
   <view class='animation-element-wrapper'>
     <view class='animation-box'>
       <view class="animation-element" style='left: {{left}}rpx'></view>
-      <view class='animation-line {{left > 0 ? "pass":""}}' style='height: 66rpx;'></view>
-      <view class='animation-line {{left > 12 ? "pass":""}}' style='height: 80rpx;'></view>
-      <view class='animation-line {{left > 24 ? "pass":""}}' style='height: 90rpx;'></view>
-      <view class='animation-line {{left > 36 ? "pass":""}}' style='height: 136rpx;'></view>
-      <view class='animation-line {{left > 48 ? "pass":""}}' style='height: 220rpx;'></view>
-      <view class='animation-line {{left > 60 ? "pass":""}}' style='height: 280rpx;'></view>
-      <view class='animation-line {{left > 72 ? "pass":""}}' style='height: 220rpx;'></view>
-      <view class='animation-line {{left > 84 ? "pass":""}}' style='height: 136rpx;'></view>
-      <view class='animation-line {{left > 96 ? "pass":""}}' style='height: 90rpx;'></view>
-      <view class='animation-line {{left > 108 ? "pass":""}}' style='height: 180rpx;'></view>
-      <view class='animation-line {{left > 120 ? "pass":""}}' style='height: 150rpx;'></view>
-      <view class='animation-line {{left > 132 ? "pass":""}}' style='height: 160rpx;'></view>
-      <view class='animation-line {{left > 144 ? "pass":""}}' style='height: 80rpx;'></view>
-      <view class='animation-line {{left > 156 ? "pass":""}}' style='height: 130rpx;'></view>
-      <view class='animation-line {{left > 168 ? "pass":""}}' style='height: 160rpx;'></view>
-      <view class='animation-line {{left > 180 ? "pass":""}}' style='height: 139rpx;'></view>
-      <view class='animation-line {{left > 192 ? "pass":""}}' style='height: 170rpx;'></view>
-      <view class='animation-line {{left > 204 ? "pass":""}}' style='height: 80rpx;'></view>
-      <view class='animation-line {{left > 216 ? "pass":""}}' style='height: 146rpx;'></view>
-      <view class='animation-line {{left > 228 ? "pass":""}}' style='height: 62rpx;'></view>
-      <view class='animation-line {{left > 240 ? "pass":""}}' style='height: 80rpx;'></view>
-      <view class='animation-line {{left > 252 ? "pass":""}}' style='height: 62rpx;'></view>
-      <view class='animation-line {{left > 264 ? "pass":""}}' style='height: 76rpx;'></view>
-      <view class='animation-line {{left > 276 ? "pass":""}}' style='height: 108rpx;'></view>
-      <view class='animation-line {{left > 288 ? "pass":""}}' style='height: 76rpx;'></view>
-      <view class='animation-line {{left > 300 ? "pass":""}}' style='height: 94rpx;'></view>
-      <view class='animation-line {{left > 312 ? "pass":""}}' style='height: 76rpx;'></view>
-      <view class='animation-line {{left > 324 ? "pass":""}}' style='height: 64rpx;'></view>
-      <view class='animation-line {{left > 336 ? "pass":""}}' style='height: 48rpx;'></view>
-      <view class='animation-line {{left > 348 ? "pass":""}}' style='height: 38rpx;'></view>
-      <view class='animation-line {{left > 360 ? "pass":""}}' style='height: 38rpx;'></view>
+      <view class='animation-line {{left > 2 ? "pass":""}}' style='height: 66rpx;'></view>
+      <view class='animation-line {{left > 14 ? "pass":""}}' style='height: 80rpx;'></view>
+      <view class='animation-line {{left > 26 ? "pass":""}}' style='height: 90rpx;'></view>
+      <view class='animation-line {{left > 38 ? "pass":""}}' style='height: 136rpx;'></view>
+      <view class='animation-line {{left > 50 ? "pass":""}}' style='height: 220rpx;'></view>
+      <view class='animation-line {{left > 62 ? "pass":""}}' style='height: 280rpx;'></view>
+      <view class='animation-line {{left > 74 ? "pass":""}}' style='height: 220rpx;'></view>
+      <view class='animation-line {{left > 86 ? "pass":""}}' style='height: 136rpx;'></view>
+      <view class='animation-line {{left > 98 ? "pass":""}}' style='height: 90rpx;'></view>
+      <view class='animation-line {{left > 110 ? "pass":""}}' style='height: 180rpx;'></view>
+      <view class='animation-line {{left > 122 ? "pass":""}}' style='height: 150rpx;'></view>
+      <view class='animation-line {{left > 134 ? "pass":""}}' style='height: 160rpx;'></view>
+      <view class='animation-line {{left > 146 ? "pass":""}}' style='height: 80rpx;'></view>
+      <view class='animation-line {{left > 158 ? "pass":""}}' style='height: 130rpx;'></view>
+      <view class='animation-line {{left > 170 ? "pass":""}}' style='height: 160rpx;'></view>
+      <view class='animation-line {{left > 182 ? "pass":""}}' style='height: 139rpx;'></view>
+      <view class='animation-line {{left > 194 ? "pass":""}}' style='height: 170rpx;'></view>
+      <view class='animation-line {{left > 206 ? "pass":""}}' style='height: 80rpx;'></view>
+      <view class='animation-line {{left > 218 ? "pass":""}}' style='height: 146rpx;'></view>
+      <view class='animation-line {{left > 230 ? "pass":""}}' style='height: 62rpx;'></view>
+      <view class='animation-line {{left > 242 ? "pass":""}}' style='height: 80rpx;'></view>
+      <view class='animation-line {{left > 254 ? "pass":""}}' style='height: 62rpx;'></view>
+      <view class='animation-line {{left > 266 ? "pass":""}}' style='height: 76rpx;'></view>
+      <view class='animation-line {{left > 278 ? "pass":""}}' style='height: 108rpx;'></view>
+      <view class='animation-line {{left > 290 ? "pass":""}}' style='height: 76rpx;'></view>
+      <view class='animation-line {{left > 302 ? "pass":""}}' style='height: 94rpx;'></view>
+      <view class='animation-line {{left > 314 ? "pass":""}}' style='height: 76rpx;'></view>
+      <view class='animation-line {{left > 326 ? "pass":""}}' style='height: 64rpx;'></view>
+      <view class='animation-line {{left > 338 ? "pass":""}}' style='height: 48rpx;'></view>
+      <view class='animation-line {{left > 350 ? "pass":""}}' style='height: 38rpx;'></view>
+      <view class='animation-line {{left > 362 ? "pass":""}}' style='height: 38rpx;'></view>
     </view>
   </view>
   <view style='text-align: center;font-size: 48rpx;'>
@@ -48,7 +48,7 @@
   </view>
   <view class='record-btn save' bindtap='save' wx:if="{{recordState != 3}}">
     <image src='/static/images/save.png'></image>
-    <text>完成</text>
+    <text>保存</text>
   </view>
   <view class='record-btn save' bindtap='uploadVoice' wx:if="{{recordState == 3}}">
     <image src='/static/images/save.png'></image>

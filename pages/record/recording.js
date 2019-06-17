@@ -32,6 +32,7 @@ Page({
         operation: '正在录制中',
         recordingTime: 1,
         showTime: util.formatMinute(1),
+        tempFilePath: '',
         recordState: 1
       })
       that.recordingTimer();
@@ -49,10 +50,11 @@ Page({
       clearInterval(that.data.setInter);
       that.setData({
         operationImg: 'play.png',
-        operation: '已完成，重新录制',
+        operation: '已完成，点击重新录制',
         tempFilePath: res.tempFilePath,
         recordingTime: 0,
-        recordState: 3
+        recordState: 3,
+        left: 0
       })
       // console.log('停止录音');
     });
@@ -65,12 +67,24 @@ Page({
     });
   },
   listening() {
-    var that = this;
-    innerAudioContext.autoplay = true
-    innerAudioContext.src = that.data.tempFilePath,
-      innerAudioContext.onPlay(() => {
-        // console.log('开始播放')
+    if (!this.data.tempFilePath) {
+      wx.showModal({
+        content: "请先保存再试听",
+        showCancel: false
       })
+      return;
+    }
+    innerAudioContext.src = this.data.tempFilePath
+    innerAudioContext.play();
+    innerAudioContext.onPlay(() => {
+      this.recordingTimer()
+    })
+    innerAudioContext.onPause(() => {
+      this.setData({
+        left: 0
+      })
+      clearInterval(this.data.setInter);
+    })
     innerAudioContext.onError((res) => {
       wx.showModal({
         content: res.errMsg,
@@ -92,6 +106,7 @@ Page({
     }
   },
   startRecord(e) {
+    innerAudioContext.pause();
     clearInterval(this.data.setInter);
     if (this.data.recordState == 1) {
       recorderManager.pause()
@@ -102,7 +117,7 @@ Page({
     }
   },
   uploadVoice() {
-    innerAudioContext.stop();
+    innerAudioContext.pause();
     wx.uploadFile({
       url: 'https://www.gpper.cn/qjxt/gpper/api/upload/audio.do', //这是你自己后台的连接
       filePath: this.data.tempFilePath,
@@ -117,6 +132,7 @@ Page({
       success: function(response) {
         var data = JSON.parse(response.data)
         if (data.code == '0000') {
+          innerAudioContext.destroy()
           wx.showModal({
             content: '录音上传成功！！！',
             showCancel: false,
@@ -157,6 +173,4 @@ Page({
         })
       }, 1000);
   }
-
-
 })

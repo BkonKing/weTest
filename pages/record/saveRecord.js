@@ -20,7 +20,7 @@ Page({
     teacherClassTitle: '',
     albumState: false,
     albumList: [],
-    agreement: 0,
+    agreement: 1,
     edit: false
   },
   onLoad: function(e) {
@@ -59,7 +59,7 @@ Page({
     var that = this;
     wx.chooseImage({
       count: 1,
-      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function(res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
@@ -162,6 +162,11 @@ Page({
                 })
               }
             }
+          })
+        } else {
+          wx.showModal({
+            content: response.data.message || '请稍后再试',
+            showCancel: false
           })
         }
       })

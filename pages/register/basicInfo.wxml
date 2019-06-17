@@ -69,7 +69,7 @@
         <view class="weui-label">验证码</view>
       </view>
       <view class="weui-cell__bd">
-        <input type='number' value='{{messageCode}}' name="messageCode" class="weui-input" placeholder-class="phcolor" placeholder="请输入验证码" />
+        <input type='number' value='{{message}}' name="message" class="weui-input" placeholder-class="phcolor" placeholder="请输入验证码" />
       </view>
     </view>
   </view>

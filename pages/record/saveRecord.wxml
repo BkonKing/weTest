@@ -13,23 +13,23 @@
         </picker>
       </view>
     </view>
-    <view class="weui-cell weui-cell_input weui-cell_vcode">
+    <view class="weui-cell weui-cell_input weui-cell_vcode {{albumState? 'hidden': ''}}">
       <view class="weui-cell__hd">
         <view class="weui-label">专辑名称</view>
       </view>
       <view class="weui-cell__bd">
-        <input name="teacherAlbumName" value='{{teacherAlbumName}}' disabled='{{albumState}}' class="weui-input" placeholder-class="phcolor" placeholder="请输入专辑名称" />
+        <input name="teacherAlbumName" value='{{teacherAlbumName}}' class="weui-input" placeholder-class="phcolor" placeholder="请输入专辑名称" />
       </view>
     </view>
-    <view class="weui-cell weui-cell_input">
+    <view class="weui-cell weui-cell_input {{albumState? 'hidden': ''}}">
       <view class="weui-cell__hd">
         <view class="weui-label">课程简介</view>
       </view>
       <view class="weui-cell__bd">
-        <input name="teacherAlbumInfo" value='{{teacherAlbumInfo}}' disabled='{{albumState}}' class="weui-input" placeholder-class="phcolor" placeholder="请输入课程简介" />
+        <textarea name="teacherAlbumInfo" value='{{teacherAlbumInfo}}' disabled='{{albumState}}' class="weui-textarea" placeholder-class="phcolor" placeholder="请输入课程简介" auto-height="true"></textarea>
       </view>
     </view>
-    <view class="weui-cell">
+    <view class="weui-cell {{albumState? 'hidden': ''}}">
       <view class="weui-cell__hd">
         <view class="weui-label">配图</view>
       </view>
@@ -67,9 +67,9 @@
 <view style='text-align: center;' wx:if="{{!edit}}">
   <checkbox-group bindchange="checkboxChange">
     <label class="checkbox">
-      <checkbox value="{{1}}" />
+      <checkbox value="{{1}}" checked='true' />
     </label>
-    注册即代表阅读并同意
+    阅读并同意
     <text style='color: #219bf8;' bindtap='showCommitment'>《知识产权承诺》 </text>
   </checkbox-group>
 </view>

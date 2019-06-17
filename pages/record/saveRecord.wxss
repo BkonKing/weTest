@@ -1,1 +1,4 @@
 /* pages/record/saveRecord.wxss */
+.hidden {
+  display: none;
+}

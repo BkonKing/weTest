@@ -52,7 +52,7 @@ Page({
     graduateSchool: '',
     curriculum: [0, 0],
     phone: '',
-    messageCode: '',
+    message: '',
     intervalTime: 0,
     curriculumList: [],
     region: [0, 0, 0],
@@ -144,7 +144,7 @@ Page({
       graduateSchool: {
         required: true
       },
-      messageCode: {
+      message: {
         required: true
       },
       phone: {
@@ -161,7 +161,7 @@ Page({
       graduateSchool: {
         required: '请填写毕业院校'
       },
-      messageCode: {
+      message: {
         required: '请填写验证码'
       },
       phone: {
@@ -220,7 +220,7 @@ Page({
   },
   formSubmit: function(e) {
     const params = e.detail.value
-    params.messageCode = Number(params.messageCode)
+    params.message = Number(params.message)
     params.phone = Number(params.phone)
     if (!this.WxValidate.checkForm(params)) {
       const error = this.WxValidate.errorList[0]

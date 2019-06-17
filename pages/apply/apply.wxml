@@ -33,13 +33,13 @@
             <view class='th w25'>姓名</view>
             <view class='th w15'>年龄</view>
             <view class='th w35'>联系电话</view>
-            <view class='th w25'>交纳情况</view>
+            <view class='th w25'>评级</view>
           </view>
           <view class='table_main' wx:for="{{previousList}}" wx:key="{{item.id}}">
             <view class='td w25 name' bindtap='getPersonal' data-list="previousList" data-index="{{index}}">{{item.xsName}}</view>
             <view class='td w15'>{{item.xsAge}}</view>
             <view class='td w35'>{{item.bmPhone}}</view>
-            <view class='td w25'>{{item.isPay ? '已交' : '未交'}}</view>
+            <view class='td w25'>{{item.fraction}}</view>
           </view>
         </view>
       </scroll-view>
