@@ -16,8 +16,14 @@ Page({
     operationImg: 'play.png',
     operation: '开始',
     setInter: undefined,
+    durationIntval: 0,
     recordingTime: 0,
     showTime: '00:00',
+    showTime2: '10:00',
+    isPlayAudio: false,
+    audioSeek: 0,
+    audioDuration: 0,
+    audioTime: 0,
     tempFilePath: '',
     recordState: 0,
     left: 0
@@ -33,6 +39,7 @@ Page({
         recordingTime: 1,
         showTime: util.formatMinute(1),
         tempFilePath: '',
+        showTime2: '10:00',
         recordState: 1
       })
       that.recordingTimer();
@@ -74,25 +81,95 @@ Page({
       })
       return;
     }
-    innerAudioContext.src = this.data.tempFilePath
+    this.stopListing();
+    this.Initialization();
+    this.loadaudio();
+    this.setData({
+      isPlayAudio: true
+    })
     innerAudioContext.play();
-    innerAudioContext.onPlay(() => {
-      this.recordingTimer()
+    // innerAudioContext.onPlay(() => {
+    //   this.recordingTimer()
+    // })
+    // innerAudioContext.onPause(() => {
+    //   this.setData({
+    //     left: 0
+    //   })
+    //   clearInterval(this.data.setInter);
+    // })
+    // innerAudioContext.onError((res) => {
+    //   wx.showModal({
+    //     content: res.errMsg,
+    //     showCancel: false
+    //   })
+    //   // console.log(res.errMsg)
+    //   // console.log(res.errCode)
+    // })
+  },
+  //初始化播放器，获取duration
+  Initialization() {
+    //设置src
+    innerAudioContext.src = this.data.tempFilePath;
+    //运行一次
+    innerAudioContext.play();
+    innerAudioContext.pause();
+    innerAudioContext.onCanplay(() => {
+      //初始化duration
+      innerAudioContext.duration
+      setTimeout(() => { 
+        //延时获取音频真正的duration
+        var duration = innerAudioContext.duration;
+        this.setData({
+          audioDuration: innerAudioContext.duration,
+          showTime2: util.formatMinute(duration+1)
+        });
+      }, 1000)
     })
-    innerAudioContext.onPause(() => {
-      this.setData({
-        left: 0
-      })
-      clearInterval(this.data.setInter);
-    })
-    innerAudioContext.onError((res) => {
-      wx.showModal({
-        content: res.errMsg,
-        showCancel: false
-      })
-      // console.log(res.errMsg)
-      // console.log(res.errCode)
-    })
+  },
+  loadaudio() {
+    var that = this;
+    //设置一个计步器
+    this.data.durationIntval = setInterval(function () {
+      //当歌曲在播放时执行
+      if (that.data.isPlayAudio == true) {
+        //获取歌曲的播放时间，进度百分比
+        var seek = that.data.audioSeek;
+        var duration = innerAudioContext.duration || 0.01;
+        var time = that.data.audioTime;
+        time = parseInt(100 * seek / duration);
+        var left = that.data.left;
+        var duration = innerAudioContext.duration;
+        //当歌曲在播放时，每隔一秒歌曲播放时间+1，并计算分钟数与秒数
+        var min = parseInt((seek + 1) / 60);
+        var sec = parseInt((seek + 1) % 60);
+        //填充字符串，使3:1这种呈现出 03：01 的样式
+        if (min.toString().length == 1) {
+          min = `0${min}`;
+        }
+        if (sec.toString().length == 1) {
+          sec = `0${sec}`;
+        }
+        if (time >= 100) {
+          that.stopListing(duration);
+          that.setData({
+            audioDuration: duration
+          })
+          return false;
+        }
+        //正常播放，更改进度信息，更改播放时间信息
+        that.setData({
+          left: left + 4 > 364 ? 0 : left + 4,
+          audioSeek: seek + 1,
+          audioTime: time,
+          audioDuration: duration,
+          showTime: `${min}:${sec}`
+        });
+      }
+    }, 1000);
+  },
+  onUnload: function () {
+    //卸载页面，清除计步器
+    this.stopListing()
   },
   save() {
     var that = this;
@@ -105,9 +182,24 @@ Page({
       })
     }
   },
+  stopListing() {
+    clearInterval(this.data.durationIntval);
+    console.log("chaoshi ")
+    this.setData({
+      left: 0,
+      audioSeek: 0,
+      audioTime: 0,
+      isPlayAudio: false,
+      showTime: `00:00`
+    })
+    innerAudioContext.stop();
+  },
   startRecord(e) {
-    innerAudioContext.pause();
     clearInterval(this.data.setInter);
+    if (this.data.isPlayAudio) {
+      console.log("zanting")
+      this.stopListing()
+    }
     if (this.data.recordState == 1) {
       recorderManager.pause()
     } else if (this.data.recordState == 2) {

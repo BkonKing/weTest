@@ -36,7 +36,7 @@
     </view>
   </view>
   <view style='text-align: center;font-size: 48rpx;'>
-    {{showTime}} / 10:00
+    {{showTime}} / {{showTime2}}
   </view>
   <view class='record-btn audition' bindtap='listening'>
     <image src='/static/images/audition.png'></image>

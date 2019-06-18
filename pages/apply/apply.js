@@ -34,7 +34,7 @@ Page({
         });
       }
     });
-    this.getuserbm(-1, 'studentsList');
+    this.getuserbm(1, 'studentsList');
   },
   getuserbm: function(num, field) {
     var that = this;
@@ -54,9 +54,9 @@ Page({
       activeIndex: e.currentTarget.id
     });
     if (e.currentTarget.id == '0') {
-      this.getuserbm(-1, 'studentsList');
+      this.getuserbm(1, 'studentsList');
     } else if (e.currentTarget.id == '1') {
-      this.getuserbm(-2, 'previousList');
+      this.getuserbm(2, 'previousList');
     } else if (e.currentTarget.id == '2') {
       util.requestPost('https://www.gpper.cn/qjxt/gpper/api/applyStart.do', {
         userid: wx.getStorageSync('userid')
