@@ -57,17 +57,28 @@
 }
 
 .transcribe {
-  left: calc(50% - 80rpx);
-  bottom: 125rpx;
+  position:fixed;
+  left: calc(50% - 100rpx);
+  width: 200rpx;
+  height: 230rpx;
+  bottom: 20px;
   text-align: center;
   font-size: 32rpx;
   color: #7d7d7d;
 }
 
+.center-record {
+  border-radius:50%;
+background:linear-gradient(to top right, #fe830a, #ffc90e);
+  width: 148rpx;
+  height: 148rpx;
+  margin: 0 auto;
+}
+
 .transcribe image {
   width: 50rpx;
   height: 70rpx;
-  margin: 45rpx 56rpx 0;
+  margin: 45rpx 49rpx 0;
 }
 
 .save {
